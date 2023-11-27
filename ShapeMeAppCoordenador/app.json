@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "ShapeMeAppCoordenador",
-    "slug": "ShapeMeAppCoordenador",
-    "version": "1.0.0",
+    "name": "SMA Professor",
+    "slug": "smaProfessorv2",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.gustavomatoi.smaProfessorv2"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4962bad7-2017-4ec7-8628-b42371a89c99"
+      }
     }
   }
 }
