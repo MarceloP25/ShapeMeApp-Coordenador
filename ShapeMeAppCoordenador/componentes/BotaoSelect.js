@@ -11,11 +11,11 @@ export default ({options=[], onChange , initialSelect=[], titulo = " ", max, sel
     const [termo, setTermo] = useState('')
     const [selected, setSelected] = useState([])
     const [value, setValue] = useState('')
-
+    /*
     const [fontsLoaded] = useFonts({
         'Montserrat': require('../assets/Montserrat.ttf'),
     })
-
+    */
     useEffect(()=> {
         setOpcoesOriginais(options)
         setData(options)

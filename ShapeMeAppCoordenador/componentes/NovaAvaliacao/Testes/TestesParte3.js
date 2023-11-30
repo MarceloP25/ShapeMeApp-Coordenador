@@ -12,9 +12,11 @@ export default ({navigation, route}) => {
     const [pressaoDiastolica, setPressaoDiastolica] = useState(0)
     const [pressaoArterial, setPressaoArterial] = useState('')
     const [frequenciaCardiacaDeRepouso, setFrequenciaCardiacaDeRepouso] = useState(0)
+    /*
     const [fontsLoaded] = useFonts({
         'Montserrat': require('../../../assets/Montserrat-Regular.ttf'),
     })
+    */
     const {aluno} = route.params
     console.log(novaAvalicao.getMassaCorporal())
     console.log(novaAvalicao.getEstatura())

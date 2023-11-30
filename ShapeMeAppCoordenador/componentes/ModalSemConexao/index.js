@@ -6,10 +6,11 @@ import Logo from "../Logo";
 import {useFonts} from "expo-font"
 
 export default ({navigation, ondeNavegar}) => {
+    /*
     const [fontsLoaded] = useFonts({
         'Montserrat': require('../../assets/Montserrat.ttf'),
     })
-
+    */
 
     return(
 

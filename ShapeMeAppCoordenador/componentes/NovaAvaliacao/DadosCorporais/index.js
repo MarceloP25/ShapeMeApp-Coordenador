@@ -8,10 +8,11 @@ import { Avaliacao } from '../../../classes/Avaliacao'
 let novaAvalicao = new Avaliacao()
 
 export default ({navigation, route}) => {
+    /*
     const [fontsLoaded] = useFonts({
         'Montserrat': require('../../../assets/Montserrat.ttf'),
     })
-
+    */
     const handleNavigation = () => {
         navigation.navigate("Testes parte 1", {aluno: aluno})
     }

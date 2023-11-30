@@ -79,12 +79,12 @@ export default function App() {
       <Stack.Navigator initialRouteName='Login'>
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Principal" component={Routes} options={{ headerShown: false }} />
+        <Stack.Screen name="Cadastro Coordenador" component={CadastroScreen}/>
         <Stack.Screen name="Perfil Aluno" component={PerfilDoAluno}/>
         <Stack.Screen name="PARQ" component={Parq}/>
         <Stack.Screen name="Anamnese" component={Anamnese}/>
         <Stack.Screen name="Montar treino" component={MontarTreino}/>
         <Stack.Screen name="Cadastro Academia" component={CadastroAcademiaScreen}/>
-        <Stack.Screen name="Cadastro" component={CadastroScreen}/>
         <Stack.Screen name="Perfil" component={PerfilProfessor}/>
         <Stack.Screen name="Editar foto" component={EditarFoto}/>
         <Stack.Screen name="Avaliações" component={Avaliacoes}/>

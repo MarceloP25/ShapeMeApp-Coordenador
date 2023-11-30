@@ -4,9 +4,11 @@ import estilo from '../estilo'
 import {useFonts} from 'expo-font'
 
 export default ({tipo,remetente, data, texto, titulo, pressando}) => {
+    /*
     const [fontsLoaded] = useFonts({
         'Montserrat': require('../../assets/Montserrat-Light.ttf'),
     })
+    */
     const [modalVisible, setModalVisible] = useState(false)
 
     if (tipo == 'professor'){

@@ -4,9 +4,11 @@ import estilo from "./estilo"
 import {useFonts} from 'expo-font'
 
 export default ({options=[], horizontal, onChangeSelect, selected}) => { 
+    /*
     const [fontsLoaded] = useFonts({
         'Montserrat': require('../assets/Montserrat-Light.ttf'),
     })
+    */
     if (horizontal == true){
         return (    
         

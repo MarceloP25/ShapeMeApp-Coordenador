@@ -7,9 +7,11 @@ import {useFonts} from 'expo-font'
 import { novaAvalicao } from '../DadosCorporais'
 
 export default ({route, navigation}) => {
+    /*
     const [fontsLoaded] = useFonts({
         'Montserrat': require('../../../assets/Montserrat-Regular.ttf'),
     })
+    */
     const {aluno} = route.params
 
     const [resistenciaAbdominal, setResistenciaAbdominal] = useState(0)

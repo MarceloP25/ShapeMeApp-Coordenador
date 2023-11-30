@@ -14,11 +14,12 @@ export default ({route, navigation}) => {
     const [resultadoDinamometria3, setResultadoDinamometria3] = useState(0)
     const [resultadoSentarAlcancar1Invalido, setResultadoSentarAlcancar1Invalido] = useState(false)
     const [resultadoDinamometria1Invalido, setResultadoDinamometria1Invalido] = useState(false)
+    /*
     const [fontsLoaded] = useFonts({
         'Montserrat':
          require('../../../assets/Montserrat-Regular.ttf'),
     })
-
+    */
     const {aluno} = route.params
 
     const validaCampos = () => {

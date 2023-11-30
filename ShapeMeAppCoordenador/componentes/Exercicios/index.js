@@ -5,9 +5,11 @@ import {useFonts} from "expo-font"
 import BotaoSelect from "../BotaoSelect";
 
 export default props => {
+  /*
     const [fontsLoaded] = useFonts({
         'Montserrat': require('../../assets/Montserrat.ttf'),
     })
+    */
     const [opcoes, setOpcoes] = useState([])
     const [titulo, setTitulo] = useState('')
 

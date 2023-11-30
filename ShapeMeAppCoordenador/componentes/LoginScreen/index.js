@@ -72,7 +72,7 @@ export default ({ navigation }) => {
     }
 
     const handleCadastro = () => {
-        navigation.navigate('Cadastro')
+        navigation.navigate('Cadastro Coordenador')
     }
 
     const mudarSenha = (email) => {

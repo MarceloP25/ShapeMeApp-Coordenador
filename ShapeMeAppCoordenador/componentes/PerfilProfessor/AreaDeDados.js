@@ -5,11 +5,11 @@ import {useFonts} from "expo-font"
 import { getAuth, signOut } from "firebase/auth";
 import { professorLogado, enderecoProfessor } from '../Home'
 export default ({navigation}) => {
+    /*
     const [fontsLoaded] = useFonts({
         'Montserrat': require('../../assets/Montserrat-Regular.ttf'),
-
-        
     })
+    */
     const handleLogout = () => {
         const auth = getAuth()
         signOut(auth)

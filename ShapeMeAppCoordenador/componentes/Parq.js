@@ -16,10 +16,11 @@ export default ({navigation, route}) => {
     const [selected6, setSelected6] = useState(0)
     const [selected7, setSelected7] = useState(0)
     const [selected8, setSelected8] = useState(0)
-
+    /*
     const [fontsLoaded] = useFonts({
         'Montserrat': require('../assets/Montserrat.ttf'),
     })
+    */
     useEffect(() => {
         if (parq.pergunta1 === "Sim") setSelected1(0)
         else setSelected1(1)

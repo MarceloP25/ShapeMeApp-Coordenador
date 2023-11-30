@@ -113,5 +113,291 @@ export default ({navigation}) => {
             tipo: "sistema",
             titulo: "Bem-vindo ao ShapeMeApp!"
         })
-        navigation.navigate("Login")
-    }
+        navigation.navigate("CadastroTurmas")
+
+          //Validação do estado
+        const estadosBrasileiros = [
+            'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO',
+            'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI',
+            'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
+        ];
+        const validaEstado = (text) => {
+            const estadoUpper = text.toUpperCase();
+            if (estadosBrasileiros.includes(estadoUpper)) {
+                setEstadoInvalido(false);
+            } else {
+                setEstadoInvalido(true);
+            }
+            setEstado(estadoUpper);
+        };
+    
+      //Validação da cidade
+        const validaCidade = (text) => {
+        // Apenas um exemplo simples de validação: a cidade deve ter pelo menos 2 caracteres
+        const cidadeValida = text.length >= 3;
+      
+        // Atualize o estado da cidade e o estado de validação
+        setCidade(text);
+        setCidadeInvalida(!cidadeValida);
+        };
+    
+        //Validação do bairro
+        const validaBairro = (text) => {
+            const bairroValido = text.length >= 5;
+        
+            setBairro(text)
+            setBairroInvalido(!bairroValido)
+          }
+        
+          //Validação da rua
+          const validaRua = (text) => {
+            const ruaValida = text.length >= 5;
+        
+            setRua(text)
+            setRuaInvalida(!ruaValida)
+          }
+
+
+        return (
+            <ScrollView alwaysBounceVertical={true} style={estilo.corLightMenos1}>
+                {!conexao ? <ModalSemConexao/> 
+                : 
+                <SafeAreaView style={style.container}>      
+
+                <Text style={[estilo.textoP16px, estilo.textoCorSecundaria,  style.titulos]}>Primeiramente, identifique-se</Text>
+                <View style={style.inputArea}>
+                    <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>NOME COMPLETO:</Text>
+                    <View>
+                    <TextInput 
+                    placeholder={'Informe o nome da aacademia'} 
+                    placeholderTextColor={'#CFCDCD'} 
+                    style={[
+                        estilo.sombra, 
+                        estilo.corLight, 
+                        style.inputText,
+                        nomeInvalido? {borderWidth: 1, borderColor: 'red'} : {}
+                    ]}
+                    keyboardType={'default'}
+                    value={nome}
+                    onChangeText={(text) => {validaNome(text)}}
+                    >
+                    </TextInput>
+                    </View>                        
+                </View>
+
+              <View style={style.inputArea}>
+                  <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]}>CPF:</Text>
+                  <TextInputMask 
+                          type={'cnpj'}
+                          placeholder={'Informe o cnpj'} 
+                          placeholderTextColor={'#CFCDCD'} 
+                          style={[
+                          estilo.sombra, 
+                          estilo.corLight, 
+                          style.inputText,
+                          cpfInvalido ? {borderWidth: 1, borderColor: 'red'} : {}
+                          ]}
+                          value={cnpj}
+                          onChangeText={(text) => setCpf(text)}   
+                      >
+                      </TextInputMask>
+
+                      </View>
+
+              <Text style={[estilo.textoP16px, estilo.textoCorSecundaria, style.titulos]}>Agora, informe sua residência</Text>
+
+              <View style={style.inputArea}>
+                  <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]}>INFORME SEU CEP:</Text>
+                  <TextInputMask 
+                      style={[
+                      style.inputText, 
+                      estilo.sombra, 
+                      estilo.corLight
+                                          ]}
+                      placeholder="ex: 36180-000"
+                      value={cep}
+                      type={'zip-code'}
+                      onChangeText={(text) => setCep(text)}
+                      keyboardType='numeric'
+                  ></TextInputMask>
+              </View>
+
+
+              <View style={style.inputArea}>
+                  <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]}>ESTADO:</Text>
+                  <TextInput 
+                      style={[
+                          style.inputText, 
+                          estilo.sombra, 
+                          estilo.corLight,
+                          estadoInvalido ? { borderColor: '#FF6262', borderWidth: 1 } : {}
+                      ]}
+                      placeholder="ex: MG"
+                      value={estado}
+                      onChangeText={(text) => validaEstado(text)}
+                      maxLength={2}
+                      ></TextInput>
+                  </View>
+
+
+                  <View style={style.inputArea}>
+              <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>CIDADE:</Text>
+                <TextInput
+                  style={[
+                    style.inputText,
+                    estilo.sombra,
+                    estilo.corLight,
+                    cidadeInvalida ? { borderColor: 'red', borderWidth: 1 } : {}
+                  ]}
+                  placeholder="Informe a cidade"
+                  value={cidade}
+                  onChangeText={(text) => validaCidade(text)}
+                />
+              </View>
+
+
+              <View style={style.inputArea}>
+                  <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>BAIRRO:</Text>
+                  <TextInput
+                  style={[
+                    style.inputText,
+                    estilo.sombra,
+                    estilo.corLight,
+                    bairroInvalido ? { borderColor: 'red', borderWidth: 1 } : {}
+                  ]}
+                  placeholder="Informe o bairro"
+                  value={bairro}
+                  onChangeText={(text) => validaBairro(text)}
+                />
+              </View>
+
+
+              <View style={style.inputArea}>
+                  <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>RUA:</Text>
+                  <TextInput
+                  style={[
+                    style.inputText,
+                    estilo.sombra,
+                    estilo.corLight,
+                    ruaInvalida ? { borderColor: 'red', borderWidth: 1 } : {}
+                  ]}
+                  placeholder="Informe a rua"
+                  value={rua}
+                  onChangeText={(text) => validaRua(text)}
+                />
+              </View>
+
+              <View style={style.alinhamentoBotoesPequenos}>
+                  <View style={[style.inputArea, style.campoPequeno]}>
+                      <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>NÚMERO:</Text>
+                      <TextInput 
+                          style={[style.inputText, estilo.sombra, estilo.corLight]} placeholder="Número da residência"
+                          value={numero}
+                          keyboardType='numeric'
+                          onChangeText={(text) => setNumero(text)}
+                          
+                          ></TextInput>
+                  </View>
+                  <View style={[style.inputArea, style.campoPequeno]}>
+                      <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>COMPLEMENTO:</Text>
+                      <TextInput 
+                          style={[style.inputText, estilo.sombra, estilo.corLight]} placeholder="complemento"
+                          value={complemento}
+                          onChangeText={(text) => setComplemento(text)}
+                          ></TextInput>
+                  </View> 
+              </View>
+            
+              <TouchableOpacity 
+              style={[estilo.corPrimaria, style.botao, estilo.sombra, estilo.botao]}
+              onPress={()=>{
+
+                novaAcademia.setNome(nome)
+                novaAcademia.setCnpj(cnpj)
+                enderecoAcademia.setCep(cep)
+                enderecoAcademia.setEstado(estado)
+                enderecoAcademia.setCidade(cidade)
+                enderecoAcademia.setBairro(bairro)
+                enderecoAcademia.setRua(rua)
+                enderecoAcademia.setNumero(numero)
+                enderecoAcademia.setComplemento(complemento)
+                novaAcademia.setEndereco(enderecoAcademia)
+                console.log(novaAcademia)
+
+
+                if(novaAcademia.getNome() == ''
+                || novaAcademia.getCnpj() == ''
+                || enderecoAcademia.getCep() == '' || enderecoAcademia.getCidade() == '' || enderecoAcademia.getEstado() == ''
+                || enderecoAcademia.getRua() == ''){
+                  Alert.alert("Há campos não preenchidos.", "Preencha os campos antes de prosseguir.")
+                  if(novaAcademia.getNome() == '') setNomeInvalido(true)
+                  if(novaAcademia.getCnpj() == '') setCnpjInvalido(true)
+                  if(enderecoAcademia.getCep() == '') setCepInvalido(true)
+                  if(enderecoAcademia.getRua() == '') setRuaInvalida(true)
+                  if(enderecoAcademia.getEstado() == '') setEstadoInvalido(true)
+                  if(enderecoAcademia.getCidade() == '') setCidadeInvalida(true)
+                  if(enderecoAcademia.getBairro() == '') setBairroInvalido(true)
+                  
+                } else {
+                  handleFinalizarCadastro()
+                }
+               }}>
+                  <Text 
+              style={[estilo.tituloH523px, estilo.textoCorLight]}>CADASTRAR</Text>
+              </TouchableOpacity>
+              </SafeAreaView>
+              }
+               
+
+            </ScrollView>
+    )
+}
+
+const style = StyleSheet.create({
+container:{
+    marginVertical: '2%',
+},
+inputArea: {
+    marginLeft: '10%',
+    marginVertical: 10
+},
+titulos: {
+    marginLeft: 20,
+    marginTop: 20,
+    marginBottom: 5,
+},
+inputText: {
+    width: '90%',
+    height: 50,
+    marginTop: 10,
+    marginBottom: 30,
+    borderRadius: 10,
+    elevation: 10,
+    paddingHorizontal: 20,
+},
+areaInputDataNascimento: {
+    width: '90%',
+    height: 50,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 5,
+},
+
+botaoInputDataNascimento: {
+    width:'30%',
+    padding: 10,
+    backgroundColor: 'white',
+    elevation: 10,
+    borderRadius: 10,
+
+},
+
+campoPequeno: {
+    width: '40%'
+},
+alinhamentoBotoesPequenos: {
+    flexDirection: 'row',
+    width: '100%'
+}
+})

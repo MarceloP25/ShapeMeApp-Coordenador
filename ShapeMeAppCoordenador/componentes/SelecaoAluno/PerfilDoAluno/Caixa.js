@@ -7,9 +7,11 @@ import { printToFileAsync } from 'expo-print'
 import { shareAsync } from 'expo-sharing'
 
 export default ({aluno, navigation}) => {
+    /*
     const [fontsLoaded] = useFonts({
         'Montserrat': require('../../../assets/Montserrat-Regular.ttf'),
     })
+    */
     const data = new Date()
     const anoAux = data.getFullYear()
 

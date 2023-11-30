@@ -5,9 +5,11 @@ import { Entypo } from '@expo/vector-icons';
 import {useFonts} from 'expo-font'
 
 export default ({navigation}) => {
+    /*
     const [fontsLoaded] = useFonts({
         'Montserrat': require('../../assets/Montserrat-Regular.ttf'),
     })
+    */
     return(
         <View style={[style.container, estilo.corLightMenos1]}>
             <View style={{alignItems: 'center'}}>

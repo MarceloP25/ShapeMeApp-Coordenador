@@ -40,11 +40,11 @@ export default ({navigation, route}) => {
     const [selectedOption, setSelectedOption] = useState('');
     const [selectedOption2, setSelectedOption2] = useState('');
     const [selectedAtaqueCardiaco, setSelectedAtaqueCardiaco] = useState(false);
-
+    /*
     const [fontsLoaded] = useFonts({
         'Montserrat': require('../../assets/Montserrat-Light.ttf'),
     })
-
+    */
     
     console.log("aluno", aluno)
     const opcaoAtaqueCardiaco = [{text:'Um ataque cardíaco?', id: 1}]

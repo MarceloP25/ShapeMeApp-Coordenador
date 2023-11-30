@@ -7,9 +7,11 @@ import {useFonts} from 'expo-font'
 
 const CheckboxIndividual = ({options = [], onChange}) => {
     const [selected, setSelected] = useState([])
+    /*
     const [fontsLoaded] = useFonts({
         'Montserrat': require('../assets/Montserrat-Light.ttf'),
     })
+    */
     function toggle(id){
         let index = selected.findIndex((i)=> i === id)
         let arrSelected = [...selected]
@@ -38,10 +40,11 @@ const CheckboxIndividual = ({options = [], onChange}) => {
 
 const CheckboxUmPorVez = ({options = [], onChange, multiplo = false}) => {
     const [selected, setSelected] = useState([])
+    /*
     const [fontsLoaded] = useFonts({
         'Montserrat': require('../assets/Montserrat-Light.ttf'),
     })
-
+    */
     function toggle(id){
         let index = selected.findIndex((i)=> i === id)
         let arrSelected = [...selected]

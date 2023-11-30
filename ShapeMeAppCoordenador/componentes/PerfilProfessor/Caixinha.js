@@ -20,10 +20,11 @@ export default props => {
             unsubscribe()
         }
     }, [])
-
+    /*
     const [fontsLoaded] = useFonts({
         'Montserrat': require('../../assets/Montserrat-Regular.ttf'),
     })
+    */
     const getStoredImage = async () => {
         const storage = getStorage();
         const storeRef = ref(storage, `foto${professorLogado.getCpf()}.jpg`);
