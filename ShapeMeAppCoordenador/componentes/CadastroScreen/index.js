@@ -2,8 +2,6 @@ import React, {useState, useEffect} from "react"
 import { Text, View, StyleSheet,ScrollView, SafeAreaView, TextInput, TouchableOpacity, Alert, Modal} from "react-native"
 import estilo from "../estilo"
 import RadioBotao from "../RadioBotao"
-import { useFonts } from 'expo-font';
-import BotaoSelect from "../BotaoSelect"
 import { TextInputMask } from 'react-native-masked-text';
 import {Coordenador} from '../../classes/Coordenador'
 import { AppLoading } from 'expo';
@@ -542,51 +540,51 @@ export default ({navigation}) => {
                       ></TextInput>
                   </View>
                   <TouchableOpacity 
-                  style={[estilo.corPrimaria, style.botao, estilo.sombra, estilo.botao]}
-                  onPress={()=>{
+                    style={[estilo.corPrimaria, style.botao, estilo.sombra, estilo.botao]}
+                    onPress={()=>{
 
-                    novoCoordenador.setNome(nome)
-                    novoCoordenador.setCpf(cpf)
-                    novoCoordenador.setDataNascimento(`${diaNascimento}/${mesNascimento}/${anoNascimento}`)
-                    novoCoordenador.setTelefone(telefone)
-                    novoCoordenador.setProfissao(profissao)
-                    enderecoCoordenador.setCep(cep)
-                    enderecoCoordenador.setEstado(estado)
-                    enderecoCoordenador.setCidade(cidade)
-                    enderecoCoordenador.setBairro(bairro)
-                    enderecoCoordenador.setRua(rua)
-                    enderecoCoordenador.setNumero(numero)
-                    enderecoCoordenador.setComplemento(complemento)
-                    novoCoordenador.setEmail(email)
-                    novoCoordenador.setSenha(senha)
-                    novoCoordenador.setEndereco(enderecoCoordenador)
-                    console.log(novoCoordenador)
-                    selected == 0 ? novoCoordenador.setSexo('Feminino') : novoCoordenador.setSexo('Masculino')
+                      novoCoordenador.setNome(nome)
+                      novoCoordenador.setCpf(cpf)
+                      novoCoordenador.setDataNascimento(`${diaNascimento}/${mesNascimento}/${anoNascimento}`)
+                      novoCoordenador.setTelefone(telefone)
+                      novoCoordenador.setProfissao(profissao)
+                      enderecoCoordenador.setCep(cep)
+                      enderecoCoordenador.setEstado(estado)
+                      enderecoCoordenador.setCidade(cidade)
+                      enderecoCoordenador.setBairro(bairro)
+                      enderecoCoordenador.setRua(rua)
+                      enderecoCoordenador.setNumero(numero)
+                      enderecoCoordenador.setComplemento(complemento)
+                      novoCoordenador.setEmail(email)
+                      novoCoordenador.setSenha(senha)
+                      novoCoordenador.setEndereco(enderecoCoordenador)
+                      console.log(novoCoordenador)
+                      selected == 0 ? novoCoordenador.setSexo('Feminino') : novoCoordenador.setSexo('Masculino')
 
 
-                    if(novoCoordenador.getNome() == ''
-                    || novoCoordenador.getCpf() == '' || novoCoordenador.getDataNascimento() == '' || novoCoordenador.getEmail() == '' 
-                    || novoCoordenador.getSenha() == '' || novoCoordenador.getSexo() == '' || novoCoordenador.getTelefone() == '' 
-                    || enderecoCoordenador.getCep() == '' || enderecoCoordenador.getCidade() == '' || enderecoCoordenador.getEstado() == ''
-                    || enderecoCoordenador.getRua() == ''){
-                      Alert.alert("Há campos não preenchidos.", "Preencha os campos antes de prosseguir.")
-                      if(novoCoordenador.getNome() == '') setNomeInvalido(true)
-                      if(novoCoordenador.getCpf() == '') setCpfInvalido(true)
-                      if(novoCoordenador.getTelefone() == '') setTelefoneValido(false)
-                      if(novoCoordenador.getProfissao() == '') setProfissaoInvalida(true)
-                      if(enderecoCoordenador.getCep() == '') setCepInvalido(true)
-                      if(enderecoCoordenador.getRua() == '') setRuaInvalida(true)
-                      if(enderecoCoordenador.getEstado() == '') setEstadoInvalido(true)
-                      if(enderecoCoordenador.getCidade() == '') setCidadeInvalida(true)
-                      if(enderecoCoordenador.getBairro() == '') setBairroInvalido(true)
-                      if(novoCoordenador.getEmail() == '') setEmailInvalido(true)
-                      
-                    } else {
-                      handleFinalizarCadastro()
-                    }
-                   }}>
-                      <Text 
-                  style={[estilo.tituloH523px, estilo.textoCorLight]}>CADASTRAR-SE</Text>
+                      if(novoCoordenador.getNome() == ''
+                      || novoCoordenador.getCpf() == '' || novoCoordenador.getDataNascimento() == '' || novoCoordenador.getEmail() == '' 
+                      || novoCoordenador.getSenha() == '' || novoCoordenador.getSexo() == '' || novoCoordenador.getTelefone() == '' 
+                      || enderecoCoordenador.getCep() == '' || enderecoCoordenador.getCidade() == '' || enderecoCoordenador.getEstado() == ''
+                      || enderecoCoordenador.getRua() == ''){
+                        Alert.alert("Há campos não preenchidos.", "Preencha os campos antes de prosseguir.")
+                        if(novoCoordenador.getNome() == '') setNomeInvalido(true)
+                        if(novoCoordenador.getCpf() == '') setCpfInvalido(true)
+                        if(novoCoordenador.getTelefone() == '') setTelefoneValido(false)
+                        if(novoCoordenador.getProfissao() == '') setProfissaoInvalida(true)
+                        if(enderecoCoordenador.getCep() == '') setCepInvalido(true)
+                        if(enderecoCoordenador.getRua() == '') setRuaInvalida(true)
+                        if(enderecoCoordenador.getEstado() == '') setEstadoInvalido(true)
+                        if(enderecoCoordenador.getCidade() == '') setCidadeInvalida(true)
+                        if(enderecoCoordenador.getBairro() == '') setBairroInvalido(true)
+                        if(novoCoordenador.getEmail() == '') setEmailInvalido(true)
+                        
+                      } else {
+                        handleFinalizarCadastro()
+                      }
+                    }}>
+                        <Text 
+                    style={[estilo.tituloH523px, estilo.textoCorLight]}>CADASTRAR-SE</Text>
                   </TouchableOpacity>
                   </SafeAreaView>
                   }

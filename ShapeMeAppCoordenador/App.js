@@ -60,6 +60,7 @@ import NovaFicha from './componentes/MontarTreino/NovaFicha';
 import ExportCSV from './componentes/ExportCSV/index.js';
 import SelecaoAlunoExport from './componentes/ExportCSV/SelecaoAlunoExport.js';
 import CadastroAcademiaScreen from './componentes/CadastroAcademiaScreen/index.js';
+import CadastroTurmas from './componentes/CadastroTurmas/index.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -81,6 +82,7 @@ export default function App() {
         <Stack.Screen name="Principal" component={Routes} options={{ headerShown: false }} />
         <Stack.Screen name="Cadastro Coordenador" component={CadastroScreen}/>
         <Stack.Screen name="Perfil Aluno" component={PerfilDoAluno}/>
+        <Stack.Screen name='CadastroTurmas' component={CadastroTurmas}/>
         <Stack.Screen name="PARQ" component={Parq}/>
         <Stack.Screen name="Anamnese" component={Anamnese}/>
         <Stack.Screen name="Montar treino" component={MontarTreino}/>
