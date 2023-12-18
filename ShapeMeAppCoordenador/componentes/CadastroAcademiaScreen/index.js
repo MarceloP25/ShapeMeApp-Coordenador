@@ -5,6 +5,7 @@ import RadioBotao from "../RadioBotao"
 import { useFonts } from 'expo-font';
 import BotaoSelect from "../BotaoSelect"
 import { TextInputMask } from 'react-native-masked-text';
+import { NavigationContainer, useNavigation } from '@react-navigation/native'; // Navegação
 import {Academia} from '../../classes/Academia'
 import { AppLoading } from 'expo';
 import {Endereco} from '../../classes/Endereco'
@@ -57,8 +58,8 @@ export default ({navigation}) => {
         setNome(text);
     };
 
-    const [Cnpj, setCnpj] = useState('')
-    const [CnpjInvalido, setCnpjInvalido] = useState(false);
+    const [cnpj, setCnpj] = useState('')
+    const [cnpjInvalido, setCnpjInvalido] = useState(false);
 
     const validaECorrigeCnpj = (text) => {
         setCnpj(text);
@@ -83,38 +84,23 @@ export default ({navigation}) => {
     const [numero, setNumero] = useState('')
     const [complemento, setComplemento] = useState('')
 
-    setDoc(doc(firebaseBD, "Academia", `${novaAcademia.getNome()}`), {
-        nome: novaAcademia.getNome(),
-        cnpj: novaAcademia.getCnpj(),
-        endereco: {
-            rua: enderecoAcademia.getRua(),
-            cidade: enderecoAcademia.getCidade(),
-            estado: enderecoAcademia.getEstado(),
-            numero: enderecoAcademia.getNumero(),
-            complemento: enderecoAcademia.getComplemento(),
-        },
-        }).then(() => {
-        alert("Academia criada com sucesso!")
-        firebase.auth().createUserWithEmailAndPassword(novoCoordenador.getEmail(), novoCoordenador.getSenha())
-        .then((userCredential) => {
-            console.log(userCredential)
+    const handleFinalizarCadastro = () => {
 
-        }).catch((error) => {
-            alert("Ocorreu um erro no seu cadastro.")
-        })
-        }).catch((erro) => {
-            console.log(`Não foi possível criar o documento. Já existe uma academia cadastrada com este cnpj.`)
-        });
-        setDoc(doc(firebaseBD, "Academia", `${novaAcademia.getNome()}`, "Notificações", `Notificação${ano}|${mes}|${dia}`), {
-            data: `${dia}/${mes}/${ano}`,
-            nova: false,
-            remetente: 'Gustavo & cia',
-            texto: "É um prazer recebê-lo em nosso aplicativo. Desenvolvido por Gustavo Vaz Teixeira, João Bastista, Mateus Novaes, Sérgio Muinhos e Marcelo Patrício, em parceria com o Instituto Federal do Sudeste de Minas Gerais, o ShapeMeApp foi criado para proporcionar a você uma experiência interativa e personalizada durante seus treinos.",
-            tipo: "sistema",
-            titulo: "Bem-vindo ao ShapeMeApp!"
-        })
-        navigation.navigate("CadastroTurmas")
-
+        setDoc(doc(firebaseBD, "Coordenador/${novoCoordenador.getNome()}/Academia", `${novaAcademia.getNome()}`), {
+            nome: novaAcademia.getNome(),
+            cnpj: novaAcademia.getCnpj(),
+            endereco: {
+                rua: enderecoAcademia.getRua(),
+                cidade: enderecoAcademia.getCidade(),
+                estado: enderecoAcademia.getEstado(),
+                numero: enderecoAcademia.getNumero(),
+                complemento: enderecoAcademia.getComplemento(),
+            },
+            }).catch((erro) => {
+                console.log(`Não foi possível criar o documento. Já existe uma academia cadastrada com este cnpj.`)
+            });
+        navigation.navigate("Cadastro Turmas")
+    }
           //Validação do estado
         const estadosBrasileiros = [
             'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO',
@@ -186,7 +172,7 @@ export default ({navigation}) => {
                 </View>
 
               <View style={style.inputArea}>
-                  <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]}>CPF:</Text>
+                  <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]}>CNPJ:</Text>
                   <TextInputMask 
                           type={'cnpj'}
                           placeholder={'Informe o cnpj'} 
@@ -195,10 +181,10 @@ export default ({navigation}) => {
                           estilo.sombra, 
                           estilo.corLight, 
                           style.inputText,
-                          cpfInvalido ? {borderWidth: 1, borderColor: 'red'} : {}
+                          cnpjInvalido ? {borderWidth: 1, borderColor: 'red'} : {}
                           ]}
                           value={cnpj}
-                          onChangeText={(text) => setCpf(text)}   
+                          onChangeText={(text) => setCnpj(text)}   
                       >
                       </TextInputMask>
 
@@ -338,6 +324,8 @@ export default ({navigation}) => {
                   if(enderecoAcademia.getCidade() == '') setCidadeInvalida(true)
                   if(enderecoAcademia.getBairro() == '') setBairroInvalido(true)
                   
+                    //navigation.navigate("CadastroTurmas")
+
                 } else {
                   handleFinalizarCadastro()
                 }

@@ -4,6 +4,7 @@ import estilo from "../estilo"
 import RadioBotao from "../RadioBotao"
 import { TextInputMask } from 'react-native-masked-text';
 import {Coordenador} from '../../classes/Coordenador'
+import { NavigationContainer, useNavigation } from '@react-navigation/native'; // Navegação
 import { AppLoading } from 'expo';
 import {Endereco} from '../../classes/Endereco'
 import { collection,setDoc,doc, getDocs, getFirestore, where , query, addDoc, querySnapshot, QueryStartAtConstraint} from "firebase/firestore";
@@ -115,11 +116,6 @@ export default ({navigation}) => {
       setProfissao(text);
     };
 
-    
-    // const [academiasCadastradas, setAcademiasCadastradas] = useState([])
-    // const [professoresDaAcademia, setProfessoresDaAcademia] = useState([])
-    // const [carregouCoord, setCarregouCoord] = useState(false)
-
     const [telefone, setTelefone] = useState('')
     const [telefoneValido, setTelefoneValido] = useState(true);
 
@@ -136,7 +132,6 @@ export default ({navigation}) => {
     const [cepInvalido, setCepInvalido] = useState(false)
 
     const [sexo, setSexo] = useState('')
-    //const [academia, setAcademia] = useState('')
 
     const [estado, setEstado] = useState('')
     const [estadoInvalido, setEstadoInvalido] = useState(false)
@@ -159,15 +154,15 @@ export default ({navigation}) => {
     const [senha, setSenha] = useState('')
     const [senhaInvalida, setSenhaInvalida] = useState(false)
 
-    // const [selectedOption, setSelectedOption] = useState('');
-    // const [selected, setSelected] = useState(0)
+    const [selectedOption, setSelectedOption] = useState('');
+    const [selected, setSelected] = useState(0)
 
-    /*
+    
     const handleSelectChange = (value) => {
       setSelectedOption(value)
-      setAcademia(value);
+
         }
-    */
+    
 
     const handleFinalizarCadastro = () => {
       const data = new Date()
@@ -183,7 +178,6 @@ export default ({navigation}) => {
           telefone: novoCoordenador.getTelefone(),
           profissao: novoCoordenador.getProfissao(),
           sexo: novoCoordenador.getSexo(),
-          // academia: novoCoordenador.getAcademia(),
           endereco: {
             rua: enderecoCoordenador.getRua(),
             cidade: enderecoCoordenador.getCidade(),
@@ -213,7 +207,7 @@ export default ({navigation}) => {
             tipo: "sistema",
             titulo: "Bem-vindo ao ShapeMeApp!"
           })
-          navigation.navigate("Login")
+      navigation.navigate("Cadastro Academia")
     }
           //Validação do estado
       const estadosBrasileiros = [
