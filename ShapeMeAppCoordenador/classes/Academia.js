@@ -6,6 +6,8 @@ class Academia {
         this.professores = [] 
         this.coordenador = []
         this.endereco = null
+        this.turmas = []
+        this.exercicios = []
     }
 
     setNome = (nome) =>{ this.nome = nome}

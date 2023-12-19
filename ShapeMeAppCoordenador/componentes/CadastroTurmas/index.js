@@ -25,21 +25,6 @@ export default ({navigation}) => {
     }, [])
 
 
-    const checkWifiConnection = () => {
-        NetInfo.fetch().then((state) => {
-            if (state.type === 'wifi' || state.type === 'cellular') {
-            console.log('Conectado ao Wi-Fi');
-            setConexao(true)
-            } else {
-            console.log('Não conectado ao Wi-Fi');
-            setConexao(false)
-        }
-        });
-        };
-        useEffect(() => {
-        checkWifiConnection();
-        }, []);
-
     const [nome, setNome ] = useState('')
     const [horario, setHorario] = useState('')
     const [dia, setDia] = useState('')
@@ -65,6 +50,8 @@ export default ({navigation}) => {
             vaga: novaTurma.getVaga(),
         }).catch((erro) => {
             console.log(`Não foi possível criar a turma.`)
+        }).finally(() => {
+            Alert.alert("Turma cadsatrada no sistema! Se deseja cadastrar uma nova turma, preencha novamente...")
         })
     }
 
@@ -76,8 +63,8 @@ export default ({navigation}) => {
 
             <ScrollView alwaysBounceVertical={true} style={estilo.corLightMenos1}>
                 <View style={styles.inputArea}>
-                    <Text style={estilo.tituloH619px}>PREENCHA COM OS DADOS PARA CRIAR TURMAS!</Text>
-                    <Text style={estilo.tituloH619px}>CASO NÃO QUEIRA, FINALIZE O CADASTRO.</Text>
+                    <Text style={[estilo.tituloH619px, styles.aviso]}>PREENCHA COM OS DADOS PARA CRIAR TURMAS!</Text>
+                    <Text style={[estilo.tituloH619px, styles.aviso]}>CASO NÃO QUEIRA, FINALIZE O CADASTRO.</Text>
                 </View>
                 <View style={styles.inputArea}>
                     <View style={styles.inputArea}>
@@ -111,7 +98,7 @@ export default ({navigation}) => {
                                 if(novaTurma.getNome() == '' || novaTurma.getHorario() == '' || novaTurma.getDia() == '' || novaTurma.getVaga() == ''){
                                     Alert.alert("Há campos não preenchidos.", "Preencha os campos antes de prosseguir.")
                                 } else {
-                                    handleFinalizarCadastro()
+                                    handleTurmaCadastro()
                                 }
                             }}>CADASTRAR TURMA</TouchableOpacity>
                     </View>
@@ -138,4 +125,7 @@ const styles = StyleSheet.create({
         marginLeft: '10%',
         marginVertical: 10
     },
+    aviso:{
+        color: 'red',
+    }
 })

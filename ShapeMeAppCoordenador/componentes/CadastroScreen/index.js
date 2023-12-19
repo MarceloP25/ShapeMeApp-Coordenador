@@ -30,21 +30,6 @@ export default ({navigation}) => {
   }, [])
 
 
-  const checkWifiConnection = () => {
-      NetInfo.fetch().then((state) => {
-        if (state.type === 'wifi' || state.type === 'cellular') {
-          console.log('Conectado ao Wi-Fi');
-          setConexao(true)
-        } else {
-          console.log('Não conectado ao Wi-Fi');
-          setConexao(false)
-      }
-      });
-    };
-    useEffect(() => {
-      checkWifiConnection();
-    }, []);
-
     const [nome, setNome] = useState('')
     const [nomeInvalido, setNomeInvalido] = useState(false);
 
@@ -164,15 +149,20 @@ export default ({navigation}) => {
     const handleSelectChange = (value) => {
       setSelectedOption(value)
       setAcademia(value);
+
         }
     
+      
+    const academiaEscolhida = {
+      nomeAcademia: nome,
+    }
 
     const handleFinalizarCadastro = () => {
       const data = new Date()
       const dia = data.getDate()
       const mes = data.getMonth() + 1
       const ano = data.getFullYear()
-      
+      academiaEscolhida.getNome(novoCoordenador.getAcademia) 
 
       setDoc(doc(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador`, `${novoCoordenador.getNome()}`), {
           nome: novoCoordenador.getNome(),
@@ -211,7 +201,7 @@ export default ({navigation}) => {
             tipo: "sistema",
             titulo: "Bem-vindo ao ShapeMeApp!"
           })
-      navigation.navigate("Cadastro Turmas")
+      navigation.navigate("Cadastro Turmas", {})
     }
           //Validação do estado
       const estadosBrasileiros = [
