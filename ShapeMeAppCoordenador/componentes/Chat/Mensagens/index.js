@@ -7,11 +7,11 @@ import Header from './Header';
 import {setDoc,doc, getDocs, getFirestore, where , query, addDoc, collection, onSnapshot, snapshotEqual, Firestore, serverTimestamp, orderBy} from "firebase/firestore";
 import {firebase, firebaseBD} from '../../configuracoes/firebaseconfig/config'
 import { FontAwesome } from '@expo/vector-icons'; 
-import { professorLogado } from '../../Home';
+import { coordenadorLogado } from '../../Home';
 
 export default ({route}) => {
 
-    const {aluno} = route.params
+    const {professor} = route.params
     const altura = Dimensions.get('screen').height
     const [mensagem, setMensagem] = useState('')
     const [mensagens, setMensagens] = useState([])
@@ -44,19 +44,19 @@ export default ({route}) => {
         const mensagemRef = collection(
           firebaseBD,
           'Academias',
-          professorLogado.getAcademia(),
+          coordenadorLogado.getAcademia(),
           'Professores',
-          professorLogado.getNome(),
+          coordenadorLogado.getNome(),
           'Mensagens',
-          `Mensagens ${aluno.email}`,
+          `Mensagens ${professor.email}`,
           'todasAsMensagens' 
         );
       
         const novaMensagem = {
           texto: mensagem,
           data: serverTimestamp(), // Timestamp: data atual
-          remetente: professorLogado.getEmail(),
-          destinatario: aluno.email,
+          remetente: coordenadorLogado.getEmail(),
+          destinatario: professor.email,
         };
       
         addDoc(mensagemRef, novaMensagem)
@@ -74,11 +74,11 @@ export default ({route}) => {
           const mensagemRef = collection(
             firebaseBD,
             'Academias',
-            professorLogado.getAcademia(),
+            coordenadorLogado.getAcademia(),
             'Professores',
-            professorLogado.getNome(),
+            coordenadorLogado.getNome(),
             'Mensagens',
-            `Mensagens ${aluno.email}`,
+            `Mensagens ${professor.email}`,
             'todasAsMensagens' 
           );
       
@@ -96,18 +96,18 @@ export default ({route}) => {
         } catch (error) {
           console.log('Erro ao recuperar as mensagens:', error);
         }
-      }, [aluno.email]);
+      }, [professor.email]);
       useLayoutEffect(() => {
         recuperarMensagens();
       }, [recuperarMensagens]);
 
     return (
         <View style={[estilo.corLightMenos1, {height: altura}]}>
-            <Header aluno={aluno}/>
+            <Header professor={professor}/>
             <ScrollView>
                 <View style={[estilo.centralizado, estilo.corLightMenos1]}>
                 {mensagens.map((mensagem) => (
-                  mensagem.remetente === professorLogado.getEmail() ? 
+                  mensagem.remetente === coordenadorLogado.getEmail() ? 
                   <MensagemEnviada texto={mensagem.texto} key={mensagem.id} /> : 
                   <MensagemRecebida texto={mensagem.texto} key={mensagem.id} />
 ))}

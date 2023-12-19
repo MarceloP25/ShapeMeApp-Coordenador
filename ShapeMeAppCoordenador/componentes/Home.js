@@ -17,8 +17,8 @@ import Spinner from 'react-native-loading-spinner-overlay'; // Spinner de carreg
 import NetInfo from "@react-native-community/netinfo" // Verificação de conexão de rede
 
 // Instâncias globais de Professor e Endereco
-let coordenadorLogado = new Coordenador('', '', '', '', '', '', '')
-let enderecoCoordenador = new Endereco('', '', '', '', '', '', '')
+const coordenadorLogado = new Coordenador('', '', '', '', '', '', '')
+const enderecoCoordenador = new Endereco('', '', '', '', '', '', '')
 
 // Exportação das instâncias globais
 export { coordenadorLogado, enderecoCoordenador }
@@ -40,19 +40,19 @@ export default ({ navigation }) => {
         }
     }, [])
 
-    // Efeito colateral para buscar dados do professor ao carregar o componente
+    // Efeito colateral para buscar dados do coordenador ao carregar o componente
     useEffect(() => {
         const fetchCoordenadorData = async () => {
             try {
                 const user = firebase.auth().currentUser;
                 const email = user.email;
-                const academiaRef = collection(firebaseBD, "Academias");
+                const academiaRef = collection(firebaseBD, "Academia");
 
                 const querySnapshot = await getDocs(academiaRef);
                 for (const academiaDoc of querySnapshot.docs ) {
                     const academiaNome = academiaDoc.get("nome");
                     const coordenadorNome = coordenadorDoc.get('nome');
-                    const coordenadorRef = collection(firebaseBD, "Coordenador", coordenadorNome , "Academias", academiaNome);
+                    const coordenadorRef = collection(firebaseBD, "Coordenador", coordenadorNome , "Academia", academiaNome);
 
                     const coordenadorSnapshot = await getDocs(coordenadorRef);
                     for (const coordenadorDoc of coordenadorSnapshot.docs) {
@@ -80,7 +80,7 @@ export default ({ navigation }) => {
                 console.log(error);
             }
         };
-        fetchProfessorData()
+        fetchCoordenadorData()
 
         setCarregando(false)
     }, []);

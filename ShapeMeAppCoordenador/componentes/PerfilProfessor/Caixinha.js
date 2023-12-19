@@ -3,7 +3,7 @@ import {Text, View, StyleSheet, SafeAreaView, ScrollView, Image} from 'react-nat
 import estilo from "../estilo"
 import {useFonts} from 'expo-font'
 import { getStorage, ref, getDownloadURL } from '@firebase/storage';
-import { professorLogado } from "../Home"
+import { coordenadorLogado } from "../Home"
 import NetInfo from '@react-native-community/netinfo'
 
 export default props => {
@@ -27,7 +27,7 @@ export default props => {
     */
     const getStoredImage = async () => {
         const storage = getStorage();
-        const storeRef = ref(storage, `foto${professorLogado.getCpf()}.jpg`);
+        const storeRef = ref(storage, `foto${coordenadorLogado.getCpf()}.jpg`);
   
         try {
             const url = await getDownloadURL(storeRef);
@@ -57,7 +57,7 @@ export default props => {
                   source={imageUrl ? { uri: imageUrl } : "Não achou a imagem"} />
           ) : <View style={[estilo.corSecundaria, style.foto, estilo.centralizado]}/>}
             <View>
-                <Text style={[estilo.textoCorSecundaria, estilo.tituloH427px, estilo.centralizado, {marginTop: '5%'}]}>{professorLogado.getNome()}</Text>
+                <Text style={[estilo.textoCorSecundaria, estilo.tituloH427px, estilo.centralizado, {marginTop: '5%'}]}>{coordenadorLogado.getNome()}</Text>
             </View>
         </View>
 

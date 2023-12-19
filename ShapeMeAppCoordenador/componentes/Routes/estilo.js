@@ -31,8 +31,8 @@ export default function Routes(){
                 tabBarIcon: ({size, color}) => (<Ionicons name="home-outline" size={size} color={color} />)
             }}/>
             <Tab.Screen 
-            name="Alunos" 
-            component={SelecaoAluno}
+            name="Turmas" 
+            component={ListaTurmas}
             options={{
                 tabBarIcon: ({size, color}) => (<Ionicons name="people" size={size} color={color} />)
             }}/>
