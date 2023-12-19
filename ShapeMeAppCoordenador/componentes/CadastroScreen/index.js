@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react"
 import { Text, View, StyleSheet,ScrollView, SafeAreaView, TextInput, TouchableOpacity, Alert, Modal} from "react-native"
 import estilo from "../estilo"
 import RadioBotao from "../RadioBotao"
+import BotaoSelect from "../BotaoSelect"
 import { TextInputMask } from 'react-native-masked-text';
 import {Coordenador} from '../../classes/Coordenador'
 import { NavigationContainer, useNavigation } from '@react-navigation/native'; // Navegação
@@ -157,10 +158,12 @@ export default ({navigation}) => {
     const [selectedOption, setSelectedOption] = useState('');
     const [selected, setSelected] = useState(0)
 
-    
+    const [academiasCadastradas, setAcademiasCadastradas] = useState([])
+    const [academia, setAcademia] = useState('')
+
     const handleSelectChange = (value) => {
       setSelectedOption(value)
-
+      setAcademia(value);
         }
     
 
@@ -171,13 +174,14 @@ export default ({navigation}) => {
       const ano = data.getFullYear()
       
 
-      setDoc(doc(firebaseBD, "Coordenador", `${novoCoordenador.getNome()}`), {
+      setDoc(doc(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador`, `${novoCoordenador.getNome()}`), {
           nome: novoCoordenador.getNome(),
           cpf: novoCoordenador.getCpf(),
           dataNascimento:  novoCoordenador.getDataNascimento(),
           telefone: novoCoordenador.getTelefone(),
           profissao: novoCoordenador.getProfissao(),
           sexo: novoCoordenador.getSexo(),
+          acaedmia : novoCoordenador.getAcademia(),
           endereco: {
             rua: enderecoCoordenador.getRua(),
             cidade: enderecoCoordenador.getCidade(),
@@ -199,7 +203,7 @@ export default ({navigation}) => {
         }).catch((erro) => {
             console.log(`Não foi possível criar o documento. Já existe um usuário cadastrado com este email.`)
           });
-          setDoc(doc(firebaseBD, "Coordenador", `${novoCoordenador.getNome()}`, "Notificações", `Notificação${ano}|${mes}|${dia}`), {
+          setDoc(doc(firebaseBD, "Coordenador", `${novoCoordenador.getAcademia()}`, "Notificações", `Notificação${ano}|${mes}|${dia}`), {
             data: `${dia}/${mes}/${ano}`,
             nova: false,
             remetente: 'Gustavo & cia',
@@ -207,7 +211,7 @@ export default ({navigation}) => {
             tipo: "sistema",
             titulo: "Bem-vindo ao ShapeMeApp!"
           })
-      navigation.navigate("Cadastro Academia")
+      navigation.navigate("Cadastro Turmas")
     }
           //Validação do estado
       const estadosBrasileiros = [
@@ -225,15 +229,15 @@ export default ({navigation}) => {
         setEstado(estadoUpper);
       };
 
-  //Validação da cidade
-  const validaCidade = (text) => {
-    // Apenas um exemplo simples de validação: a cidade deve ter pelo menos 2 caracteres
-    const cidadeValida = text.length >= 3;
-  
-    // Atualize o estado da cidade e o estado de validação
-    setCidade(text);
-    setCidadeInvalida(!cidadeValida);
-  };
+    //Validação da cidade
+    const validaCidade = (text) => {
+      // Apenas um exemplo simples de validação: a cidade deve ter pelo menos 2 caracteres
+      const cidadeValida = text.length >= 3;
+    
+      // Atualize o estado da cidade e o estado de validação
+      setCidade(text);
+      setCidadeInvalida(!cidadeValida);
+    };
 
     //Validação do bairro
     const validaBairro = (text) => {
@@ -275,7 +279,27 @@ export default ({navigation}) => {
         }
         setSenha(text);
       };
-    
+      
+      useEffect(() => {
+        const carregarAcademias = async () => {
+          try {
+            const db = getFirestore();
+            const academiasRef = collection(db, "Academias");
+            const querySnapshot = await getDocs(academiasRef);
+        
+            const academias = [];
+            querySnapshot.forEach((doc) => {
+              const nome = doc.data().nome;
+              academias.push(nome);
+            });
+        
+            setAcademiasCadastradas(academias);
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        carregarAcademias();
+      }, [])
 
     return (
                 <ScrollView alwaysBounceVertical={true} style={estilo.corLightMenos1}>
@@ -283,7 +307,7 @@ export default ({navigation}) => {
                   : 
                   <SafeAreaView style={style.container}>      
 
-                  <Text style={[estilo.textoP16px, estilo.textoCorSecundaria,  style.titulos]}>Primeiramente, identifique-se</Text>
+                  <Text style={[estilo.textoP16px, estilo.textoCorSecundaria,  style.titulos]}>Agora, identifique-se</Text>
                   <View style={style.inputArea}>
                       <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>NOME COMPLETO:</Text>
                       <View>
@@ -322,6 +346,11 @@ export default ({navigation}) => {
                           </TextInputMask>
 
                           </View>
+                  <View style={style.inputArea}>
+                      <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]}>ACADEMIA:</Text>
+                      <BotaoSelect     selecionado={selectedOption == '' ? false : true}  onChange={handleSelectChange} titulo='Academias cadastradas' max={1} options={academiasCadastradas}>
+                      </BotaoSelect>
+                  </View>
   
                   <View style={style.inputArea}>
                       <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]}>DATA DE NASCIMENTO:</Text>
@@ -542,6 +571,7 @@ export default ({navigation}) => {
                       novoCoordenador.setDataNascimento(`${diaNascimento}/${mesNascimento}/${anoNascimento}`)
                       novoCoordenador.setTelefone(telefone)
                       novoCoordenador.setProfissao(profissao)
+                      novoCoordenador.setAcademia(academia)
                       enderecoCoordenador.setCep(cep)
                       enderecoCoordenador.setEstado(estado)
                       enderecoCoordenador.setCidade(cidade)

@@ -52,7 +52,7 @@ export default ({ navigation }) => {
                 for (const academiaDoc of querySnapshot.docs ) {
                     const academiaNome = academiaDoc.get("nome");
                     const coordenadorNome = coordenadorDoc.get('nome');
-                    const coordenadorRef = collection(firebaseBD, "Coordenador", coordenadorNome , "Academia", academiaNome);
+                    const coordenadorRef = collection(firebaseBD, "Academias", academiaNome , "Coordenador", coordenadorNome);
 
                     const coordenadorSnapshot = await getDocs(coordenadorRef);
                     for (const coordenadorDoc of coordenadorSnapshot.docs) {

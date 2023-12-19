@@ -86,7 +86,7 @@ export default ({navigation}) => {
 
     const handleFinalizarCadastro = () => {
 
-        setDoc(doc(firebaseBD, "Coordenador/${novoCoordenador.getNome()}/Academia", `${novaAcademia.getNome()}`), {
+        setDoc(doc(firebaseBD, "Academias", `${novaAcademia.getNome()}`), {
             nome: novaAcademia.getNome(),
             cnpj: novaAcademia.getCnpj(),
             endereco: {
@@ -99,7 +99,7 @@ export default ({navigation}) => {
             }).catch((erro) => {
                 console.log(`Não foi possível criar o documento. Já existe uma academia cadastrada com este cnpj.`)
             });
-        navigation.navigate("Cadastro Turmas")
+        navigation.navigate('Cadastro Coordenador')
     }
           //Validação do estado
         const estadosBrasileiros = [
@@ -150,7 +150,7 @@ export default ({navigation}) => {
                 : 
                 <SafeAreaView style={style.container}>      
 
-                <Text style={[estilo.textoP16px, estilo.textoCorSecundaria,  style.titulos]}>Primeiramente, identifique-se</Text>
+                <Text style={[estilo.textoP16px, estilo.textoCorSecundaria,  style.titulos]}>Primeiramente, cadastre sua academia:</Text>
                 <View style={style.inputArea}>
                     <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>NOME COMPLETO:</Text>
                     <View>

@@ -4,8 +4,7 @@ class Academia {
         this.cnpj = cnpj
         this.alunos = []
         this.professores = [] 
-        this.coordenador = null
-        this.subcoordenador = []
+        this.coordenador = []
         this.endereco = null
     }
 

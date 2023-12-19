@@ -1,5 +1,5 @@
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView } from 'react-native'
-import React,{useState} from 'react'
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView, TextInput } from 'react-native'
+import React,{useState, useEffect} from 'react'
 import {Turmas} from '../../classes/Turmas'
 import { collection,setDoc,doc, getDocs, getFirestore, where , query, addDoc, querySnapshot, QueryStartAtConstraint} from "firebase/firestore";
 import {firebase, firebaseBD} from '../configuracoes/firebaseconfig/config'
@@ -58,13 +58,13 @@ export default ({navigation}) => {
 
     const handleTurmaCadastro = () => {
 
-        setDoc(doc(firebaseBD, "Coordenador/${novoCoordenador.getNome()}/Academia/${novaAcademia.getNome()}/Turmas", `${novaTurma.getNome()}`), {
+        setDoc(doc(firebaseBD, `Academias/${novaTurma.getAcademia()}/Turmas`, `${novaTurma.getNome()}`), {
             nome: novaTurma.getNome(),
             horario: novaTurma.getHorario(),
             dia: novaTurma.getDia(),
             vaga: novaTurma.getVaga(),
         }).catch((erro) => {
-            console.log(`Não foi possível criar o documento. Já existe uma academia cadastrada com este cnpj.`)
+            console.log(`Não foi possível criar a turma.`)
         })
     }
 

@@ -79,7 +79,7 @@ export default ({ navigation }) => {
 
     // Função para lidar com a navegação para a tela de cadastro
     const handleCadastro = () => {
-        navigation.navigate('Cadastro Coordenador')
+        navigation.navigate('Cadastro Academia')
     }
 
     // Função para solicitar a recuperação de senha
