@@ -6,7 +6,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import {firebase, firebaseBD} from '../configuracoes/firebaseconfig/config'
 import { collection,setDoc,doc, getDocs, getDoc,getFirestore, where , query , addDoc, updateDoc} from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from '@firebase/storage';
-import { professorLogado } from "../Home";
+import { coordenadorLogado } from "../Home";
 import Spinner from 'react-native-loading-spinner-overlay';
 import ModalSemConexao from "../ModalSemConexao";
 import NetInfo from "@react-native-community/netinfo"
@@ -28,16 +28,16 @@ export default ({navigation}) => {
               const academiaNome = academiaDoc.get('nome');
                 console.log("Chegou aqui")
                 console.log(academiaNome)
-                console.log(professorLogado.getAcademia())
-              if (academiaNome === professorLogado.getAcademia()) {
+                console.log(coordenadorLogado.getAcademia())
+              if (academiaNome === coordenadorLogado.getAcademia()) {
                 const professoresRef = collection(
                   firebaseBD,
                   'Academias',
-                  professorLogado.getAcademia(),
+                  coordenadorLogado.getAcademia(),
                   'Professores'
                 );
                 console.log("ZZZZZZZZzz")
-                console.log(professorLogado.getAcademia())
+                console.log(coordenadorLogado.getAcademia())
                 const professoresSnapshot = await getDocs(professoresRef);
       
                 for (const professorDoc of professoresSnapshot.docs) {
@@ -46,7 +46,7 @@ export default ({navigation}) => {
                   const alunoRef = collection(
                     firebaseBD,
                     'Academias',
-                    professorLogado.getAcademia(),
+                    coordenadorLogado.getAcademia(),
                     'Professores',
                     professorData.nome,
                     'alunos'

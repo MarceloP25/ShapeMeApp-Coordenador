@@ -11,7 +11,7 @@ import { Ionicons } from '@expo/vector-icons'; // Ícones Ionicons
 import { Entypo } from '@expo/vector-icons'; // Ícones Entypo
 import { AntDesign } from '@expo/vector-icons'; // Ícones AntDesign
 import { Foundation } from '@expo/vector-icons'; // Ícones Foundation
-import { Coordenador } from "../classes/Coordenador"; // Classe Professor
+import { Coordenador } from "../classes/Coordenador"; // Classe Coordenador
 import { Endereco } from "../classes/Endereco"; // Classe Endereco
 import Spinner from 'react-native-loading-spinner-overlay'; // Spinner de carregamento
 import NetInfo from "@react-native-community/netinfo" // Verificação de conexão de rede
