@@ -13,7 +13,7 @@ import {firebase, firebaseBD} from '../configuracoes/firebaseconfig/config'
 import NetInfo from "@react-native-community/netinfo"
 import ModalSemConexao from "../ModalSemConexao";
 
-export default ({navigation}) => {
+export default ({navigation, route}) => {
     const novoCoordenador = new Coordenador('', '', '', '', '', '', '')
     const enderecoCoordenador = new Endereco('', '', '', '', '', '', '')
 
@@ -152,17 +152,15 @@ export default ({navigation}) => {
 
         }
     
-      
-    const academiaEscolhida = {
-      nomeAcademia: nome,
-    }
+    const {nomeAcademia} = route.params
+    
 
     const handleFinalizarCadastro = () => {
       const data = new Date()
       const dia = data.getDate()
       const mes = data.getMonth() + 1
       const ano = data.getFullYear()
-      academiaEscolhida.getNome(novoCoordenador.getAcademia) 
+      
 
       setDoc(doc(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador`, `${novoCoordenador.getNome()}`), {
           nome: novoCoordenador.getNome(),
@@ -193,7 +191,7 @@ export default ({navigation}) => {
         }).catch((erro) => {
             console.log(`Não foi possível criar o documento. Já existe um usuário cadastrado com este email.`)
           });
-          setDoc(doc(firebaseBD, "Coordenador", `${novoCoordenador.getAcademia()}`, "Notificações", `Notificação${ano}|${mes}|${dia}`), {
+          setDoc(doc(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador/${novoCoordenador.getNome()}`, "Notificações", `Notificação${ano}|${mes}|${dia}`), {
             data: `${dia}/${mes}/${ano}`,
             nova: false,
             remetente: 'Gustavo & cia',
@@ -201,7 +199,7 @@ export default ({navigation}) => {
             tipo: "sistema",
             titulo: "Bem-vindo ao ShapeMeApp!"
           })
-      navigation.navigate("Cadastro Turmas", {})
+      navigation.navigate("Cadastro Turmas", {nomeAcademia})
     }
           //Validação do estado
       const estadosBrasileiros = [

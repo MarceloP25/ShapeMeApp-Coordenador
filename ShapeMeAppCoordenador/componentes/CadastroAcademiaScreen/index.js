@@ -49,12 +49,22 @@ export default ({navigation}) => {
     const [nomeInvalido, setNomeInvalido] = useState(false);
 
     const validaNome = (text) => {
-    const nomeValido = /^[\p{L}\s]*$/u;
-    if (nomeValido.test(text)) {
-        setNomeInvalido(false);
-    } else {
-        setNomeInvalido(true);
-    }
+        const nomeValido = /^[\p{L}\s]*$/u;
+            if (nomeValido.test(text)) {
+                setNomeInvalido(false);
+            } else {
+                setNomeInvalido(true);
+            }
+        /*
+        const docRef = firebaseBD.collection('Academias').doc(text);
+        const doc = docRef.get();
+        if (!doc.exists) {
+            docRef.set(text);
+            setNome(text);
+        } else {
+            Alert.alert('Objeto já existe no banco de dados!');
+        }
+        */
         setNome(text);
     };
 
@@ -63,7 +73,7 @@ export default ({navigation}) => {
 
     const validaECorrigeCnpj = (text) => {
         setCnpj(text);
-        setCnpjInvalido(!validarCnpj(text));
+        setCnpjInvalido(!cnpj);
     };
 
     const [cep, setCep] = useState('')
@@ -84,6 +94,15 @@ export default ({navigation}) => {
     const [numero, setNumero] = useState('')
     const [complemento, setComplemento] = useState('')
 
+    const academiaTurmas = {
+        nome: novaAcademia.nome, 
+        cnpj: novaAcademia.cnpj, 
+        enderecoAcademia: novaAcademia.endereco,
+
+    }
+
+
+
     const handleFinalizarCadastro = () => {
 
         setDoc(doc(firebaseBD, "Academias", `${novaAcademia.getNome()}`), {
@@ -99,7 +118,7 @@ export default ({navigation}) => {
             }).catch((erro) => {
                 console.log(`Não foi possível criar o documento. Já existe uma academia cadastrada com este cnpj.`)
             });
-        navigation.navigate('Cadastro Coordenador')
+        navigation.navigate('Cadastro Coordenador', {nomeAcademia: academiaTurmas.nome})
     }
           //Validação do estado
         const estadosBrasileiros = [
@@ -155,7 +174,7 @@ export default ({navigation}) => {
                     <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>NOME COMPLETO:</Text>
                     <View>
                     <TextInput 
-                    placeholder={'Informe o nome da aacademia'} 
+                    placeholder={'Informe o nome da academia'} 
                     placeholderTextColor={'#CFCDCD'} 
                     style={[
                         estilo.sombra, 
@@ -184,7 +203,7 @@ export default ({navigation}) => {
                           cnpjInvalido ? {borderWidth: 1, borderColor: 'red'} : {}
                           ]}
                           value={cnpj}
-                          onChangeText={(text) => setCnpj(text)}   
+                          onChangeText={(text) => validaECorrigeCnpj(text)}   
                       >
                       </TextInputMask>
 

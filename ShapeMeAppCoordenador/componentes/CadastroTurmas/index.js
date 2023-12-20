@@ -8,7 +8,7 @@ import ModalSemConexao from "../ModalSemConexao";
 import { NavigationContainer, useNavigation } from '@react-navigation/native'; // Navegação
 import estilo from "../estilo"
 
-export default ({navigation}) => {
+export default ({navigation, route}) => {
 
     const novaTurma = new Turmas('', '', '', '')
 
@@ -41,9 +41,11 @@ export default ({navigation}) => {
         setNome(text);
     };
 
+    const {nomeAcademia} = route.params
+
     const handleTurmaCadastro = () => {
 
-        setDoc(doc(firebaseBD, `Academias/${novaTurma.getAcademia()}/Turmas`, `${novaTurma.getNome()}`), {
+        setDoc(doc(firebaseBD, "Academias", nomeAcademia , `${novaTurma.getNome()}`), {
             nome: novaTurma.getNome(),
             horario: novaTurma.getHorario(),
             dia: novaTurma.getDia(),
@@ -51,7 +53,7 @@ export default ({navigation}) => {
         }).catch((erro) => {
             console.log(`Não foi possível criar a turma.`)
         }).finally(() => {
-            Alert.alert("Turma cadsatrada no sistema! Se deseja cadastrar uma nova turma, preencha novamente...")
+            Alert.alert("Turma cadastrada no sistema! Se deseja cadastrar uma nova turma, preencha novamente...")
         })
     }
 
