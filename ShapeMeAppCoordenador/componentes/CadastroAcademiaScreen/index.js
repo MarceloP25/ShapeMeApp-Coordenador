@@ -13,6 +13,7 @@ import { collection,setDoc,doc, getDocs, getFirestore, where , query, addDoc, qu
 import {firebase, firebaseBD} from '../configuracoes/firebaseconfig/config'
 import NetInfo from "@react-native-community/netinfo"
 import ModalSemConexao from "../ModalSemConexao";
+import CadastroScreen from "../CadastroScreen";
 
 export default ({navigation}) => {
     const novaAcademia = new Academia('', '', '', '', '', '', '')
@@ -93,14 +94,14 @@ export default ({navigation}) => {
 
     const [numero, setNumero] = useState('')
     const [complemento, setComplemento] = useState('')
-
+    /*
     const academiaTurmas = {
         nome: novaAcademia.nome, 
         cnpj: novaAcademia.cnpj, 
         enderecoAcademia: novaAcademia.endereco,
 
     }
-
+    */
 
 
     const handleFinalizarCadastro = () => {
@@ -162,12 +163,16 @@ export default ({navigation}) => {
             setRuaInvalida(!ruaValida)
           }
 
+        const academiaExiste = () =>{
+            navigation.navigate('Cadastro Coordenador')
+        }
+
 
         return (
             <ScrollView alwaysBounceVertical={true} style={estilo.corLightMenos1}>
                 {!conexao ? <ModalSemConexao/> 
                 : 
-                <SafeAreaView style={style.container}>      
+                <SafeAreaView style={style.container}>     
 
                 <Text style={[estilo.textoP16px, estilo.textoCorSecundaria,  style.titulos]}>Primeiramente, cadastre sua academia:</Text>
                 <View style={style.inputArea}>
@@ -361,50 +366,50 @@ export default ({navigation}) => {
 }
 
 const style = StyleSheet.create({
-container:{
-    marginVertical: '2%',
-},
-inputArea: {
-    marginLeft: '10%',
-    marginVertical: 10
-},
-titulos: {
-    marginLeft: 20,
-    marginTop: 20,
-    marginBottom: 5,
-},
-inputText: {
-    width: '90%',
-    height: 50,
-    marginTop: 10,
-    marginBottom: 30,
-    borderRadius: 10,
-    elevation: 10,
-    paddingHorizontal: 20,
-},
-areaInputDataNascimento: {
-    width: '90%',
-    height: 50,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 5,
-},
+    container:{
+        marginVertical: '2%',
+    },
+    inputArea: {
+        marginLeft: '10%',
+        marginVertical: 10
+    },
+    titulos: {
+        marginLeft: 20,
+        marginTop: 20,
+        marginBottom: 5,
+    },
+    inputText: {
+        width: '90%',
+        height: 50,
+        marginTop: 10,
+        marginBottom: 30,
+        borderRadius: 10,
+        elevation: 10,
+        paddingHorizontal: 20,
+    },
+    areaInputDataNascimento: {
+        width: '90%',
+        height: 50,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 5,
+    },
 
-botaoInputDataNascimento: {
-    width:'30%',
-    padding: 10,
-    backgroundColor: 'white',
-    elevation: 10,
-    borderRadius: 10,
+    botaoInputDataNascimento: {
+        width:'30%',
+        padding: 10,
+        backgroundColor: 'white',
+        elevation: 10,
+        borderRadius: 10,
 
-},
+    },
 
-campoPequeno: {
-    width: '40%'
-},
-alinhamentoBotoesPequenos: {
-    flexDirection: 'row',
-    width: '100%'
-}
+    campoPequeno: {
+        width: '40%'
+    },
+    alinhamentoBotoesPequenos: {
+        flexDirection: 'row',
+        width: '100%'
+    }
 })

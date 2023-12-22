@@ -13,7 +13,7 @@ import {firebase, firebaseBD} from '../configuracoes/firebaseconfig/config'
 import NetInfo from "@react-native-community/netinfo"
 import ModalSemConexao from "../ModalSemConexao";
 
-export default ({navigation, route}) => {
+export default ({navigation}) => {
     const novoCoordenador = new Coordenador('', '', '', '', '', '', '')
     const enderecoCoordenador = new Endereco('', '', '', '', '', '', '')
 
@@ -152,7 +152,7 @@ export default ({navigation, route}) => {
 
         }
     
-    const {nomeAcademia} = route.params
+    // const {nomeAcademia} = route.params
     
 
     const handleFinalizarCadastro = () => {
@@ -199,7 +199,7 @@ export default ({navigation, route}) => {
             tipo: "sistema",
             titulo: "Bem-vindo ao ShapeMeApp!"
           })
-      navigation.navigate("Cadastro Turmas", {nomeAcademia})
+      navigation.navigate("Login") //{nomeAcademia}
     }
           //Validação do estado
       const estadosBrasileiros = [

@@ -46,7 +46,7 @@ export default ({ navigation }) => {
             try {
                 const user = firebase.auth().currentUser;
                 const email = user.email;
-                const academiaRef = collection(firebaseBD, "Academia");
+                const academiaRef = collection(firebaseBD, "Academias");
 
                 const querySnapshot = await getDocs(academiaRef);
                 for (const academiaDoc of querySnapshot.docs ) {

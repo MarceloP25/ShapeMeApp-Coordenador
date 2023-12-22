@@ -1,16 +1,15 @@
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView, TextInput } from 'react-native'
-import React,{useState, useEffect} from 'react'
-import {Turmas} from '../../classes/Turmas'
-import { collection,setDoc,doc, getDocs, getFirestore, where , query, addDoc, querySnapshot, QueryStartAtConstraint} from "firebase/firestore";
-import {firebase, firebaseBD} from '../configuracoes/firebaseconfig/config'
-import NetInfo from "@react-native-community/netinfo"
-import ModalSemConexao from "../ModalSemConexao";
-import { NavigationContainer, useNavigation } from '@react-navigation/native'; // Navegação
-import estilo from "../estilo"
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView, TextInput, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Turmas } from '../../classes/Turmas';
+import { setDoc, doc } from "firebase/firestore";
+import { firebaseBD } from '../configuracoes/firebaseconfig/config';
+import NetInfo from "@react-native-community/netinfo";
+import estilo from "../estilo";
 
-export default ({navigation, route}) => {
+export default ({ navigation}) => {
+    const turma = new Turmas('','','','')
+    const [turmasCadastradas, setTurmasCadastradas] = useState([]); // Adiciona o estado para armazenar as turmas cadastradas
 
-    const novaTurma = new Turmas('', '', '', '')
 
     const [conexao, setConexao] = useState(true);
 
@@ -41,29 +40,40 @@ export default ({navigation, route}) => {
         setNome(text);
     };
 
-    const {nomeAcademia} = route.params
+    // const {nomeAcademia} = route.params
 
     const handleTurmaCadastro = () => {
+        // Adiciona a nova turma ao vetor de turmas cadastradas
+        setTurmasCadastradas([...turmasCadastradas, { nome, horario, dia, vaga }]);
 
-        setDoc(doc(firebaseBD, "Academias", nomeAcademia , `${novaTurma.getNome()}`), {
-            nome: novaTurma.getNome(),
-            horario: novaTurma.getHorario(),
-            dia: novaTurma.getDia(),
-            vaga: novaTurma.getVaga(),
-        }).catch((erro) => {
-            console.log(`Não foi possível criar a turma.`)
-        }).finally(() => {
-            Alert.alert("Turma cadastrada no sistema! Se deseja cadastrar uma nova turma, preencha novamente...")
-        })
-    }
+        // Limpa os campos
+        setNome('');
+        setHorario('');
+        setDia('');
+        setVaga('');
 
-    const handleFinalizar = () => { 
-        navigation.navigate('Login')
-    }
+        // Mensagem de sucesso
+        Alert.alert("Turma cadastrada no sistema! Se deseja cadastrar uma nova turma, preencha novamente...");
+    };
 
-    return (   
+    const handleFinalizar = () => {
+        // Salva as turmas no Firebase
+        for (const turma of turmasCadastradas) {
+            try {
+                setDoc(doc(firebaseBD, "Academias", nomeAcademia, "Turmas", turma.nome), turma);
+            } catch (erro) {
+                console.log(`Não foi possível criar as turmas. Erro: ${erro}`);
+            }
+        }
 
-            <ScrollView alwaysBounceVertical={true} style={estilo.corLightMenos1}>
+        // Navega para a tela de login
+        navigation.navigate('Login');
+    };
+    
+
+    return (
+        <ScrollView alwaysBounceVertical={true} style={[estilo.corLightMenos1]}>
+            <SafeAreaView style={styles.container}>
                 <View style={styles.inputArea}>
                     <Text style={[estilo.tituloH619px, styles.aviso]}>PREENCHA COM OS DADOS PARA CRIAR TURMAS!</Text>
                     <Text style={[estilo.tituloH619px, styles.aviso]}>CASO NÃO QUEIRA, FINALIZE O CADASTRO.</Text>
@@ -71,49 +81,52 @@ export default ({navigation, route}) => {
                 <View style={styles.inputArea}>
                     <View style={styles.inputArea}>
                         <Text>Nome da turma:</Text>
-                        <TextInput placeholder="Nome da turma" value={nome} style={styles.inputText} onChangeText={(text) => {validaNome(text)}}></TextInput>
+                        <View>
+                            <TextInput placeholder="Nome da turma" value={nome} style={[estilo.sombra, estilo.corLight, styles.inputText,]} onChangeText={(text) => setNome(text)}></TextInput>
+                        </View>
                     </View>
 
                     <View style={styles.inputArea}>
                         <Text>Horário da turma:</Text>
-                        <TextInput placeholder="Horário da turma" value={horario} style={styles.inputText} keyboardType='numeric' onChangeText={(text) => setHorario(text)}></TextInput>
+                        <View>
+                            <TextInput placeholder="Horário da turma" value={horario} style={[estilo.sombra, estilo.corLight, styles.inputText,]} keyboardType='numeric' onChangeText={(text) => setHorario(text)}></TextInput>
+                        </View>
                     </View>
-                    
+
                     <View style={styles.inputArea}>
                         <Text>Dias da turma:</Text>
-                        <TextInput placeholder="Dias da turma" value={dia} style={styles.inputText} onChangeText={(text) => setDia(text)}></TextInput>
+                        <View>
+                            <TextInput placeholder="Dias da turma" value={dia} style={[estilo.sombra, estilo.corLight, styles.inputText,]} onChangeText={(text) => setDia(text)}></TextInput>
+                        </View>
                     </View>
 
                     <View style={styles.inputArea}>
                         <Text>Vagas da turma:</Text>
-                        <TextInput placeholder="Vagas da turma" value={vaga} style={styles.inputText} keyboardType='numeric' onChangeText={(text) => setVaga(text)}></TextInput>
+                        <View>
+                            <TextInput placeholder="Vagas da turma" value={vaga} style={[estilo.sombra, estilo.corLight, styles.inputText,]} keyboardType='numeric' onChangeText={(text) => setVaga(text)}></TextInput>
+                        </View>
                     </View>
 
                     <View style={styles.inputArea}>
-                        <TouchableOpacity onPress={handleTurmaCadastro()} style={[estilo.botao, estilo.corPrimaria]}
-                            onPressIn={() => {
-                                novaTurma.setNome(nome)
-                                novaTurma.setHorario(horario)
-                                novaTurma.setDia(dia)
-                                novaTurma.setVaga(vaga)
-
-                                if(novaTurma.getNome() == '' || novaTurma.getHorario() == '' || novaTurma.getDia() == '' || novaTurma.getVaga() == ''){
-                                    Alert.alert("Há campos não preenchidos.", "Preencha os campos antes de prosseguir.")
-                                } else {
-                                    handleTurmaCadastro()
-                                }
-                            }}>CADASTRAR TURMA</TouchableOpacity>
+                        <TouchableOpacity onPress={handleTurmaCadastro} style={[estilo.corPrimaria, styles.botao, estilo.sombra, estilo.botao]}>
+                            <Text>CADASTRAR TURMA</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <View>
-                    <TouchableOpacity onPress={handleFinalizar()} style={[estilo.botao, estilo.corPrimaria]}>FINALIZAR</TouchableOpacity>
+                    <TouchableOpacity onPress={handleFinalizar} style={[estilo.corPrimaria, styles.botao, estilo.sombra, estilo.botao]}>
+                        <Text>FINALIZAR</Text>
+                    </TouchableOpacity>
                 </View>
-            </ScrollView>
-
-    )
+            </SafeAreaView>
+        </ScrollView>
+    );
 }
 
 const styles = StyleSheet.create({
+    container:{
+        marginVertical: '2%',
+    },
     inputText: {
         width: '90%',
         height: 50,
@@ -127,7 +140,7 @@ const styles = StyleSheet.create({
         marginLeft: '10%',
         marginVertical: 10
     },
-    aviso:{
+    aviso: {
         color: 'red',
     }
-})
+});
