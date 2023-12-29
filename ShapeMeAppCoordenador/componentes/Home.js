@@ -42,19 +42,19 @@ export default ({ navigation }) => {
 
     // Efeito colateral para buscar dados do coordenador ao carregar o componente
     useEffect(() => {
-        const fetchCoordenadorData = async () => {
+        const fetchCoordenadorData = () => {
             try {
                 const user = firebase.auth().currentUser;
                 const email = user.email;
                 const academiaRef = collection(firebaseBD, "Academias");
 
-                const querySnapshot = await getDocs(academiaRef);
+                const querySnapshot = getDocs(academiaRef);
                 for (const academiaDoc of querySnapshot.docs ) {
                     const academiaNome = academiaDoc.get("nome");
                     const coordenadorNome = coordenadorDoc.get('nome');
                     const coordenadorRef = collection(firebaseBD, "Academias", academiaNome , "Coordenador", coordenadorNome);
 
-                    const coordenadorSnapshot = await getDocs(coordenadorRef);
+                    const coordenadorSnapshot = getDocs(coordenadorRef);
                     for (const coordenadorDoc of coordenadorSnapshot.docs) {
                         if (email == coordenadorDoc.get("email")) {
                             const coordenadorData = coordenadorDoc.data();

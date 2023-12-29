@@ -11,7 +11,7 @@ export default ({tipo,remetente, data, texto, titulo, pressando}) => {
     */
     const [modalVisible, setModalVisible] = useState(false)
 
-    if (tipo == 'professor'){
+    if (tipo == 'coordenador'){
         return (
             <TouchableOpacity style={[style.container, estilo.corPrimariaMenos1]}>
 <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
