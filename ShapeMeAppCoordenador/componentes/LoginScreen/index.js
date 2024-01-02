@@ -40,16 +40,16 @@ export default ({ navigation }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-          try {
+        try {
             const keys = await AsyncStorage.getAllKeys();
     
             for (const key of keys) {
-              const value = await AsyncStorage.getItem(key);
-              console.log(`Chave: ${key}, Valor: ${value}`);
+            const value = await AsyncStorage.getItem(key);
+            console.log(`Chave: ${key}, Valor: ${value}`);
             }
-          } catch (error) {
+        } catch (error) {
             console.error('Erro ao obter dados do AsyncStorage:', error);
-          }
+        }
         };
     
         fetchData();
@@ -73,22 +73,22 @@ export default ({ navigation }) => {
 
     const saveValueFunction = async () => {
         try {
-          if (email) {
+        if (email) {
             await AsyncStorage.setItem('email', email);
             setEmail('');
-          }
-      
-          if (password) {
+        }
+    
+        if (password) {
             await AsyncStorage.setItem('senha', password);
             setPassword('');
-          }
+        }
             await getValueFunction();
         } catch (error) {
-          console.error('Erro ao salvar dados no AsyncStorage:', error);
+        console.error('Erro ao salvar dados no AsyncStorage:', error);
         }
-      };
-      
-      const getValueFunction = async () => {
+    };
+    
+    const getValueFunction = async () => {
         const coordenadorLocalTeste = await AsyncStorage.getItem('coordenadorLocal')
         const coordOfJob = JSON.parse(coordenadorLocalTeste)
         
@@ -113,69 +113,69 @@ export default ({ navigation }) => {
                 enderecoCoordenador.setNumero(dadosCoordenador.endereco.numero)
                 coordenadorLogado.setAcademia(dadosCoordenador.academia)
                 const emailCoord = dadosCoordenador.email
-              setEmail(emailCoord || ''); 
+            setEmail(emailCoord || ''); 
                 
-              const senhaCoord = dadosCoordenador.senha
-              setPassword(senhaCoord || '');
-          
-              if (emailCoord && senhaCoord) {
+            const senhaCoord = dadosCoordenador.senha
+            setPassword(senhaCoord || '');
+        
+            if (emailCoord && senhaCoord) {
                 if(conexao){
-                   await firebase.auth().signInWithEmailAndPassword(emailCoord, senhaCoord);
+                await firebase.auth().signInWithEmailAndPassword(emailCoord, senhaCoord);
                 }
                 navigation.navigate('Principal', {coordenador: dadosCoordenador});
-              } 
+            } 
             } catch (error) {
-              console.error('Erro ao obter dados do AsyncStorage ou fazer login:', error);
+            console.error('Erro ao obter dados do AsyncStorage ou fazer login:', error);
             }
         }
-      };
+    };
 
-      useEffect(() => {
+    useEffect(() => {
         console.log("Chamou a função")
         fetchcoordenadorData()
-      }, [])
+    }, [])
         const fetchcoordenadorData = async () => {
-               try {
+            try {
                 const academiaRef = collection(firebaseBD, "Academias");
                 const querySnapshot = await getDocs(academiaRef);
                 for (const academiaDoc of querySnapshot.docs) {
-                  const academiaNome = academiaDoc.get("nome");
-                  const coordenadorRef = collection(firebaseBD, "Academias", academiaNome, "Coordenador");
+                const academiaNome = academiaDoc.get("nome");
+                const coordenadorRef = collection(firebaseBD, "Academias", academiaNome, "Coordenador");
         
-                  const coordenadorSnapshot = await getDocs(coordenadorRef);
-                  for (const coordenadorDoc of coordenadorSnapshot.docs) {
+                const coordenadorSnapshot = await getDocs(coordenadorRef);
+                for (const coordenadorDoc of coordenadorSnapshot.docs) {
                     if (email == coordenadorDoc.get("email")) {
-                      const coordenadorData = coordenadorDoc.data();
-                      setCoordenadorData(coordenadorDoc.data())
-                      coordenadorLogado.setNome(coordenadorData.nome);
-                      coordenadorLogado.setEmail(coordenadorData.email);
-                      coordenadorLogado.setSenha(coordenadorData.senha)
-                      coordenadorLogado.setDataNascimento(coordenadorData.dataNascimento);
-                      coordenadorLogado.setSexo(coordenadorData.sexo);
-                      coordenadorLogado.setProfissao(coordenadorData.profissao);
-                      coordenadorLogado.setCpf(coordenadorData.cpf);
-                      coordenadorLogado.setTelefone(coordenadorData.telefone);
-                      enderecoCoordenador.setBairro(coordenadorData.endereco.bairro)
-                      enderecoCoordenador.setCep(coordenadorData.endereco.cep)
-                      enderecoCoordenador.setCidade(coordenadorData.endereco.cidade)
-                      enderecoCoordenador.setEstado(coordenadorData.endereco.estado)
-                      enderecoCoordenador.setRua(coordenadorData.endereco.rua)
-                      enderecoCoordenador.setNumero(coordenadorData.endereco.numero)
-                      coordenadorLogado.setAcademia(coordenadorData.academia)
+                    const coordenadorData = coordenadorDoc.data();
+                    setCoordenadorData(coordenadorDoc.data())
+                    coordenadorLogado.setNome(coordenadorData.nome);
+                    coordenadorLogado.setEmail(coordenadorData.email);
+                    coordenadorLogado.setSenha(coordenadorData.senha)
+                    coordenadorLogado.setDataNascimento(coordenadorData.dataNascimento);
+                    coordenadorLogado.setSexo(coordenadorData.sexo);
+                    coordenadorLogado.setProfissao(coordenadorData.profissao);
+                    coordenadorLogado.setCpf(coordenadorData.cpf);
+                    coordenadorLogado.setTelefone(coordenadorData.telefone);
+                    enderecoCoordenador.setBairro(coordenadorData.endereco.bairro)
+                    enderecoCoordenador.setCep(coordenadorData.endereco.cep)
+                    enderecoCoordenador.setCidade(coordenadorData.endereco.cidade)
+                    enderecoCoordenador.setEstado(coordenadorData.endereco.estado)
+                    enderecoCoordenador.setRua(coordenadorData.endereco.rua)
+                    enderecoCoordenador.setNumero(coordenadorData.endereco.numero)
+                    coordenadorLogado.setAcademia(coordenadorData.academia)
 
-                      const coordenadorString = JSON.stringify(coordenadorDoc.data())
-                      AsyncStorage.setItem('coordenadorLocal', coordenadorString)
+                    const coordenadorString = JSON.stringify(coordenadorDoc.data())
+                    AsyncStorage.setItem('coordenadorLocal', coordenadorString)
                     }
-                  }
                 }
-             } catch (error) {
+                }
+            } catch (error) {
                 console.log(error);
-              }  finally {
+            }  finally {
                 saveValueFunction()
-              } 
-          }
+            } 
+        }
 
-      const handleCadastro = () => {
+    const handleCadastro = () => {
         navigation.navigate('Cadastro')
     }
 

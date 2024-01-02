@@ -13,6 +13,7 @@ import {firebase, firebaseBD} from '../configuracoes/firebaseconfig/config'
 import NetInfo from "@react-native-community/netinfo"
 import ModalSemConexao from "../ModalSemConexao";
 
+
 export default ({navigation}) => {
     const novoCoordenador = new Coordenador('', '', '', '', '', '', '')
     const enderecoCoordenador = new Endereco('', '', '', '', '', '', '')
@@ -183,7 +184,8 @@ export default ({navigation}) => {
           alert("Novo usuário criado com sucesso!")
           firebase.auth().createUserWithEmailAndPassword(novoCoordenador.getEmail(), novoCoordenador.getSenha())
           .then((userCredential) => {
-            console.log(userCredential)
+            const user = userCredential.user;
+            console.log(user);
 
           }).catch((error) => {
             alert("Ocorreu um erro no seu cadastro.")

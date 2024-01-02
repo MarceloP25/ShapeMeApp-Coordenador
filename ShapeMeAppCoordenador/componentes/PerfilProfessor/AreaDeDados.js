@@ -3,7 +3,7 @@ import {Text, View, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-nati
 import estilo from '../estilo'
 import {useFonts} from "expo-font"
 import { getAuth, signOut } from "firebase/auth";
-import { coordenadorLogado, enderecoCoordenador } from '../Home'
+import { coordenadorLogado, enderecoCoordenador } from '../LoginScreen'
 export default ({navigation}) => {
     /*
     const [fontsLoaded] = useFonts({

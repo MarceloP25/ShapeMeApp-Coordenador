@@ -23,6 +23,7 @@ const firebaseConfig = {
 */
   apiKey: "AIzaSyAPJmPDvsaFKOfsM718BrcvTwyL5HOYqcQ",
   authDomain: "teste-7de6b.firebaseapp.com",
+  databaseURL: "https://console.firebase.google.com/u/0/project/teste-7de6b/database/teste-7de6b-default-rtdb/data/~2F?hl=pt",
   projectId: "teste-7de6b",
   storageBucket: "teste-7de6b.appspot.com",
   messagingSenderId: "956290569376",

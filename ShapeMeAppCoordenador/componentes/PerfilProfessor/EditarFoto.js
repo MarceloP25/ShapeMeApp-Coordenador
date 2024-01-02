@@ -5,7 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 import {firebase, firebaseBD} from '../configuracoes/firebaseconfig/config'
 import { collection,setDoc,doc, getDocs, getDoc,getFirestore, where , query , addDoc, updateDoc} from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL, uploadBytesResumable } from '@firebase/storage';
-import { professorLogado } from "../Home";
+import { coordenadorLogado } from "../LoginScreen";
 import NetInfo from "@react-native-community/netinfo"
 
 const altura = Dimensions.get('window').height
@@ -25,7 +25,7 @@ export default ({navigation}) => {
     }, [])
     const getStoredImage = async () => {
         const storage = getStorage();
-        const storeRef = ref(storage, `foto${professorLogado.getCpf()}.jpg`);
+        const storeRef = ref(storage, `foto${coordenadorLogado.getCpf()}.jpg`);
         console.log("Deu erro aqui")
 
         
@@ -59,7 +59,7 @@ export default ({navigation}) => {
     
             if (!result.canceled) {
                 const storage = getStorage(); // Storage
-                const storeRef = ref(storage, `foto${professorLogado.getCpf()}.jpg`);
+                const storeRef = ref(storage, `foto${coordenadorLogado.getCpf()}.jpg`);
     
                 console.log('result.assets', result.assets[0].uri);
     
