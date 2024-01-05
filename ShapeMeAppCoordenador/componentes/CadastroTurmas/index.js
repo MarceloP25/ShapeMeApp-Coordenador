@@ -5,29 +5,25 @@ import { setDoc, doc } from "firebase/firestore";
 import { firebaseBD } from '../configuracoes/firebaseconfig/config';
 import NetInfo from "@react-native-community/netinfo";
 import estilo from "../estilo";
+import { coordenadorLogado } from '../LoginScreen';
 
-export default ({ navigation}) => {
-    const turma = new Turmas('','','','')
-    const [turmasCadastradas, setTurmasCadastradas] = useState([]); // Adiciona o estado para armazenar as turmas cadastradas
-
-
+export default ({ navigation }) => {
     const [conexao, setConexao] = useState(true);
 
     useEffect(() => {
         const unsubscribe = NetInfo.addEventListener(state => {
-        setConexao(state.type === 'wifi' || state.type === 'cellular')
+            setConexao(state.type === 'wifi' || state.type === 'cellular')
         })
 
         return () => {
-        unsubscribe()
+            unsubscribe()
         }
     }, [])
 
-
-    const [nome, setNome ] = useState('')
-    const [horario, setHorario] = useState('')
-    const [dia, setDia] = useState('')
-    const [vaga, setVaga] = useState('')
+    const [nome, setNome] = useState('');
+    const [horario, setHorario] = useState('');
+    const [dia, setDia] = useState('');
+    const [vaga, setVaga] = useState('');
     const [nomeInvalido, setNomeInvalido] = useState(false);
 
     const validaNome = (text) => {
@@ -40,36 +36,30 @@ export default ({ navigation}) => {
         setNome(text);
     };
 
-    // const {nomeAcademia} = route.params
+    const handleTurmaCadastro = async () => {
+        const turma = new Turmas(nome, horario, dia, vaga);
 
-    const handleTurmaCadastro = () => {
-        // Adiciona a nova turma ao vetor de turmas cadastradas
-        setTurmasCadastradas([...turmasCadastradas, { nome, horario, dia, vaga }]);
+        // Salva a turma no Firebase
+        try {
+            await setDoc(doc(firebaseBD, "Academias", nomeAcademia, "Turmas", turma.nome), turma);
+            
+            // Limpa os campos
+            setNome('');
+            setHorario('');
+            setDia('');
+            setVaga('');
 
-        // Limpa os campos
-        setNome('');
-        setHorario('');
-        setDia('');
-        setVaga('');
-
-        // Mensagem de sucesso
-        Alert.alert("Turma cadastrada no sistema! Se deseja cadastrar uma nova turma, preencha novamente...");
+            // Mensagem de sucesso
+            Alert.alert("Turma cadastrada no sistema! Se deseja cadastrar uma nova turma, preencha novamente...");
+        } catch (erro) {
+            console.log(`Não foi possível criar a turma. Erro: ${erro}`);
+        }
     };
 
     const handleFinalizar = () => {
-        // Salva as turmas no Firebase
-        for (const turma of turmasCadastradas) {
-            try {
-                setDoc(doc(firebaseBD, "Academias", nomeAcademia, "Turmas", turma.nome), turma);
-            } catch (erro) {
-                console.log(`Não foi possível criar as turmas. Erro: ${erro}`);
-            }
-        }
-
         // Navega para a tela de login
         navigation.navigate('Login');
     };
-    
 
     return (
         <ScrollView alwaysBounceVertical={true} style={[estilo.corLightMenos1]}>
