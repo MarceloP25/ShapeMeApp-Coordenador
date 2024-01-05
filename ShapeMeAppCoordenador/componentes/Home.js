@@ -10,7 +10,7 @@ import NetInfo from "@react-native-community/netinfo"
 import { coordenadorLogado } from "./LoginScreen";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { collection, doc, getDoc, getDocs, getFirestore, setDoc } from "firebase/firestore";
-
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 export default ({ navigation, route }) => {
 const {alunos} = route.params

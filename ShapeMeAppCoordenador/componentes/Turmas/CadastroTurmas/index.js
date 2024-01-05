@@ -1,11 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View, ScrollView, TextInput, Alert } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { Turmas } from '../../classes/Turmas';
+import { Turmas } from '../../../classes/Turmas';
 import { setDoc, doc } from "firebase/firestore";
-import { firebaseBD } from '../configuracoes/firebaseconfig/config';
+import { firebaseBD } from '../../configuracoes/firebaseconfig/config';
 import NetInfo from "@react-native-community/netinfo";
-import estilo from "../estilo";
-import { coordenadorLogado } from '../LoginScreen';
+import estilo from "../../estilo";
+import { coordenadorLogado } from '../../LoginScreen';
 
 export default ({ navigation }) => {
     const [conexao, setConexao] = useState(true);
