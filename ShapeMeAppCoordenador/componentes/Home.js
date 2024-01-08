@@ -131,7 +131,7 @@ return (
                 style={[estilo.corPrimaria, style.botao]} 
                 onPress={() => navigation.navigate('Seleção Aluno Análise do Programa de Treino', { alunos: alunos })}>
             <View style={[style.iconeBotao]}>
-                <MaterialCommunityIcons name="clipboard-text-search-outline" size={120} color="white" />
+                <FontAwesome5 name="building" size={120} color="white" />
             </View>
             <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>ACADEMIA</Text>
             </TouchableOpacity>
@@ -159,7 +159,7 @@ return (
                 style={[estilo.corPrimaria, style.botao]} 
                 onPress={() => { navigation.navigate('Seleção Aluno CSV', { alunos: alunos }) }}>
             <View style={[style.iconeBotao]}>
-                <MaterialCommunityIcons name="clipboard-list-outline" size={120} color="white" />
+                <MaterialCommunityIcons name="file-export" size={120} color="white" />
             </View>
             <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>EXPORTAR DADOS</Text>
             </TouchableOpacity>
@@ -173,7 +173,7 @@ return (
                 style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
                 onPress={() => navigation.navigate("Seleção Aluno CSV", { alunos: alunos })} disabled={!conexao}>
             <View style={[{ transform: [{ rotate: '-45deg' }] }, style.iconeBotao]}>
-                <Ionicons name="barbell-outline" size={120} color="white" />
+                <FontAwesome5 name="chalkboard-teacher" size={120} color="white" />
             </View>
             <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>LISTA PROFESSORES  {!conexao ? "Offline" : null} </Text>
             </TouchableOpacity>
@@ -185,7 +185,7 @@ return (
                 style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
                 onPress={() => navigation.navigate("Seleção Aluno CSV", { alunos: alunos })} disabled={!conexao}>
             <View style={[{ transform: [{ rotate: '-45deg' }] }, style.iconeBotao]}>
-                <Ionicons name="barbell-outline" size={120} color="white" />
+                <FontAwesome5 name="clipboard-list" size={120} color="white" />
             </View>
             <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>LISTA ALUNOS  {!conexao ? "Offline" : null} </Text>
             </TouchableOpacity>
