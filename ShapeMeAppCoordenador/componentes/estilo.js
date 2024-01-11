@@ -142,5 +142,27 @@ export default StyleSheet.create ({
         marginRight: 'auto',
         marginTop: 10,  
     },
+    botaoClaro1: {
+        width: 315,
+        height: 81,
+        flexShrink: 0,
+        borderRadius: 6,
+        border: 1,
+        borderRadius: 6,
+        borderStyle: solid,
+        borderColor: '#06F',
+        background: '#FFF',        
+    },
+    botaoClaro2: {
+        width: 283,
+        height: 50,
+        flexShrink: 0,
+        borderRadius: 6,
+        border: 1,
+        borderRadius: 5,
+        borderStyle: solid,
+        borderColor: '#06F',
+        background: '#FFF',
+    },
 
 })

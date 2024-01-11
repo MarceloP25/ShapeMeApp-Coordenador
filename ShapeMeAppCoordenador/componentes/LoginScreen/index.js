@@ -11,14 +11,11 @@ import ModalSemConexao from '../ModalSemConexao'
 import Modal from "react-native-modal";
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Academia } from '../../classes/Academia';
 import { Coordenador } from '../../classes/Coordenador';
 import { Endereco } from '../../classes/Endereco';
 
 let coordenadorLogado = new Coordenador()
 let enderecoCoordenador = new Endereco()
-let academiaInfo = new Academia()
-
 
 export { coordenadorLogado, enderecoCoordenador, academiaInfo };
 

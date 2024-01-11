@@ -1,6 +1,5 @@
 class Exercicio {
-    constructor (id, nome, tipo, musculos, descricao, imagem){
-        this.id = id
+    constructor (nome, tipo, musculos, descricao, imagem){
         this.nome = nome
         this.tipo = tipo
         this.musculos = musculos
@@ -18,9 +17,6 @@ class Exercicio {
 
     setMusculos = (musculos) => {this.musculos = musculos}
     getMusculos = () => {return this.musculos}
-
-    setId = (id) => {this.id = id}
-    getId = () => {return this.id}
 
     setDescricao = (descricao) => {this.descricao = descricao}
     getDescricao = () => {return this.descricao}
