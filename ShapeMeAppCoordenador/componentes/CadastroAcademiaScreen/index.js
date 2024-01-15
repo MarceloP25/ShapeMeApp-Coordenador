@@ -117,9 +117,9 @@ export default ({navigation}) => {
                 complemento: enderecoAcademia.getComplemento(),
             },
             }).catch((erro) => {
-                console.log(`Não foi possível criar o documento. Já existe uma academia cadastrada com este cnpj.`)
+                console.log(`Não foi possível criar o documento. Já existe uma academia cadastrada com esse nome.`)
             });
-        navigation.navigate('Cadastro Coordenador', {nomeAcademia: academiaTurmas.nome})
+        navigation.navigate('Cadastro Coordenador')
     }
           //Validação do estado
         const estadosBrasileiros = [

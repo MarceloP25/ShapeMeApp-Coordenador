@@ -6,7 +6,7 @@ class Exercicio {
         this.descricao = descricao
         this.variacao = []
         this.execucao = []
-        this.imagem = ''
+        this.imagem = null
     }
 
     setNome = (nome) => {this.nome = nome}

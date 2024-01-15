@@ -13,7 +13,7 @@ import { collection, doc, getDoc, getDocs, getFirestore, setDoc } from "firebase
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 export default ({ navigation, route }) => {
-const {alunos} = route.params
+const {academia} = route.params
 
 
 const [conexao, setConexao] = useState(true);
@@ -103,122 +103,122 @@ verificaDocumentos()
 
 return (
     <SafeAreaView style={[estilo.corLightMenos1, style.container]}>
-    <SafeAreaView>
+        <SafeAreaView>
 
-        <View style={style.areaLogo}>
-        <Logo />
+            <View style={style.areaLogo}>
+            <Logo />
 
-        </View>
-        <View style={style.areaFrase}>
-        <Text style={[estilo.textoCorSecundaria, estilo.tituloH427px, estilo.centralizado]}>Boas vindas { coordenadorLogado.getNome() || 'Coordenador'}!</Text>
-        </View>
-
-        <View style={style.areaBotoes}>
-
-         {/* Botão para as turmas */}
-        <View style={style.containerBotao}>
-            <TouchableOpacity 
-                style={[estilo.corPrimaria, style.botao]} 
-                onPress={() => navigation.navigate('', { alunos: alunos })}>
-            <Foundation name="clipboard-pencil" size={120} color="white" />
-            <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>TURMAS</Text>
-            </TouchableOpacity>
-        </View>
-
-        {/* Botão para dados da academia */}
-        <View style={style.containerBotao}>
-            <TouchableOpacity 
-                style={[estilo.corPrimaria, style.botao]} 
-                onPress={() => navigation.navigate('Seleção Aluno Análise do Programa de Treino', { alunos: alunos })}>
-            <View style={[style.iconeBotao]}>
-                <FontAwesome5 name="building" size={120} color="white" />
             </View>
-            <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>ACADEMIA</Text>
-            </TouchableOpacity>
-        </View>
-
-        </View>
-
-        <View style={style.areaBotoes}>
-        
-        {/* Botão para os dados de treinos */}
-        <View style={style.containerBotao}  >
-            <TouchableOpacity 
-                style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
-                onPress={() => navigation.navigate('Evolução', { alunos: alunos })} disabled={!conexao}>
-            <View style={[style.iconeBotao]}>
-                <AntDesign name="linechart" size={120} color="white" />
+            <View style={style.areaFrase}>
+            <Text style={[estilo.textoCorSecundaria, estilo.tituloH427px, estilo.centralizado]}>Boas vindas { coordenadorLogado.getNome() || 'Coordenador'}!</Text>
             </View>
-            <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>EVOLUÇÃO DO TREINO {!conexao ? "Offline" : null} </Text>
-            </TouchableOpacity>
-        </View>
 
-        {/* Botão para exportar os dados em CSV */}
-        <View style={[style.containerBotao]} >
-            <TouchableOpacity 
-                style={[estilo.corPrimaria, style.botao]} 
-                onPress={() => { navigation.navigate('Seleção Aluno CSV', { alunos: alunos }) }}>
-            <View style={[style.iconeBotao]}>
-                <MaterialCommunityIcons name="file-export" size={120} color="white" />
-            </View>
-            <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>EXPORTAR DADOS</Text>
-            </TouchableOpacity>
-        </View>
-        </View>
+            <View style={style.areaBotoes}>
 
-        <View style={style.areaBotoes}>
-        {/* Botão para lista de professores */}
-        <View style={style.containerBotao}  >
-            <TouchableOpacity 
-                style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
-                onPress={() => navigation.navigate("Seleção Aluno CSV", { alunos: alunos })} disabled={!conexao}>
-            <View style={[{ transform: [{ rotate: '-45deg' }] }, style.iconeBotao]}>
-                <FontAwesome5 name="chalkboard-teacher" size={120} color="white" />
+            {/* Botão para as turmas */}
+            <View style={style.containerBotao}>
+                <TouchableOpacity 
+                    style={[estilo.corPrimaria, style.botao]} 
+                    onPress={() => navigation.navigate('', { academia: academia })}>
+                <Foundation name="clipboard-pencil" size={120} color="white" />
+                <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>TURMAS</Text>
+                </TouchableOpacity>
             </View>
-            <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>LISTA PROFESSORES  {!conexao ? "Offline" : null} </Text>
-            </TouchableOpacity>
-        </View>
 
-        {/* Botão para lista de alunos */}
-        <View style={style.containerBotao}  >
-            <TouchableOpacity 
-                style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
-                onPress={() => navigation.navigate("Seleção Aluno CSV", { alunos: alunos })} disabled={!conexao}>
-            <View style={[{ transform: [{ rotate: '-45deg' }] }, style.iconeBotao]}>
-                <FontAwesome5 name="clipboard-list" size={120} color="white" />
+            {/* Botão para dados da academia */}
+            <View style={style.containerBotao}>
+                <TouchableOpacity 
+                    style={[estilo.corPrimaria, style.botao]} 
+                    onPress={() => navigation.navigate('Seleção Aluno Análise do Programa de Treino', { academia: academia })}>
+                <View style={[style.iconeBotao]}>
+                    <FontAwesome5 name="building" size={120} color="white" />
+                </View>
+                <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>ACADEMIA</Text>
+                </TouchableOpacity>
             </View>
-            <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>LISTA ALUNOS  {!conexao ? "Offline" : null} </Text>
-            </TouchableOpacity>
-        </View>
-        </View>
-        
-        <View style={style.areaBotoes}>
 
-        {/* Botão para os exercícios */}
-        <View style={style.containerBotao}  >
-            <TouchableOpacity 
-                style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
-                onPress={() => navigation.navigate("Seleção Aluno CSV", { alunos: alunos })} disabled={!conexao}>
-            <View style={[{ transform: [{ rotate: '-45deg' }] }, style.iconeBotao]}>
-                <Ionicons name="barbell-outline" size={120} color="white" />
             </View>
-            <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>EXERCICIOS</Text>
-            </TouchableOpacity>
-        </View>
-        
-        {/* Botão para o chat */}
-        <View style={[style.containerBotao]} >
-            <TouchableOpacity 
-                style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
-                onPress={() => navigation.navigate('Chat')} disabled={!conexao}>
-            <View style={[style.iconeBotao]}>
-                <AntDesign name="wechat" size={120} color="white" />
+
+            <View style={style.areaBotoes}>
+            
+            {/* Botão para os dados de treinos */}
+            <View style={style.containerBotao}  >
+                <TouchableOpacity 
+                    style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
+                    onPress={() => navigation.navigate('Evolução', { academia: academia })} disabled={!conexao}>
+                <View style={[style.iconeBotao]}>
+                    <AntDesign name="linechart" size={120} color="white" />
+                </View>
+                <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>EVOLUÇÃO DO TREINO {!conexao ? "Offline" : null} </Text>
+                </TouchableOpacity>
             </View>
-            <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>MENSAGENS {!conexao ? "Offline" : null}</Text>
-            </TouchableOpacity>
-        </View>
-        </View>
-    </SafeAreaView >
+
+            {/* Botão para exportar os dados em CSV */}
+            <View style={[style.containerBotao]} >
+                <TouchableOpacity 
+                    style={[estilo.corPrimaria, style.botao]} 
+                    onPress={() => { navigation.navigate('Seleção Aluno CSV', { academia: academia }) }}>
+                <View style={[style.iconeBotao]}>
+                    <MaterialCommunityIcons name="file-export" size={120} color="white" />
+                </View>
+                <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>EXPORTAR DADOS</Text>
+                </TouchableOpacity>
+            </View>
+            </View>
+
+            <View style={style.areaBotoes}>
+            {/* Botão para lista de professores */}
+            <View style={style.containerBotao}  >
+                <TouchableOpacity 
+                    style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
+                    onPress={() => navigation.navigate("Seleção Aluno CSV", { academia: academia })} disabled={!conexao}>
+                <View style={[{ transform: [{ rotate: '-45deg' }] }, style.iconeBotao]}>
+                    <FontAwesome5 name="chalkboard-teacher" size={120} color="white" />
+                </View>
+                <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>LISTA PROFESSORES  {!conexao ? "Offline" : null} </Text>
+                </TouchableOpacity>
+            </View>
+
+            {/* Botão para lista de alunos */}
+            <View style={style.containerBotao}  >
+                <TouchableOpacity 
+                    style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
+                    onPress={() => navigation.navigate("Seleção Aluno CSV", { academia: academia })} disabled={!conexao}>
+                <View style={[{ transform: [{ rotate: '-45deg' }] }, style.iconeBotao]}>
+                    <FontAwesome5 name="clipboard-list" size={120} color="white" />
+                </View>
+                <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>LISTA ALUNOS  {!conexao ? "Offline" : null} </Text>
+                </TouchableOpacity>
+            </View>
+            </View>
+            
+            <View style={style.areaBotoes}>
+
+            {/* Botão para os exercícios */}
+            <View style={style.containerBotao}  >
+                <TouchableOpacity 
+                    style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
+                    onPress={() => navigation.navigate("Exercicios")} disabled={!conexao}>
+                <View style={[{ transform: [{ rotate: '-45deg' }] }, style.iconeBotao]}>
+                    <Ionicons name="barbell-outline" size={120} color="white" />
+                </View>
+                <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>EXERCICIOS</Text>
+                </TouchableOpacity>
+            </View>
+            
+            {/* Botão para o chat */}
+            <View style={[style.containerBotao]} >
+                <TouchableOpacity 
+                    style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
+                    onPress={() => navigation.navigate('Chat')} disabled={!conexao}>
+                <View style={[style.iconeBotao]}>
+                    <AntDesign name="wechat" size={120} color="white" />
+                </View>
+                <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>MENSAGENS {!conexao ? "Offline" : null}</Text>
+                </TouchableOpacity>
+            </View>
+            </View>
+        </SafeAreaView >
 
     </SafeAreaView>
 

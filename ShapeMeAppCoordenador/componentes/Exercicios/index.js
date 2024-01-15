@@ -8,8 +8,9 @@ import { Exercicio } from '../../classes/Exercicio'
 
 let exercicioBusca = new Exercicio()
 
-export default (navigation) =>{
+export default ({navigation, route}) =>{
 
+  const {academia} = route.params // arrumar o route para passar o nome da academia do coordenador
   const [exercicioData, setexercicioData] = useState([])
   const [modalVisible, setModalVisible] = useState(false);
 

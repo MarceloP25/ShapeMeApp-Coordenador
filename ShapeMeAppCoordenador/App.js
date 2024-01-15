@@ -61,6 +61,7 @@ import ExportCSV from './componentes/ExportCSV/index.js';
 import SelecaoAlunoExport from './componentes/ExportCSV/SelecaoAlunoExport.js';
 import CadastroAcademiaScreen from './componentes/CadastroAcademiaScreen/index.js';
 import CadastroTurmas from './componentes/CadastroTurmas/index.js';
+import CadastroExercicios from '.componentes/Exercicios/CadastroExercicios/index.js'
 
 const Stack = createNativeStackNavigator();
 
@@ -88,6 +89,8 @@ export default function App() {
         <Stack.Screen name="Montar treino" component={MontarTreino}/>
         <Stack.Screen name="Cadastro Academia" component={CadastroAcademiaScreen}/>
         <Stack.Screen name="Perfil" component={PerfilProfessor}/>
+        <Stack.Screen name="Exercicios" component={Exercicios}/>
+        <Stack.Screen name="Cadastro Exercicios" componente={CadastroExercicios}/>
         <Stack.Screen name="Editar foto" component={EditarFoto}/>
         <Stack.Screen name="Avaliações" component={Avaliacoes}/>
         <Stack.Screen name='Modal sem conexão' component={ModalSemConexao} options={{headerShown: false}}/>

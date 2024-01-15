@@ -17,7 +17,7 @@ import { Endereco } from '../../classes/Endereco';
 let coordenadorLogado = new Coordenador()
 let enderecoCoordenador = new Endereco()
 
-export { coordenadorLogado, enderecoCoordenador, academiaInfo };
+export { coordenadorLogado, enderecoCoordenador };
 
 export default ({ navigation }) => {
     const [email, setEmail] = useState('')
