@@ -11,7 +11,7 @@ import ImagePicker from 'react-native-image-picker';
 import { coordenadorLogado } from '../../LoginScreen';
 
 
-export default (navigation, route) =>{
+export default ({navigation, route}) =>{
 
     const novoExercicio = new Exercicio()
 

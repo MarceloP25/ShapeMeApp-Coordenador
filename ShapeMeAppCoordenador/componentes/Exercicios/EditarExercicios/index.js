@@ -12,7 +12,7 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import { Exercicio } from '../../classes/Exercicio';
 import { coordenadorLogado } from '../../LoginScreen';
 
-export default (navigation, route) => {
+export default ({navigation, route}) => {
     const [conexao, setConexao] = useState(true);
     const [exercicios, setExercicios] = useState([]);
     const [exercicioSelecionado, setExercicioSelecionado] = useState(null);
@@ -52,7 +52,7 @@ export default (navigation, route) => {
         setDescricao(exercicio.descricao || '');
         setVariacao(exercicio.variacao || []);
         setExecucao(exercicio.execucao || []);
-        setImage(exercicio.imagem || null);
+        setImagem(exercicio.imagem || null);
     };
 
     const renderItem = ({ item }) => (
