@@ -6,6 +6,10 @@ import { collection, setDoc, doc, getDocs, getFirestore, where, query, addDoc, q
 import { firebase, firebaseBD } from '../configuracoes/firebaseconfig/config'
 import { Exercicio } from '../../classes/Exercicio'
 import { FontAwesome6 } from '@expo/vector-icons';
+import ModalDropdown from 'react-native-modal-dropdown';
+import ImagePicker from 'react-native-image-picker';
+import { coordenadorLogado } from '../../LoginScreen';
+
 
 export default (navigation, route) =>{
 
@@ -39,7 +43,7 @@ export default (navigation, route) =>{
 
     // Olhar como definir 4 tipos que serão coleções no firebase
     const [tipo, setTipo] = useState('')
-    const [tipoDisponivel, setTipoDisponivel] = useState([])
+    const tiposDisponiveis = ["Alongamentos", "Aeróbicos", "Força - Membros Superiores", "Força - Membros Inferiores"];
 
     const [musculos, setMusculos] = useState('')
     const [musculosInvalido, setMusculosInvalido] = useState(false)
@@ -125,9 +129,17 @@ export default (navigation, route) =>{
     /* Definir como adicionar imagem */
     const [image, setImage] = useState(null)
 
+    const options = {
+        title: 'Selecione uma imagem',
+        storageOptions: {
+            skipBackup: true,
+            path: 'images',
+        },
+    };
+
 
     const handleFinalizarCadastro = () => {
-        setDoc(doc(firebaseBD, 'Academias', nomeAcademia, 'Exercicios', `${novoExercicio.getNome()}`),{
+        setDoc(doc(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), 'Exercicios', `${novoExercicio.getNome()}`),{
             nome: novoExercicio.getNome(),
             tipo: novoExercicio.getTipo(),
             musculos: novoExercicio.getMusculos(),
@@ -174,8 +186,14 @@ export default (navigation, route) =>{
 
                     <View style={styles.inputArea}>
                         <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>TIPO:</Text>
-
-                    </View>
+                        <ModalDropdown
+                            options={tiposDisponiveis}
+                            onSelect={(index, value) => setTipo(value)}
+                            defaultValue="Selecione o Tipo"
+                            textStyle={[estilo.sombra, estilo.corLight, styles.inputText]}
+                            dropdownTextStyle={[estilo.sombra, estilo.corLight]}
+                        />
+                </View>
 
                     <View style={styles.inputArea}>
                         <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>ATUAÇÃO MUSCULAR:</Text>
@@ -241,6 +259,24 @@ export default (navigation, route) =>{
 
                     <View>
                         <Text>IMAGEM:</Text>
+                        <View>
+                            <TouchableOpacity
+                                style={[estilo.botao, estilo.sombra]}
+                                onPress={() => {
+                                ImagePicker.showImagePicker(options, (response) => {
+                                    if (response.didCancel) {
+                                    console.log('Usuário cancelou a seleção da imagem');
+                                    } else if (response.error) {
+                                    console.log('Erro: ', response.error);
+                                    } else {
+                                    const source = { uri: response.uri };
+                                    setImage(source);
+                                    }
+                                });
+                                }}>
+                                <Text style={[estilo.tituloH523px, estilo.textoCorLight]}>Selecionar Imagem</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
 
                     <View>
@@ -252,7 +288,7 @@ export default (navigation, route) =>{
                                 novoExercicio.setDescricao(descricao)
                                 novoExercicio.setVariacao(variacao)
                                 novoExercicio.setExecucao(execucao)
-                                // novoExercicio.setImagem(imagem)
+                                novoExercicio.setImagem(image)
 
                                 if (novoExercicio.getNome() == ''){
                                     Alert.alert('Informe o nome do exercicio para cadasrtá-lo!!!')

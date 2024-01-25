@@ -13,7 +13,7 @@ import { collection, doc, getDoc, getDocs, getFirestore, setDoc } from "firebase
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 export default ({ navigation, route }) => {
-const {academia} = route.params
+//const {dadosCoordenador} = route.params
 
 
 const [conexao, setConexao] = useState(true);
@@ -119,7 +119,7 @@ return (
             <View style={style.containerBotao}>
                 <TouchableOpacity 
                     style={[estilo.corPrimaria, style.botao]} 
-                    onPress={() => navigation.navigate('', { academia: academia })}>
+                    onPress={() => navigation.navigate('')}>
                 <Foundation name="clipboard-pencil" size={120} color="white" />
                 <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>TURMAS</Text>
                 </TouchableOpacity>
@@ -129,7 +129,7 @@ return (
             <View style={style.containerBotao}>
                 <TouchableOpacity 
                     style={[estilo.corPrimaria, style.botao]} 
-                    onPress={() => navigation.navigate('Seleção Aluno Análise do Programa de Treino', { academia: academia })}>
+                    onPress={() => navigation.navigate('Seleção Aluno Análise do Programa de Treino')}>
                 <View style={[style.iconeBotao]}>
                     <FontAwesome5 name="building" size={120} color="white" />
                 </View>
@@ -145,7 +145,7 @@ return (
             <View style={style.containerBotao}  >
                 <TouchableOpacity 
                     style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
-                    onPress={() => navigation.navigate('Evolução', { academia: academia })} disabled={!conexao}>
+                    onPress={() => navigation.navigate('Evolução')} disabled={!conexao}>
                 <View style={[style.iconeBotao]}>
                     <AntDesign name="linechart" size={120} color="white" />
                 </View>
@@ -157,7 +157,7 @@ return (
             <View style={[style.containerBotao]} >
                 <TouchableOpacity 
                     style={[estilo.corPrimaria, style.botao]} 
-                    onPress={() => { navigation.navigate('Seleção Aluno CSV', { academia: academia }) }}>
+                    onPress={() => { navigation.navigate('Seleção Aluno CSV') }}>
                 <View style={[style.iconeBotao]}>
                     <MaterialCommunityIcons name="file-export" size={120} color="white" />
                 </View>
@@ -171,7 +171,7 @@ return (
             <View style={style.containerBotao}  >
                 <TouchableOpacity 
                     style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
-                    onPress={() => navigation.navigate("Seleção Aluno CSV", { academia: academia })} disabled={!conexao}>
+                    onPress={() => navigation.navigate("Seleção Aluno CSV")} disabled={!conexao}>
                 <View style={[{ transform: [{ rotate: '-45deg' }] }, style.iconeBotao]}>
                     <FontAwesome5 name="chalkboard-teacher" size={120} color="white" />
                 </View>
@@ -183,7 +183,7 @@ return (
             <View style={style.containerBotao}  >
                 <TouchableOpacity 
                     style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
-                    onPress={() => navigation.navigate("Seleção Aluno CSV", { academia: academia })} disabled={!conexao}>
+                    onPress={() => navigation.navigate("Seleção Aluno CSV")} disabled={!conexao}>
                 <View style={[{ transform: [{ rotate: '-45deg' }] }, style.iconeBotao]}>
                     <FontAwesome5 name="clipboard-list" size={120} color="white" />
                 </View>

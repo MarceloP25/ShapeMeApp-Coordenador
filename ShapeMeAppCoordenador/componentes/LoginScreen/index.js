@@ -122,7 +122,7 @@ export default ({ navigation }) => {
                 if(conexao){
                 await firebase.auth().signInWithEmailAndPassword(emailCoord, senhaCoord);
                 }
-                navigation.navigate('Principal', {coordenador: dadosCoordenador});
+                navigation.navigate('Principal'); // , {coordenador: dadosCoordenador}
             } 
             } catch (error) {
             console.error('Erro ao obter dados do AsyncStorage ou fazer login:', error);
