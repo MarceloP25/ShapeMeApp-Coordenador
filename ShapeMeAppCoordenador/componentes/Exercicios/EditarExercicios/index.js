@@ -3,8 +3,9 @@ import { SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Styl
 import ImagePicker from 'react-native-image-picker';
 import { Alert } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
+import estilo from '../../estilo';
 import { useNavigation } from '@react-navigation/native';
-import { collection, doc, getDoc, getDocs, getFirestore, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from "firebase/firestore";
 import { firebaseBD } from '../configuracoes/firebaseconfig/config';
 import { FontAwesome6 } from '@expo/vector-icons';
 import ModalDropdown from 'react-native-modal-dropdown';
@@ -43,8 +44,6 @@ export default (navigation, route) => {
         carregarExercicios();
     }, []);
 
-    const navigation = useNavigation();
-
     const handleSelecionarExercicio = (exercicio) => {
         setExercicioSelecionado(exercicio);
         setNome(exercicio.nome || '');
@@ -61,6 +60,105 @@ export default (navigation, route) => {
             <Text>{item.nome}</Text>
         </TouchableOpacity>
     );
+    const [nome, setNome] = useState('')
+    const [nomeInvalido, setNomeInvalido] = useState(false);
+
+    const validaNome = (text) => {
+        const nomeValido = /^[\p{L}\s]*$/u;
+        if (nomeValido.test(text)) {
+            setNomeInvalido(false);
+        } else {
+            setNomeInvalido(true);
+        }
+        setNome(text);
+    };
+
+    // Olhar como definir 4 tipos que serão coleções no firebase
+    const [tipo, setTipo] = useState('')
+    const tiposDisponiveis = ["Alongamentos", "Aeróbicos", "Força - Membros Superiores", "Força - Membros Inferiores"];
+
+    const [musculos, setMusculos] = useState('')
+    const [musculosInvalido, setMusculosInvalido] = useState(false)
+
+    const validaMusculos = (text) => {
+        const musculosValidos = /^[a-zA-Z\s]*$/;
+        if (musculosValidos.test(text)) {
+            setMusculosInvalido(false);
+        } else {
+            setMusculosInvalido(true);
+        }
+        setMusculos(text);
+    };
+    
+    const [descricao, setDescricao] = useState('')
+    const [descricaoInvalida, setDescricaoInvalida] = useState(false)
+
+    const validaDescricao = (text) => {
+        const descricaoValida = text.length >= 3;
+
+        setDescricao(text);
+        setDescricaoInvalida(!descricaoValida)
+    };
+
+    const [variacao, setVariacao] = useState([])
+
+    const addVariacao = () => {
+        setVariacao([...variacao, ""]); // Adiciona um novo elemento vazio
+    };
+    
+    const updateVariacao = (text, index) => {
+        const updatedVariacao = [...variacao];
+        updatedVariacao[index] = text;
+        setVariacao(updatedVariacao);
+    };
+    
+    const renderVariacao = () => {
+        return variacao.map((value, index) => (
+        <TextInput
+            key={index}
+            placeholder={`Digite a variação ${index + 1}`}
+            placeholderTextColor={"#CFCDCD"}
+            style={[
+            styles.inputText,
+            /* Adicione suas condições de estilo aqui se necessário */
+            ]}
+            keyboardType={"default"}
+            value={value}
+            onChangeText={(text) => updateVariacao(text, index)}
+        />
+        ));
+    };
+
+    const [execucao, setExecucao] = useState([])
+
+    const addExecucao = () => {
+        setExecucao([...execucao, ""]); // Adiciona um novo elemento vazio
+    };
+    
+    const updateExecucao = (text, index) => {
+        const updatedExecucao = [...execucao];
+        updatedExecucao[index] = text;
+        setExecucao(updatedExecucao);
+    };
+    
+    const renderExecucao = () => {
+        return execucao.map((value, index) => (
+        <TextInput
+            key={index}
+            placeholder={`Digite a variação ${index + 1}`}
+            placeholderTextColor={"#CFCDCD"}
+            style={[
+            styles.inputText,
+            /* Adicione suas condições de estilo aqui se necessário */
+            ]}
+            keyboardType={"default"}
+            value={value}
+            onChangeText={(text) => updateExecucao(text, index)}
+        />
+        ));
+    };
+
+    const [imagem, setImagem] = useState(null)
 
     const options = {
         title: 'Selecione uma imagem',
@@ -70,7 +168,52 @@ export default (navigation, route) => {
         },
     };
 
-    // Restante do seu código...
+    const handleFinalizarCadastro = () => {
+        updateDoc(doc(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), 'Exercicios', `${exercicios.getNome()}`),{
+            nome: exercicios.getNome(),
+            tipo: exercicios.getTipo(),
+            musculos: exercicios.getMusculos(),
+            descricao: exercicios.getDescricao(),
+            variacao:  exercicios.getVariacao(),
+            execucao: exercicios.getExecuao(),
+            imagem: exercicios.getImagem(),
+        }).catch((erro) => {
+            console.log(`Não foi possível criar o documento. Já existe um exercício cadastrado com esse nome.`)
+        });
+    }
+
+    const handleExcluirExercicio = async () => {
+        try {
+            await doc(
+                firebaseBD,
+                'Academias',
+                coordenadorLogado.getAcademia(),
+                'Exercicios',
+                exercicioSelecionado.id
+            ).delete();
+
+        // Atualizar a lista de exercícios após a exclusão
+        const updatedExercicios = exercicios.filter(
+            (exercicio) => exercicio.id !== exercicioSelecionado.id
+        );
+        setExercicios(updatedExercicios);
+
+        // Limpar os campos de input após a exclusão
+        setExercicioSelecionado(null);
+        setNome('');
+        setTipo('');
+        setMusculos('');
+        setDescricao('');
+        setVariacao([]);
+        setExecucao([]);
+        setImagem(null);
+
+        Alert.alert('Exercício excluído com sucesso!');
+        } catch (error) {
+        console.error('Erro ao excluir exercício:', error);
+        Alert.alert('Erro ao excluir exercício. Tente novamente.');
+        }
+    };
 
     return (
         <ScrollView alwaysBounceVertical={true} style={estilo.corLightMenos1}>
@@ -206,23 +349,45 @@ export default (navigation, route) => {
                 </View>
 
                 <View>
-                    <TouchableOpacity style={[estilo.botao, estilo.sombra]}
+                    <TouchableOpacity style={[estilo.botao, estilo.sombra, estilo.corPrimaria]}
                                 onPress={() => {
-                                    novoExercicio.setNome(nome)
-                                    novoExercicio.setTipo(tipo)
-                                    novoExercicio.setMusculos(musculos)
-                                    novoExercicio.setDescricao(descricao)
-                                    novoExercicio.setVariacao(variacao)
-                                    novoExercicio.setExecucao(execucao)
-                                    novoExercicio.setImagem(image)
+                                    exercicios.setNome(nome)
+                                    exercicios.setTipo(tipo)
+                                    exercicios.setMusculos(musculos)
+                                    exercicios.setDescricao(descricao)
+                                    exercicios.setVariacao(variacao)
+                                    exercicios.setExecucao(execucao)
+                                    exercicios.setImagem(imagem)
 
-                                    if (novoExercicio.getNome() == ''){
+                                    if (exercicios.getNome() == '' || exercicios.getTipo() == ''){
                                         Alert.alert('Informe o nome do exercicio para cadasrtá-lo!!!')
                                     } else {
                                         handleFinalizarCadastro()
                                     }
                                 }}>
                         <Text style={[estilo.tituloH523px, estilo.textoCorLight]}>SALVAR ALTERAÇÕES</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[estilo.botao, estilo.sombra, styles.botaoExcluir]}
+                        onPress={() => {
+                        if (exercicioSelecionado) {
+                            Alert.alert(
+                            'Excluir Exercício',
+                            `Deseja realmente excluir o exercício "${exercicioSelecionado.nome}"?`,
+                            [
+                                {
+                                text: 'Cancelar',
+                                style: 'cancel',
+                                },
+                                { text: 'Excluir', onPress: handleExcluirExercicio() },
+                            ]
+                            );
+                        } else {
+                            Alert.alert('Nenhum exercício selecionado para excluir.');
+                        }
+                        }}>
+                        <Text style={[estilo.tituloH523px, estilo.textoCorLight]}>EXCLUIR EXERCÍCIO</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -233,18 +398,36 @@ export default (navigation, route) => {
 };
 
 const styles = StyleSheet.create({
-container: {
-    backgroundColor: '#F8FAFF',
-    marginVertical: '2%',
-},
-inputArea: {
-    marginLeft: '10%',
-    marginVertical: 10,
-},
-titulos: {
-    marginLeft: 20,
-    marginTop: 20,
-    marginBottom: 5,
-},
-// Restante dos seus estilos...
-});
+    container:{
+        backgroundColor: '#F8FAFF',
+        marginVertical: '2%',
+    },
+    inputArea: {
+        marginLeft: '10%',
+        marginVertical: 10
+    },
+    titulos: {
+        marginLeft: 20,
+        marginTop: 20,
+        marginBottom: 5,
+    },
+    inputText: {
+        width: '90%',
+        height: 50,
+        marginTop: 10,
+        marginBottom: 30,
+        borderRadius: 10,
+        elevation: 10,
+        paddingHorizontal: 20,
+    },
+    botaoAdd: {
+        backgroundColor: '#CFCDCD',
+        width: 213,
+        height: 29,
+        borderRadius: 5,
+    },
+    botaoExcluir: {
+        backgroundColor: 'red',
+    }
+
+})

@@ -127,7 +127,7 @@ export default (navigation, route) =>{
     };
 
     /* Definir como adicionar imagem */
-    const [image, setImage] = useState(null)
+    const [imagem, setImagem] = useState(null)
 
     const options = {
         title: 'Selecione uma imagem',
@@ -280,7 +280,7 @@ export default (navigation, route) =>{
                     </View>
 
                     <View>
-                        <TouchableOpacity style={[estilo.botao, estilo.sombra]}
+                        <TouchableOpacity style={[estilo.botao, estilo.sombra, estilo.corPrimaria]}
                             onPress={() => {
                                 novoExercicio.setNome(nome)
                                 novoExercicio.setTipo(tipo)
@@ -288,9 +288,9 @@ export default (navigation, route) =>{
                                 novoExercicio.setDescricao(descricao)
                                 novoExercicio.setVariacao(variacao)
                                 novoExercicio.setExecucao(execucao)
-                                novoExercicio.setImagem(image)
+                                novoExercicio.setImagem(imagem)
 
-                                if (novoExercicio.getNome() == ''){
+                                if (novoExercicio.getNome() == '' || novoExercicio.getTipo() == ''){
                                     Alert.alert('Informe o nome do exercicio para cadasrtá-lo!!!')
                                 } else {
                                     handleFinalizarCadastro()
