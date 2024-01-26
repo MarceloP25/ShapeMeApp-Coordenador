@@ -7,6 +7,7 @@ import { firebase, firebaseBD } from '../configuracoes/firebaseconfig/config'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Exercicio } from '../../classes/Exercicio';
 import { coordenadorLogado } from '../LoginScreen';
+import Cabecalho from '../../Cabecalho';
 
 export default ({navigation, route}) =>{
 
@@ -77,7 +78,7 @@ export default ({navigation, route}) =>{
   return (
     <ScrollView alwaysBounceVertical={true} style={estilo.corLightMenos1}>
       <SafeAreaView style={style.container}>
-
+      <Cabecalho navigation={navigation} />
         {/* Modal para redirecionar o usuário para a tela de cadastro */}
         {modalVisible && (
           <View style={style.modalContainer}>
@@ -131,6 +132,26 @@ export default ({navigation, route}) =>{
             onPress={() => navigation.navigate('Lista Exercicios', { exercicios: forcaInferioresExercicios })}
           >
             <Text style={estilo.tituloH427px}>FORÇA INFERIORES</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={style.containerBotao}>
+          {/* Botão para cadastrar exercicios*/}
+          <TouchableOpacity
+            style={[estilo.botao, estilo.sombra, estilo.corPrimaria]}
+            onPress={() => navigation.navigate('Cadastro Exercicios')}
+          >
+            <Text style={estilo.tituloH427px}>CADASTRAR</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={style.containerBotao}>
+          {/* Botão para editar os exercicios */}
+          <TouchableOpacity
+            style={[estilo.botao, estilo.sombra, estilo.corPrimaria]}
+            onPress={() => navigation.navigate('Editar Exercicios')}
+          >
+            <Text style={estilo.tituloH427px}>EDITAR</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>

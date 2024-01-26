@@ -11,6 +11,7 @@ import { FontAwesome6 } from '@expo/vector-icons';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { Exercicio } from '../../classes/Exercicio';
 import { coordenadorLogado } from '../../LoginScreen';
+import Cabecalho from '../../Cabecalho';
 
 export default ({navigation, route}) => {
     const [conexao, setConexao] = useState(true);
@@ -221,6 +222,7 @@ export default ({navigation, route}) => {
             <ModalSemConexao />
         ) : (
             <SafeAreaView style={styles.container}>
+            <Cabecalho navigation={navigation} />
             <View>
                 <View style={{ alignContent: 'center' }}>
                 <Text style={[estilo.tituloH523px, estilo.textoCorSecundaria, styles.titulos]}>EDITAR EXERCÍCIO</Text>

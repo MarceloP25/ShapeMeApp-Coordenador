@@ -8,7 +8,8 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from '@firebase/storage'
 import { professorLogado } from "../../Home";
 import Spinner from "react-native-loading-spinner-overlay";
 import ModalSemConexao from "../../ModalSemConexao";
-import NetInfo from "@react-native-community/netinfo"
+import NetInfo from "@react-native-community/netinfo";
+
 export default ({navigation}) => {
     const [imageUrl, setImageUrl] = useState(null);
     const [loading, setLoading] = useState(true)

@@ -9,7 +9,7 @@ import { FontAwesome6 } from '@expo/vector-icons';
 import ModalDropdown from 'react-native-modal-dropdown';
 import ImagePicker from 'react-native-image-picker';
 import { coordenadorLogado } from '../../LoginScreen';
-
+import Cabecalho from '../../Cabecalho';
 
 export default ({navigation, route}) =>{
 
@@ -159,6 +159,7 @@ export default ({navigation, route}) =>{
             {!conexao ? <ModalSemConexao/> 
             : 
             <SafeAreaView style={styles.container}>   
+            <Cabecalho navigation={navigation} />
 
                 <View>
                     <View style={{alignContent: 'center',}}>

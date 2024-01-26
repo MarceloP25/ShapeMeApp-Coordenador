@@ -61,7 +61,11 @@ import ExportCSV from './componentes/ExportCSV/index.js';
 import SelecaoAlunoExport from './componentes/ExportCSV/SelecaoAlunoExport.js';
 import CadastroAcademiaScreen from './componentes/CadastroAcademiaScreen/index.js';
 import CadastroTurmas from './componentes/CadastroTurmas/index.js';
-import CadastroExercicios from '.componentes/Exercicios/CadastroExercicios/index.js'
+import CadastroExercicios from '.componentes/Exercicios/CadastroExercicios/index.js';
+import Exercicios from './componentes/Exercicios/index.js';
+import EditarExercicios from '.componentes/Exercicios/EditarExercicios/index.js';
+import ListaExercicios from './componentes/Exercicios/ListaExercicios/index.js';
+import DadosExercicios from './componentes/Exercicios/ListaExercicios/DadosExercicios/index.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -91,6 +95,9 @@ export default function App() {
         <Stack.Screen name="Perfil" component={PerfilProfessor}/>
         <Stack.Screen name="Exercicios" component={Exercicios}/>
         <Stack.Screen name="Cadastro Exercicios" componente={CadastroExercicios}/>
+        <Stack.Screen name="Editar Exercicios" componente={EditarExercicios}/>
+        <Stack.Screen name="Lista Exercicios" componente={ListaExercicios}/>
+        <Stack.Screen name="Dados Exercicios" componente={DadosExercicios}/>
         <Stack.Screen name="Editar foto" component={EditarFoto}/>
         <Stack.Screen name="Avaliações" component={Avaliacoes}/>
         <Stack.Screen name='Modal sem conexão' component={ModalSemConexao} options={{headerShown: false}}/>

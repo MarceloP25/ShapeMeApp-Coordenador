@@ -2,6 +2,7 @@ import React from 'react';
 import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import estilo from '../estilo';
 import { useNavigation } from '@react-navigation/native';
+import Cabecalho from '../../Cabecalho';
 
 export default ({navigation, route}) => {
     const { exercicios } = route.params;
@@ -9,6 +10,7 @@ export default ({navigation, route}) => {
     return (
         <SafeAreaView style={estilo.corLightMenos1}>
             <ScrollView alwaysBounceVertical={true} style={style.container}>
+            <Cabecalho navigation={navigation} />
                 <View>
                     {exercicios.map((exercicio, index) => (
                         <TouchableOpacity
