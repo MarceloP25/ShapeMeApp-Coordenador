@@ -10,14 +10,14 @@ export default props => {
     })
     */
   
-    console.log("CORRIGIR O ALUNO 1 POR ALUNO GET NOME")
+    // console.log("CORRIGIR O ALUNO 1 POR ALUNO GET NOME")
       return (
         <ScrollView style={[style.container, estilo.corLightMenos1]} >
             <View style={[style.conteudos, estilo.centralizado]}>
                 <Text style={[estilo.textoCorSecundaria, estilo.textoP16px, { marginBottom: '5%'}]}>Selecione um aluno para visualizar seus dados:</Text>
                 <TouchableOpacity style={[estilo.botao, estilo.corPrimaria]}>
                     <Text style={[estilo.textoCorLight, estilo.tituloH619px]}>
-                        Aluno 1
+                        {aluno.getNome()}
                     </Text>
                 </TouchableOpacity>
             </View>

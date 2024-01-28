@@ -4,10 +4,10 @@ import estilo from "../estilo"
 import RadioBotao from "../RadioBotao"
 import BotaoSelect from "../BotaoSelect"
 import { TextInputMask } from 'react-native-masked-text';
-import {Coordenador} from '../../classes/Coordenador'
+import { Coordenador } from '../../classes/Coordenador'
 import { NavigationContainer, useNavigation } from '@react-navigation/native'; // Navegação
 import { AppLoading } from 'expo';
-import {Endereco} from '../../classes/Endereco'
+import { Endereco } from '../../classes/Endereco'
 import { collection,setDoc,doc, getDocs, getFirestore, where , query, addDoc, querySnapshot, QueryStartAtConstraint} from "firebase/firestore";
 import {firebase, firebaseBD} from '../configuracoes/firebaseconfig/config'
 import NetInfo from "@react-native-community/netinfo"

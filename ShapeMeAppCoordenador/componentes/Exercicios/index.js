@@ -2,7 +2,7 @@ import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-na
 import React, { useState, useEffect } from "react"
 import { useNavigation } from '@react-navigation/native';
 import estilo from '../estilo';
-import { collection, getDocs, firebaseBD } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { firebase, firebaseBD } from '../configuracoes/firebaseconfig/config'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Exercicio } from '../../classes/Exercicio';

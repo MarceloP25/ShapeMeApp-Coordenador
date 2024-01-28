@@ -3,7 +3,7 @@ import { Text, View, Button, TouchableOpacity } from 'react-native'
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import { collection, doc, getDocs, getFirestore } from "firebase/firestore";
-import { professorLogado } from "../Home";
+import { coordenadorLogado } from "../LoginScreen";
 import NetInfo from "@react-native-community/netinfo"
 import ModalSemConexao from "../ModalSemConexao";
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -35,7 +35,7 @@ export default ({ route }) => {
     const arrayExercicios = [];
 
     const bd = getFirestore();
-    const diarioRef = collection(bd, 'Academias', professorLogado.getAcademia(), 'Professores', aluno.professorResponsavel, 'alunos', `Aluno ${aluno.email}`, 'Diarios');
+    const diarioRef = collection(bd, 'Academias', coordenadorLogado.getAcademia(), 'Professores', aluno.professorResponsavel, 'alunos', `Aluno ${aluno.email}`, 'Diarios');
     const diarioSnapshot = await getDocs(diarioRef);
 
     const objetoParaCSV = await Promise.all(diarioSnapshot.docs.map(async (doc) => {

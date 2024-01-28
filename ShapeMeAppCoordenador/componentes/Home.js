@@ -129,7 +129,7 @@ return (
             <View style={style.containerBotao}>
                 <TouchableOpacity 
                     style={[estilo.corPrimaria, style.botao]} 
-                    onPress={() => navigation.navigate('Seleção Aluno Análise do Programa de Treino')}>
+                    onPress={() => navigation.navigate('Perfil Academia')}>
                 <View style={[style.iconeBotao]}>
                     <FontAwesome5 name="building" size={120} color="white" />
                 </View>
@@ -153,7 +153,7 @@ return (
                 </TouchableOpacity>
             </View>
 
-            {/* Botão para exportar os dados em CSV */}
+            {/* Botão para exportar os dados em CSV 
             <View style={[style.containerBotao]} >
                 <TouchableOpacity 
                     style={[estilo.corPrimaria, style.botao]} 
@@ -164,6 +164,7 @@ return (
                 <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>EXPORTAR DADOS</Text>
                 </TouchableOpacity>
             </View>
+            */}
             </View>
 
             <View style={style.areaBotoes}>
@@ -171,7 +172,7 @@ return (
             <View style={style.containerBotao}  >
                 <TouchableOpacity 
                     style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
-                    onPress={() => navigation.navigate("Seleção Aluno CSV")} disabled={!conexao}>
+                    onPress={() => navigation.navigate('Lista Professores')} disabled={!conexao}>
                 <View style={[{ transform: [{ rotate: '-45deg' }] }, style.iconeBotao]}>
                     <FontAwesome5 name="chalkboard-teacher" size={120} color="white" />
                 </View>
@@ -183,7 +184,7 @@ return (
             <View style={style.containerBotao}  >
                 <TouchableOpacity 
                     style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
-                    onPress={() => navigation.navigate("Seleção Aluno CSV")} disabled={!conexao}>
+                    onPress={() => navigation.navigate("Alunos")} disabled={!conexao}>
                 <View style={[{ transform: [{ rotate: '-45deg' }] }, style.iconeBotao]}>
                     <FontAwesome5 name="clipboard-list" size={120} color="white" />
                 </View>

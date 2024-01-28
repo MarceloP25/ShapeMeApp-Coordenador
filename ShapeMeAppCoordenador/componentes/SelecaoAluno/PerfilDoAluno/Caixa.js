@@ -1,29 +1,18 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {Text, View, StyleSheet, TouchableOpacity, Button} from 'react-native'
 import Foto from './Foto'
 import estilo from '../../estilo'
 import {useFonts} from 'expo-font'
 import { printToFileAsync } from 'expo-print'
 import { shareAsync } from 'expo-sharing'
+import NetInfo from "@react-native-community/netinfo"
 
 export default ({aluno, navigation}) => {
-    /*
-    const [fontsLoaded] = useFonts({
-        'Montserrat': require('../../../assets/Montserrat-Regular.ttf'),
-    })
-    */
+
     const data = new Date()
     const anoAux = data.getFullYear()
 
     const html = `
-    <!DOCTYPE html>
-        <html lang="pt-br">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Document</title>
-        </head>
-        <body>
             <div style="width: 100%; height: 100%; position: relative; background: white">
                 <div style="width: 220px; height: 78px; left: 0px; top: 25px; position: absolute">
                     <div style="width: 154px; height: 27px; left: 60px; top: 35px; position: absolute">
@@ -134,18 +123,10 @@ export default ({aluno, navigation}) => {
                     ${aluno.sexo}
                 </div>
             </div>
-        </body>
-        </html>
+
     `;
     const parq = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
+
         <div style="width: 595px; height: 842px; position: relative; background: white">
             <div style="width: 220px; height: 78px; left: 0px; top: 25px; position: absolute">
                 <div style="width: 154px; height: 27px; left: 60px; top: 35px; position: absolute">
@@ -189,19 +170,11 @@ export default ({aluno, navigation}) => {
         <br>
         <br>
         <br>
-    </body>
-    </html>
+
     `;
   
     const anamnese = `
-    <!DOCTYPE html>
-    <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
+
         <div style="width: 595px; height: 842px; position: relative; background: white">
             <div style="width: 220px; height: 78px; left: 0px; top: 25px; position: absolute">
                 <div style="width: 154px; height: 27px; left: 60px; top: 35px; position: absolute">
@@ -309,8 +282,7 @@ export default ({aluno, navigation}) => {
             </div>
 
         </div>
-    </body>
-    </html>`;
+`;
   
     const htmlCombinado = 
     `<html>
@@ -321,6 +293,17 @@ export default ({aluno, navigation}) => {
         </body>
     </html>`
 
+    const [conexao, setConexao] = useState(false)
+    useEffect(() => {
+        const unsubscribe = NetInfo.addEventListener(state => {
+            setConexao(state.type === 'wifi' || state.type === 'cellular')
+        })
+
+        return () => {
+            unsubscribe()
+        }
+    }, [])
+    
     const gerarPdf = async () => {
         const arquivo = await printToFileAsync({
             html: htmlCombinado, 
@@ -378,12 +361,12 @@ export default ({aluno, navigation}) => {
                         </TouchableOpacity>
                     <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria, estilo.Montserrat, {marginTop: '3%'}]}>Frequência:</Text>
                     <View>
-                        <TouchableOpacity style={[style.botao, estilo.corPrimaria]}  onPress={()=> {navigation.navigate("Frequencia do aluno", {aluno: aluno})}}>
+                        <TouchableOpacity style={[style.botao, conexao? estilo.corPrimaria : estilo.corDisabled]} disabled={!conexao} onPress={()=> {navigation.navigate("Frequencia do aluno", {aluno: aluno})}}>
                             <Text style={[estilo.textoCorLight, estilo.tituloH619px]}>VISUALIZAR PRESENÇA</Text>
                         </TouchableOpacity>
                     </View>
                     </View>
-                    <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria, estilo.Montserrat, {marginTop: '3%'}]}>Exportar os dados:</Text>
+                    <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria, estilo.Montserrat, {marginTop: '3%'}]}>Exportar PARQ e Anamnese:</Text>
                     <View>
                         <TouchableOpacity style={[style.botao, estilo.corPrimaria]} onPress={()=> gerarPdf()}>
                             <Text style={[estilo.textoCorLight, estilo.tituloH619px]}>EXPORTAR DADOS</Text>

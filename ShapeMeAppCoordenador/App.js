@@ -66,6 +66,8 @@ import Exercicios from './componentes/Exercicios/index.js';
 import EditarExercicios from '.componentes/Exercicios/EditarExercicios/index.js';
 import ListaExercicios from './componentes/Exercicios/ListaExercicios/index.js';
 import DadosExercicios from './componentes/Exercicios/ListaExercicios/DadosExercicios/index.js';
+import Academia from './componentes/Academia/index.js';
+import PerfilProfessor from './componentes/ListaProfessores/PerfilProfessor/index.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -92,6 +94,7 @@ export default function App() {
         <Stack.Screen name="Anamnese" component={Anamnese}/>
         <Stack.Screen name="Montar treino" component={MontarTreino}/>
         <Stack.Screen name="Cadastro Academia" component={CadastroAcademiaScreen}/>
+        <Stack.Screen name="Perfil Academia" component={Academia}/>
         <Stack.Screen name="Perfil" component={PerfilProfessor}/>
         <Stack.Screen name="Exercicios" component={Exercicios}/>
         <Stack.Screen name="Cadastro Exercicios" componente={CadastroExercicios}/>
@@ -99,6 +102,9 @@ export default function App() {
         <Stack.Screen name="Lista Exercicios" componente={ListaExercicios}/>
         <Stack.Screen name="Dados Exercicios" componente={DadosExercicios}/>
         <Stack.Screen name="Editar foto" component={EditarFoto}/>
+        <Stack.Screen name="Perfil Professor" component={PerfilProfessor}/>
+        <Stack.Screen name="Alunos" componente={SelecaoAluno}/>
+        <Stack.Screen name="Lista Alunos" component={ListaAlunos}/>
         <Stack.Screen name="Avaliações" component={Avaliacoes}/>
         <Stack.Screen name='Modal sem conexão' component={ModalSemConexao} options={{headerShown: false}}/>
         <Stack.Screen name="Seleção Aluno Montar Treino" component={SelecaoAlunoAvaliacao}/>

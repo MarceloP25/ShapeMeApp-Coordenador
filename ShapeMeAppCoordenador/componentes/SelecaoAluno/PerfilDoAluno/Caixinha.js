@@ -5,11 +5,7 @@ import estilo from '../../estilo'
 import {useFonts} from 'expo-font'
 
 export default ({aluno}) => {
-    /*
-    const [fontsLoaded] = useFonts({
-        'Montserrat': require('../../../assets/Montserrat-Regular.ttf'),
-    })
-    */
+
 
     const Data = new Date()
     const dia = Data.getDate()

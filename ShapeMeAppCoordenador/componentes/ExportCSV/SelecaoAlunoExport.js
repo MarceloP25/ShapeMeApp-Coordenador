@@ -3,7 +3,7 @@ import { Text, SafeAreaView, StyleSheet, TouchableOpacity } from "react-native"
 import estilo from "../estilo";
 import {firebase, firebaseBD} from '../configuracoes/firebaseconfig/config'
 import { collection, getDocs} from "firebase/firestore";
-import { professorLogado } from "../Home";
+import { coordenadorLogado } from '../LoginScreen';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 
@@ -24,16 +24,16 @@ export default ({navigation}) => {
               const academiaNome = academiaDoc.get('nome');
                 console.log("Chegou aqui")
                 console.log(academiaNome)
-                console.log(professorLogado.getAcademia())
-              if (academiaNome === professorLogado.getAcademia()) {
+                console.log(coordenadorLogado.getAcademia())
+              if (academiaNome === coordenadorLogado.getAcademia()) {
                 const professoresRef = collection(
                   firebaseBD,
                   'Academias',
-                  professorLogado.getAcademia(),
+                  coordenadorLogado.getAcademia(),
                   'Professores'
                 );
                 console.log("ZZZZZZZZzz")
-                console.log(professorLogado.getAcademia())
+                console.log(coordenadorLogado.getAcademia())
                 const professoresSnapshot = await getDocs(professoresRef);
       
                 for (const professorDoc of professoresSnapshot.docs) {
@@ -42,7 +42,7 @@ export default ({navigation}) => {
                   const alunoRef = collection(
                     firebaseBD,
                     'Academias',
-                    professorLogado.getAcademia(),
+                    coordenadorLogado.getAcademia(),
                     'Professores',
                     professorData.nome,
                     'alunos'
