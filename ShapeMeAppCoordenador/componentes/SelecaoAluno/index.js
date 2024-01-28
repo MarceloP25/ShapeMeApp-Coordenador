@@ -4,7 +4,7 @@ import Logo from '../Logo';
 import estilo from '../estilo';
 import { getDocs, collection } from 'firebase/firestore';
 import { firebaseBD } from '../configuracoes/firebaseconfig/config';
-import { coordenadorLogado } from '../Home';
+import { coordenadorLogado } from '../LoginScreen';
 import Spinner from 'react-native-loading-spinner-overlay';
 import ModalSemConexao from '../ModalSemConexao';
 import NetInfo from '@react-native-community/netinfo';

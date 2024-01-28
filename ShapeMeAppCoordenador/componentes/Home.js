@@ -103,8 +103,6 @@ verificaDocumentos()
 
 return (
     <SafeAreaView style={[estilo.corLightMenos1, style.container]}>
-        <SafeAreaView>
-
             <View style={style.areaLogo}>
             <Logo />
 
@@ -114,57 +112,53 @@ return (
             </View>
 
             <View style={style.areaBotoes}>
-
-            {/* Botão para as turmas */}
-            <View style={style.containerBotao}>
-                <TouchableOpacity 
-                    style={[estilo.corPrimaria, style.botao]} 
-                    onPress={() => navigation.navigate('')}>
-                <Foundation name="clipboard-pencil" size={120} color="white" />
-                <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>TURMAS</Text>
-                </TouchableOpacity>
-            </View>
-
-            {/* Botão para dados da academia */}
-            <View style={style.containerBotao}>
-                <TouchableOpacity 
-                    style={[estilo.corPrimaria, style.botao]} 
-                    onPress={() => navigation.navigate('Perfil Academia')}>
-                <View style={[style.iconeBotao]}>
-                    <FontAwesome5 name="building" size={120} color="white" />
+                {/* Botão para as turmas */}
+                <View style={style.containerBotao}>
+                    <TouchableOpacity 
+                        style={[estilo.corPrimaria, style.botao]} 
+                        onPress={() => navigation.navigate('')}>
+                    <Foundation name="clipboard-pencil" size={120} color="white" />
+                    <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>TURMAS</Text>
+                    </TouchableOpacity>
                 </View>
-                <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>ACADEMIA</Text>
-                </TouchableOpacity>
-            </View>
 
+                {/* Botão para dados da academia */}
+                <View style={style.containerBotao}>
+                    <TouchableOpacity 
+                        style={[estilo.corPrimaria, style.botao]} 
+                        onPress={() => navigation.navigate('Perfil Academia')}>
+                    <View style={[style.iconeBotao]}>
+                        <FontAwesome5 name="building" size={120} color="white" />
+                    </View>
+                    <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>ACADEMIA</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
 
             <View style={style.areaBotoes}>
-            
-            {/* Botão para os dados de treinos */}
-            <View style={style.containerBotao}  >
-                <TouchableOpacity 
-                    style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
-                    onPress={() => navigation.navigate('Evolução')} disabled={!conexao}>
-                <View style={[style.iconeBotao]}>
-                    <AntDesign name="linechart" size={120} color="white" />
+                {/* Botão para os dados de treinos */}
+                <View style={style.containerBotao}  >
+                    <TouchableOpacity 
+                        style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
+                        onPress={() => navigation.navigate('Evolução')} disabled={!conexao}>
+                    <View style={[style.iconeBotao]}>
+                        <AntDesign name="linechart" size={120} color="white" />
+                    </View>
+                    <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>EVOLUÇÃO DO TREINO {!conexao ? "Offline" : null} </Text>
+                    </TouchableOpacity>
                 </View>
-                <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>EVOLUÇÃO DO TREINO {!conexao ? "Offline" : null} </Text>
-                </TouchableOpacity>
-            </View>
 
-            {/* Botão para exportar os dados em CSV 
-            <View style={[style.containerBotao]} >
-                <TouchableOpacity 
-                    style={[estilo.corPrimaria, style.botao]} 
-                    onPress={() => { navigation.navigate('Seleção Aluno CSV') }}>
-                <View style={[style.iconeBotao]}>
-                    <MaterialCommunityIcons name="file-export" size={120} color="white" />
+                {/* Botão para exportar os dados em CSV */}
+                <View style={[style.containerBotao]} >
+                    <TouchableOpacity 
+                        style={[estilo.corPrimaria, style.botao]} 
+                        onPress={() => { navigation.navigate('Seleção Aluno CSV') }}>
+                    <View style={[style.iconeBotao]}>
+                        <MaterialCommunityIcons name="file-export" size={120} color="white" />
+                    </View>
+                    <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>EXPORTAR DADOS</Text>
+                    </TouchableOpacity>
                 </View>
-                <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>EXPORTAR DADOS</Text>
-                </TouchableOpacity>
-            </View>
-            */}
             </View>
 
             <View style={style.areaBotoes}>
@@ -219,8 +213,19 @@ return (
                 </TouchableOpacity>
             </View>
             </View>
-        </SafeAreaView >
 
+            <View style={style.areaBotoes}>
+
+                <View style={style.containerBotao}>
+                    <TouchableOpacity style={[estilo.corPrimaria, style.botao]} onPress={() => navigation.navigate('Seleção Aluno Análise do Programa de Treino')}>
+                        <View style={[style.iconeBotao]}>
+                            <MaterialCommunityIcons name="clipboard-text-search-outline" size={120} color="white" />
+                        </View>
+                        <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>AVALIAÇÕES E FICHAS</Text>
+                    </TouchableOpacity>
+                </View> 
+            </View>
+            
     </SafeAreaView>
 
 )

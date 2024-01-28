@@ -13,63 +13,60 @@ export default ({navigation}) => {
     const [alunos, setAlunos] = useState([])
     const [carregandoAlunos, setCarregandoAlunos] = useState(true)
     useEffect(() => {
-        const fetchAlunos = async () => {
-          try {
-            const academiaRef = collection(firebaseBD, 'Academias');
-            const querySnapshot = await getDocs(academiaRef);
-      
-            const newArrayAlunos = [];
-      
-            for (const academiaDoc of querySnapshot.docs) {
-              const academiaNome = academiaDoc.get('nome');
-                console.log("Chegou aqui")
-                console.log(academiaNome)
-                console.log(coordenadorLogado.getAcademia())
-              if (academiaNome === coordenadorLogado.getAcademia()) {
-                const professoresRef = collection(
+      const fetchAlunos = async () => {
+        try {
+          const academiaRef = collection(firebaseBD, 'Academias');
+          const querySnapshot = await getDocs(academiaRef);
+  
+          const newArrayAlunos = [];
+  
+          for (const academiaDoc of querySnapshot.docs) {
+            const academiaNome = academiaDoc.get('nome');
+            console.log("Chegou aqui");
+            console.log(academiaNome);
+            console.log(coordenadorLogado.getAcademia());
+            if (academiaNome === coordenadorLogado.getAcademia()) {
+              const professoresRef = collection(
+                firebaseBD,
+                'Academias',
+                coordenadorLogado.getAcademia(),
+                'Professores'
+              );
+              console.log("ZZZZZZZZzz");
+              console.log(coordenadorLogado.getAcademia());
+              const professoresSnapshot = await getDocs(professoresRef);
+  
+              for (const professorDoc of professoresSnapshot.docs) {
+                const professorData = professorDoc.data();
+                console.log(professorData);
+                const alunoRef = collection(
                   firebaseBD,
                   'Academias',
                   coordenadorLogado.getAcademia(),
-                  'Professores'
+                  'Professores',
+                  professorData.nome,
+                  'alunos'
                 );
-                console.log("ZZZZZZZZzz")
-                console.log(coordenadorLogado.getAcademia())
-                const professoresSnapshot = await getDocs(professoresRef);
-      
-                for (const professorDoc of professoresSnapshot.docs) {
-                    const professorData = professorDoc.data()
-                    console.log(professorData)
-                  const alunoRef = collection(
-                    firebaseBD,
-                    'Academias',
-                    coordenadorLogado.getAcademia(),
-                    'Professores',
-                    professorData.nome,
-                    'alunos'
-                  );
-                  const alunoSnapshot = await getDocs(alunoRef);
-                    
-                  for (const alunoDoc of alunoSnapshot.docs) {
-                    const alunoData = alunoDoc.data();
-                    console.log(alunoData)
-                    newArrayAlunos.push(alunoData);
-                  }
+                const alunoSnapshot = await getDocs(alunoRef);
+  
+                for (const alunoDoc of alunoSnapshot.docs) {
+                  const alunoData = alunoDoc.data();
+                  console.log(alunoData);
+                  newArrayAlunos.push(alunoData);
                 }
               }
             }
-      
-            setAlunos(newArrayAlunos);
-          } catch (error) {
-            console.log(error);
-          } finally {
-            setCarregandoAlunos(false);
-            setLoading(false); 
-
           }
-        };
-    
-        fetchAlunos();
-      }, []);
+  
+          setAlunos(newArrayAlunos);
+          setCarregandoAlunos(false);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+  
+      fetchAlunos();
+    }, []);
       
     return (
         <SafeAreaView 

@@ -6,7 +6,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import {firebase, firebaseBD} from '../configuracoes/firebaseconfig/config'
 import { collection,setDoc,doc, getDocs, getDoc,getFirestore, where , query , addDoc, updateDoc} from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from '@firebase/storage';
-import { professorLogado } from "../Home";
+import { coordenadorLogado } from "../LoginScreen";
 import Spinner from "react-native-loading-spinner-overlay";
 import { Entypo } from '@expo/vector-icons'; 
 import ModalSemConexao from "../ModalSemConexao";
@@ -28,60 +28,60 @@ export default ({navigation}) => {
       }
     }, [])
     useEffect(() => {
-        const fetchAlunos = async () => {
-          try {
-            const academiaRef = collection(firebaseBD, 'Academias');
-            const querySnapshot = await getDocs(academiaRef);
-      
-            const newArrayAlunos = [];
-      
-            for (const academiaDoc of querySnapshot.docs) {
-              const academiaNome = academiaDoc.get('nome');
-                console.log("Chegou aqui")
-                console.log(academiaNome)
-                console.log(professorLogado.getAcademia())
-              if (academiaNome === professorLogado.getAcademia()) {
-                const professoresRef = collection(
+      const fetchAlunos = async () => {
+        try {
+          const academiaRef = collection(firebaseBD, 'Academias');
+          const querySnapshot = await getDocs(academiaRef);
+  
+          const newArrayAlunos = [];
+  
+          for (const academiaDoc of querySnapshot.docs) {
+            const academiaNome = academiaDoc.get('nome');
+            console.log("Chegou aqui");
+            console.log(academiaNome);
+            console.log(coordenadorLogado.getAcademia());
+            if (academiaNome === coordenadorLogado.getAcademia()) {
+              const professoresRef = collection(
+                firebaseBD,
+                'Academias',
+                coordenadorLogado.getAcademia(),
+                'Professores'
+              );
+              console.log("ZZZZZZZZzz");
+              console.log(coordenadorLogado.getAcademia());
+              const professoresSnapshot = await getDocs(professoresRef);
+  
+              for (const professorDoc of professoresSnapshot.docs) {
+                const professorData = professorDoc.data();
+                console.log(professorData);
+                const alunoRef = collection(
                   firebaseBD,
                   'Academias',
-                  professorLogado.getAcademia(),
-                  'Professores'
+                  coordenadorLogado.getAcademia(),
+                  'Professores',
+                  professorData.nome,
+                  'alunos'
                 );
-                console.log(professorLogado.getAcademia())
-                const professoresSnapshot = await getDocs(professoresRef);
-      
-                for (const professorDoc of professoresSnapshot.docs) {
-                    const professorData = professorDoc.data()
-                    console.log(professorData)
-                  const alunoRef = collection(
-                    firebaseBD,
-                    'Academias',
-                    professorLogado.getAcademia(),
-                    'Professores',
-                    professorData.nome,
-                    'alunos'
-                  );
-                  const alunoSnapshot = await getDocs(alunoRef);
-                    
-                  for (const alunoDoc of alunoSnapshot.docs) {
-                    const alunoData = alunoDoc.data();
-                    console.log(alunoData)
-                    newArrayAlunos.push(alunoData);
-                  }
+                const alunoSnapshot = await getDocs(alunoRef);
+  
+                for (const alunoDoc of alunoSnapshot.docs) {
+                  const alunoData = alunoDoc.data();
+                  console.log(alunoData);
+                  newArrayAlunos.push(alunoData);
                 }
               }
             }
-      
-            setAlunos(newArrayAlunos);
-            setCarregandoAlunos(false);
-          } catch (error) {
-            console.log(error);
-            setCarregandoAlunos(false)
           }
-        };
-      
-        fetchAlunos();
-      }, []);
+  
+          setAlunos(newArrayAlunos);
+          setCarregandoAlunos(false);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+  
+      fetchAlunos();
+    }, []);
 
       
       return (

@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } fr
 import estilo from "../estilo";
 import { firebase, firebaseBD } from '../configuracoes/firebaseconfig/config';
 import { collection, setDoc, doc, getDocs, getFirestore, where, query, addDoc } from "firebase/firestore";
-import { professorLogado } from "../Home";
+import { coordenadorLogado } from "../LoginScreen";
 import { Avaliacao } from "../../classes/Avaliacao";
 import { Entypo } from '@expo/vector-icons';
 import NetInfo from '@react-native-community/netinfo';
@@ -28,7 +28,7 @@ export default ({ navigation, route }) => {
         const diariosRef = collection(
           db,
           'Academias',
-          professorLogado.getAcademia(),
+          coordenadorLogado.getAcademia(),
           'Professores',
           aluno.professorResponsavel,
           'alunos',
