@@ -1,6 +1,5 @@
 class Turmas {
-    constructor(id, nome, horario, dia, vaga){
-        this.id = id
+    constructor(nome, horario, dia, vaga){
         this.nome = nome
         this.horario = horario
         this.dia = dia
@@ -8,9 +7,6 @@ class Turmas {
         this.professor = []
         this.alunos = []
     }
-
-    setId = (id) => {this.id = id}
-    getId = () => {return this.id}
 
     setNome = (nome) => {this.nome = nome}
     getNome = () => {return this.nome}

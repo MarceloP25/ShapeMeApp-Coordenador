@@ -6,8 +6,10 @@ import { firebaseBD } from '../../configuracoes/firebaseconfig/config';
 import NetInfo from "@react-native-community/netinfo";
 import estilo from "../../estilo";
 import { coordenadorLogado } from '../../LoginScreen';
+import Cabecalho from '../Cabecalho';
 
 export default ({ navigation }) => {
+    const novaTurma = new Turmas()
     const [conexao, setConexao] = useState(true);
 
     useEffect(() => {
@@ -24,46 +26,28 @@ export default ({ navigation }) => {
     const [horario, setHorario] = useState('');
     const [dia, setDia] = useState('');
     const [vaga, setVaga] = useState('');
-    const [nomeInvalido, setNomeInvalido] = useState(false);
-
-    const validaNome = (text) => {
-        const nomeValido = /^[\p{L}\s]*$/u;
-        if (nomeValido.test(text)) {
-            setNomeInvalido(false);
-        } else {
-            setNomeInvalido(true);
-        }
-        setNome(text);
-    };
-
-    const handleTurmaCadastro = async () => {
-        const turma = new Turmas(nome, horario, dia, vaga);
-
-        // Salva a turma no Firebase
-        try {
-            await setDoc(doc(firebaseBD, "Academias", nomeAcademia, "Turmas", turma.nome), turma);
-            
-            // Limpa os campos
+    
+    const handleCadastroTurma = () =>{
+        setDoc(doc(firebaseBD, `Academias/${coordenadorLogado.getAcademia()}/Turmas`, `${novaTurma.getNome()}`),{
+            nome: novaTurma.getNome(),
+            horario: novaTurma.getHorario(),
+            dias: novaTurma.getDia(),
+            vaga: novaTurma.getVaga(),
+        }).then(() => {
+            // Limpar os campos após o cadastro bem-sucedido
             setNome('');
             setHorario('');
             setDia('');
             setVaga('');
-
-            // Mensagem de sucesso
-            Alert.alert("Turma cadastrada no sistema! Se deseja cadastrar uma nova turma, preencha novamente...");
-        } catch (erro) {
-            console.log(`Não foi possível criar a turma. Erro: ${erro}`);
-        }
-    };
-
-    const handleFinalizar = () => {
-        // Navega para a tela de login
-        navigation.navigate('Login');
-    };
+        }).catch((erro) => {
+            console.log(`Não foi possível criar a turma. Já existe uma turma cadastrada com esse nome.`);
+        });
+    }
 
     return (
         <ScrollView alwaysBounceVertical={true} style={[estilo.corLightMenos1]}>
             <SafeAreaView style={styles.container}>
+            <Cabecalho navigation={navigation} />
                 <View style={styles.inputArea}>
                     <Text style={[estilo.tituloH619px, styles.aviso]}>PREENCHA COM OS DADOS PARA CRIAR TURMAS!</Text>
                     <Text style={[estilo.tituloH619px, styles.aviso]}>CASO NÃO QUEIRA, FINALIZE O CADASTRO.</Text>
@@ -98,14 +82,27 @@ export default ({ navigation }) => {
                     </View>
 
                     <View style={styles.inputArea}>
-                        <TouchableOpacity onPress={handleTurmaCadastro} style={[estilo.corPrimaria, styles.botao, estilo.sombra, estilo.botao]}>
+                        <TouchableOpacity style={[estilo.corPrimaria, styles.botao, estilo.sombra, estilo.botao]}
+                            onPress={() => {
+                                novaTurma.setNome(nome)
+                                novaTurma.setHorario(horario)
+                                novaTurma.setDia(dia)
+                                novaTurma.setVaga(vaga)
+
+                                if (novaTurma.getNome() == '' || novaTurma.getHorario() == '' ||
+                                    novaTurma.getDia() == '' || novaTurma.getVaga() == ''){
+                                        Alert.alert('Preencha corretamente todos os campos.')
+                                    } else {
+                                        handleCadastroTurma()
+                                    }
+                                }}>
                             <Text>CADASTRAR TURMA</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
                 <View>
-                    <TouchableOpacity onPress={handleFinalizar} style={[estilo.corPrimaria, styles.botao, estilo.sombra, estilo.botao]}>
-                        <Text>FINALIZAR</Text>
+                    <TouchableOpacity onPress={navigation.navigate('Turmas')} style={[estilo.corPrimaria, styles.botao, estilo.sombra, estilo.botao]}>
+                        <Text>LISTA TURMAS</Text>
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>

@@ -195,132 +195,132 @@ export default ({navigation}) => {
                     </View>                        
                 </View>
 
-              <View style={style.inputArea}>
-                  <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]}>CNPJ:</Text>
-                  <TextInputMask 
-                          type={'cnpj'}
-                          placeholder={'Informe o cnpj'} 
-                          placeholderTextColor={'#CFCDCD'} 
-                          style={[
-                          estilo.sombra, 
-                          estilo.corLight, 
-                          style.inputText,
-                          cnpjInvalido ? {borderWidth: 1, borderColor: 'red'} : {}
-                          ]}
-                          value={cnpj}
-                          onChangeText={(text) => validaECorrigeCnpj(text)}   
-                      >
-                      </TextInputMask>
+            <View style={style.inputArea}>
+                <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]}>CNPJ:</Text>
+                <TextInputMask 
+                        type={'cnpj'}
+                        placeholder={'Informe o cnpj'} 
+                        placeholderTextColor={'#CFCDCD'} 
+                        style={[
+                        estilo.sombra, 
+                        estilo.corLight, 
+                        style.inputText,
+                        cnpjInvalido ? {borderWidth: 1, borderColor: 'red'} : {}
+                        ]}
+                        value={cnpj}
+                        onChangeText={(text) => validaECorrigeCnpj(text)}   
+                    >
+                    </TextInputMask>
 
-                      </View>
+                    </View>
 
-              <Text style={[estilo.textoP16px, estilo.textoCorSecundaria, style.titulos]}>Agora, informe sua residência</Text>
+            <Text style={[estilo.textoP16px, estilo.textoCorSecundaria, style.titulos]}>Agora, informe sua residência</Text>
 
-              <View style={style.inputArea}>
-                  <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]}>INFORME SEU CEP:</Text>
-                  <TextInputMask 
-                      style={[
-                      style.inputText, 
-                      estilo.sombra, 
-                      estilo.corLight
-                                          ]}
-                      placeholder="ex: 36180-000"
-                      value={cep}
-                      type={'zip-code'}
-                      onChangeText={(text) => setCep(text)}
-                      keyboardType='numeric'
-                  ></TextInputMask>
-              </View>
-
-
-              <View style={style.inputArea}>
-                  <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]}>ESTADO:</Text>
-                  <TextInput 
-                      style={[
-                          style.inputText, 
-                          estilo.sombra, 
-                          estilo.corLight,
-                          estadoInvalido ? { borderColor: '#FF6262', borderWidth: 1 } : {}
-                      ]}
-                      placeholder="ex: MG"
-                      value={estado}
-                      onChangeText={(text) => validaEstado(text)}
-                      maxLength={2}
-                      ></TextInput>
-                  </View>
+            <View style={style.inputArea}>
+                <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]}>INFORME SEU CEP:</Text>
+                <TextInputMask 
+                    style={[
+                    style.inputText, 
+                    estilo.sombra, 
+                    estilo.corLight
+                                        ]}
+                    placeholder="ex: 36180-000"
+                    value={cep}
+                    type={'zip-code'}
+                    onChangeText={(text) => setCep(text)}
+                    keyboardType='numeric'
+                ></TextInputMask>
+            </View>
 
 
-                  <View style={style.inputArea}>
-              <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>CIDADE:</Text>
+            <View style={style.inputArea}>
+                <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]}>ESTADO:</Text>
+                <TextInput 
+                    style={[
+                        style.inputText, 
+                        estilo.sombra, 
+                        estilo.corLight,
+                        estadoInvalido ? { borderColor: '#FF6262', borderWidth: 1 } : {}
+                    ]}
+                    placeholder="ex: MG"
+                    value={estado}
+                    onChangeText={(text) => validaEstado(text)}
+                    maxLength={2}
+                    ></TextInput>
+                </View>
+
+
+                <View style={style.inputArea}>
+            <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>CIDADE:</Text>
                 <TextInput
-                  style={[
+                style={[
                     style.inputText,
                     estilo.sombra,
                     estilo.corLight,
                     cidadeInvalida ? { borderColor: 'red', borderWidth: 1 } : {}
-                  ]}
-                  placeholder="Informe a cidade"
-                  value={cidade}
-                  onChangeText={(text) => validaCidade(text)}
+                ]}
+                placeholder="Informe a cidade"
+                value={cidade}
+                onChangeText={(text) => validaCidade(text)}
                 />
-              </View>
+            </View>
 
 
-              <View style={style.inputArea}>
-                  <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>BAIRRO:</Text>
-                  <TextInput
-                  style={[
+            <View style={style.inputArea}>
+                <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>BAIRRO:</Text>
+                <TextInput
+                style={[
                     style.inputText,
                     estilo.sombra,
                     estilo.corLight,
                     bairroInvalido ? { borderColor: 'red', borderWidth: 1 } : {}
-                  ]}
-                  placeholder="Informe o bairro"
-                  value={bairro}
-                  onChangeText={(text) => validaBairro(text)}
+                ]}
+                placeholder="Informe o bairro"
+                value={bairro}
+                onChangeText={(text) => validaBairro(text)}
                 />
-              </View>
+            </View>
 
 
-              <View style={style.inputArea}>
-                  <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>RUA:</Text>
-                  <TextInput
-                  style={[
+            <View style={style.inputArea}>
+                <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>RUA:</Text>
+                <TextInput
+                style={[
                     style.inputText,
                     estilo.sombra,
                     estilo.corLight,
                     ruaInvalida ? { borderColor: 'red', borderWidth: 1 } : {}
-                  ]}
-                  placeholder="Informe a rua"
-                  value={rua}
-                  onChangeText={(text) => validaRua(text)}
+                ]}
+                placeholder="Informe a rua"
+                value={rua}
+                onChangeText={(text) => validaRua(text)}
                 />
-              </View>
+            </View>
 
-              <View style={style.alinhamentoBotoesPequenos}>
-                  <View style={[style.inputArea, style.campoPequeno]}>
-                      <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>NÚMERO:</Text>
-                      <TextInput 
-                          style={[style.inputText, estilo.sombra, estilo.corLight]} placeholder="Número da residência"
-                          value={numero}
-                          keyboardType='numeric'
-                          onChangeText={(text) => setNumero(text)}
-                          
-                          ></TextInput>
-                  </View>
-                  <View style={[style.inputArea, style.campoPequeno]}>
-                      <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>COMPLEMENTO:</Text>
-                      <TextInput 
-                          style={[style.inputText, estilo.sombra, estilo.corLight]} placeholder="complemento"
-                          value={complemento}
-                          onChangeText={(text) => setComplemento(text)}
-                          ></TextInput>
-                  </View> 
-              </View>
+            <View style={style.alinhamentoBotoesPequenos}>
+                <View style={[style.inputArea, style.campoPequeno]}>
+                    <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>NÚMERO:</Text>
+                    <TextInput 
+                        style={[style.inputText, estilo.sombra, estilo.corLight]} placeholder="Número da residência"
+                        value={numero}
+                        keyboardType='numeric'
+                        onChangeText={(text) => setNumero(text)}
+                        
+                        ></TextInput>
+                </View>
+                <View style={[style.inputArea, style.campoPequeno]}>
+                    <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>COMPLEMENTO:</Text>
+                    <TextInput 
+                        style={[style.inputText, estilo.sombra, estilo.corLight]} placeholder="complemento"
+                        value={complemento}
+                        onChangeText={(text) => setComplemento(text)}
+                        ></TextInput>
+                </View> 
+            </View>
             
-              <TouchableOpacity 
-              style={[estilo.corPrimaria, style.botao, estilo.sombra, estilo.botao]}
-              onPress={()=>{
+            <TouchableOpacity 
+            style={[estilo.corPrimaria, style.botao, estilo.sombra, estilo.botao]}
+            onPress={()=>{
 
                 novaAcademia.setNome(nome)
                 novaAcademia.setCnpj(cnpj)
@@ -339,27 +339,27 @@ export default ({navigation}) => {
                 || novaAcademia.getCnpj() == ''
                 || enderecoAcademia.getCep() == '' || enderecoAcademia.getCidade() == '' || enderecoAcademia.getEstado() == ''
                 || enderecoAcademia.getRua() == ''){
-                  Alert.alert("Há campos não preenchidos.", "Preencha os campos antes de prosseguir.")
-                  if(novaAcademia.getNome() == '') setNomeInvalido(true)
-                  if(novaAcademia.getCnpj() == '') setCnpjInvalido(true)
-                  if(enderecoAcademia.getCep() == '') setCepInvalido(true)
-                  if(enderecoAcademia.getRua() == '') setRuaInvalida(true)
-                  if(enderecoAcademia.getEstado() == '') setEstadoInvalido(true)
-                  if(enderecoAcademia.getCidade() == '') setCidadeInvalida(true)
-                  if(enderecoAcademia.getBairro() == '') setBairroInvalido(true)
-                  
+                Alert.alert("Há campos não preenchidos.", "Preencha os campos antes de prosseguir.")
+                if(novaAcademia.getNome() == '') setNomeInvalido(true)
+                if(novaAcademia.getCnpj() == '') setCnpjInvalido(true)
+                if(enderecoAcademia.getCep() == '') setCepInvalido(true)
+                if(enderecoAcademia.getRua() == '') setRuaInvalida(true)
+                if(enderecoAcademia.getEstado() == '') setEstadoInvalido(true)
+                if(enderecoAcademia.getCidade() == '') setCidadeInvalida(true)
+                if(enderecoAcademia.getBairro() == '') setBairroInvalido(true)
+                
                     //navigation.navigate("CadastroTurmas")
 
                 } else {
-                  handleFinalizarCadastro()
+                handleFinalizarCadastro()
                 }
-               }}>
-                  <Text 
-              style={[estilo.tituloH523px, estilo.textoCorLight]}>CADASTRAR</Text>
-              </TouchableOpacity>
-              </SafeAreaView>
-              }
-               
+            }}>
+                <Text 
+            style={[estilo.tituloH523px, estilo.textoCorLight]}>CADASTRAR</Text>
+            </TouchableOpacity>
+            </SafeAreaView>
+            }
+            
 
             </ScrollView>
     )

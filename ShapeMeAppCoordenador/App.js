@@ -68,6 +68,9 @@ import ListaExercicios from './componentes/Exercicios/ListaExercicios/index.js';
 import DadosExercicios from './componentes/Exercicios/ListaExercicios/DadosExercicios/index.js';
 import Academia from './componentes/Academia/index.js';
 import PerfilProfessor from './componentes/ListaProfessores/PerfilProfessor/index.js';
+import Turmas from './componentes/Turmas/index.js';
+import EditarTurmas from './componentes/Turmas/EditarTurmas/index.js';
+import DadosTurma from './componentes/Turmas/DadosTurma/index.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -89,7 +92,10 @@ export default function App() {
         <Stack.Screen name="Principal" component={Routes} options={{ headerShown: false }} />
         <Stack.Screen name="Cadastro Coordenador" component={CadastroScreen}/>
         <Stack.Screen name="Perfil Aluno" component={PerfilDoAluno}/>
+        <Stack.Screen name="Turmas" component={Turmas}/>
         <Stack.Screen name='Cadastro Turmas' component={CadastroTurmas}/>
+        <Stack.Screen name="Editar Turmas" component={EditarTurmas}/>
+        <Stack.Screen name="Dados Turma" component={DadosTurma}/>
         <Stack.Screen name="PARQ" component={Parq}/>
         <Stack.Screen name="Anamnese" component={Anamnese}/>
         <Stack.Screen name="Montar treino" component={MontarTreino}/>

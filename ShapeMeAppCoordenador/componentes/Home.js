@@ -116,7 +116,7 @@ return (
                 <View style={style.containerBotao}>
                     <TouchableOpacity 
                         style={[estilo.corPrimaria, style.botao]} 
-                        onPress={() => navigation.navigate('')}>
+                        onPress={() => navigation.navigate('Turmas')}>
                     <Foundation name="clipboard-pencil" size={120} color="white" />
                     <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>TURMAS</Text>
                     </TouchableOpacity>
