@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Text, View, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, TextInput, Alert} from 'react-native'
-import estilo from '../../estilo'
+import estilo from '../estilo'
 import IMC from './Tabelas/IMC'
 import FrequenciaCardiacaDeRepouso from './Tabelas/FrequenciaCardiacaDeRepouso'
 import PressaoArterial from './Tabelas/PressaoArterial'

@@ -10,30 +10,28 @@ import Caixinha from './componentes/SelecaoAluno/PerfilDoAluno/Caixinha';
 import Parq from './componentes/Parq';
 import Anamnese from './componentes/Anamnese';
 import DadosCorporais from './componentes/NovaAvaliacao/DadosCorporais';
-import SentarAlcancar from './componentes/NovaAvaliacao/Testes/Tabelas/SentarAlcancar';
+import SentarAlcancar from './componentes/Testes/Tabelas/SentarAlcancar.js';
 import Avaliacoes from './componentes/Avaliacoes';
 import Exercicios from './componentes/Exercicios';
-import TestesParte1 from './componentes/NovaAvaliacao/Testes/TestesParte1';
-import ResistenciaAbdominal from './componentes/NovaAvaliacao/Testes/Tabelas/ResistenciaAbdominal';
-import ResistenciaAbdominal18anos from './componentes/NovaAvaliacao/Testes/Tabelas/ResistenciaAbdominal18anos';
-import TestesPart2 from './componentes/NovaAvaliacao/Testes/TestesPart2';
-import IMC from './componentes/NovaAvaliacao/Testes/Tabelas/IMC';
-import PressaoArterial from './componentes/NovaAvaliacao/Testes/Tabelas/PressaoArterial';
-import FrequenciaCardiacaDeRepouso from './componentes/NovaAvaliacao/Testes/Tabelas/FrequenciaCardiacaDeRepouso';
-import TestesParte3 from './componentes/NovaAvaliacao/Testes/TestesParte3';
-import TabelaDeResultados from './componentes/NovaAvaliacao/Testes/Tabelas/TabelaDeResultados';
-import FinalizarTestes from './componentes/NovaAvaliacao/FinalizarTestes';
-import AvisoAvaliacaoFinalizada from './componentes/NovaAvaliacao/AvisoAvaliacaoFinalizada';
-import MontarTreino from './componentes/MontarTreino';
+//import TestesParte1 from './componentes/NovaAvaliacao/Testes/TestesParte1';
+//import ResistenciaAbdominal from './componentes/NovaAvaliacao/Testes/Tabelas/ResistenciaAbdominal';
+//import ResistenciaAbdominal18anos from './componentes/NovaAvaliacao/Testes/Tabelas/ResistenciaAbdominal18anos';
+//import TestesPart2 from './componentes/NovaAvaliacao/Testes/TestesPart2';
+//import IMC from './componentes/NovaAvaliacao/Testes/Tabelas/IMC';
+//import PressaoArterial from './componentes/NovaAvaliacao/Testes/Tabelas/PressaoArterial';
+//import FrequenciaCardiacaDeRepouso from './componentes/NovaAvaliacao/Testes/Tabelas/FrequenciaCardiacaDeRepouso';
+//import TestesParte3 from './componentes/NovaAvaliacao/Testes/TestesParte3';
+//import TabelaDeResultados from './componentes/NovaAvaliacao/Testes/Tabelas/TabelaDeResultados';
+//import FinalizarTestes from './componentes/NovaAvaliacao/FinalizarTestes';
+//import AvisoAvaliacaoFinalizada from './componentes/NovaAvaliacao/AvisoAvaliacaoFinalizada';
 import Routes from './componentes/Routes/estilo';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import PerfilProfessor from './componentes/PerfilProfessor';
-import EditarFoto from './componentes/PerfilProfessor/EditarFoto';
+import PerfilCoordenador from './componentes/PerfilCoordenador';
+import EditarFoto from './componentes/PerfilCoordenador/EditarFoto';
 import Notificacoes from './componentes/Notificacoes';
 import CadastroScreen from './componentes/CadastroScreen/index.js';
 import ModalSemConexao from './componentes/ModalSemConexao';
-import SelecaoAlunoAvaliacao from './componentes/MontarTreino/SelecaoAlunoAvaliacao';
 import SelecaoAlunoAnaliseProgramaDeTreino from './componentes/AnaliseDoProgramaDeTreino/SelecaoAlunoAnaliseProgramaDeTreino';
 import TelaAnaliseDoProgramaDeTreino from './componentes/TelaAnaliseDoProgramaDeTreino';
 import TelasDeEvolucao from './componentes/TelasDeEvolucao';
@@ -54,16 +52,12 @@ import EvolucaoPseBorg from './componentes/TelasDeEvolucao/GraficosEvolutivos/Ev
 import NovaAvaliacao from './componentes/NovaAvaliacao';
 import FrequenciaAluno from './componentes/SelecaoAluno/PerfilDoAluno/FrequenciaAluno';
 import * as Notification from "expo-notifications"
-import SelecaoDoExercicio from './componentes/MontarTreino/SelecaoDoExercicio';
-import AdicionaisExercicio from './componentes/MontarTreino/SelecaoDoExercicio/AdicionaisExercicio';
-import NovaFicha from './componentes/MontarTreino/NovaFicha';
 import ExportCSV from './componentes/ExportCSV/index.js';
 import SelecaoAlunoExport from './componentes/ExportCSV/SelecaoAlunoExport.js';
 import CadastroAcademiaScreen from './componentes/CadastroAcademiaScreen/index.js';
-import CadastroTurmas from './componentes/CadastroTurmas/index.js';
-import CadastroExercicios from '.componentes/Exercicios/CadastroExercicios/index.js';
-import Exercicios from './componentes/Exercicios/index.js';
-import EditarExercicios from '.componentes/Exercicios/EditarExercicios/index.js';
+import CadastroTurmas from './componentes/Turmas/CadastroTurmas/index.js';
+import CadastroExercicios from './componentes/Exercicios/CadastroExercicio/index.js';
+import EditarExercicios from './componentes/Exercicios/EditarExercicio/index.js';
 import ListaExercicios from './componentes/Exercicios/ListaExercicios/index.js';
 import DadosExercicios from './componentes/Exercicios/ListaExercicios/DadosExercicios/index.js';
 import Academia from './componentes/Academia/index.js';
@@ -98,25 +92,22 @@ export default function App() {
         <Stack.Screen name="Dados Turma" component={DadosTurma}/>
         <Stack.Screen name="PARQ" component={Parq}/>
         <Stack.Screen name="Anamnese" component={Anamnese}/>
-        <Stack.Screen name="Montar treino" component={MontarTreino}/>
         <Stack.Screen name="Cadastro Academia" component={CadastroAcademiaScreen}/>
         <Stack.Screen name="Perfil Academia" component={Academia}/>
-        <Stack.Screen name="Perfil" component={PerfilProfessor}/>
+        <Stack.Screen name="Perfil" component={PerfilCoordenador}/>
         <Stack.Screen name="Exercicios" component={Exercicios}/>
-        <Stack.Screen name="Cadastro Exercicios" componente={CadastroExercicios}/>
-        <Stack.Screen name="Editar Exercicios" componente={EditarExercicios}/>
-        <Stack.Screen name="Lista Exercicios" componente={ListaExercicios}/>
-        <Stack.Screen name="Dados Exercicios" componente={DadosExercicios}/>
+        <Stack.Screen name="Cadastro Exercicios" component={CadastroExercicios}/>
+        <Stack.Screen name="Editar Exercicios" component={EditarExercicios}/>
+        <Stack.Screen name="Lista Exercicios" component={ListaExercicios}/>
+        <Stack.Screen name="Dados Exercicios" component={DadosExercicios}/>
         <Stack.Screen name="Editar foto" component={EditarFoto}/>
         <Stack.Screen name="Perfil Professor" component={PerfilProfessor}/>
-        <Stack.Screen name="Alunos" componente={SelecaoAluno}/>
+        <Stack.Screen name="Alunos" component={SelecaoAluno}/>
         <Stack.Screen name="Lista Alunos" component={ListaAlunos}/>
         <Stack.Screen name="Avaliações" component={Avaliacoes}/>
         <Stack.Screen name='Modal sem conexão' component={ModalSemConexao} options={{headerShown: false}}/>
-        <Stack.Screen name="Seleção Aluno Montar Treino" component={SelecaoAlunoAvaliacao}/>
         <Stack.Screen name="Seleção Aluno Análise do Programa de Treino" component={SelecaoAlunoAnaliseProgramaDeTreino}/>
         <Stack.Screen name="Avaliações Análise do Programa de Treino" component={Avaliacoes}/>
-        <Stack.Screen name="Analise do Programa de Treino" component={TelaAnaliseDoProgramaDeTreino}/>
         <Stack.Screen name="Evolução" component={TelasDeEvolucao} />
         <Stack.Screen name="Seleção da evolução" component={SelecaoDaEvolucao}/>
         <Stack.Screen name="Evolução dados antropométricos" component={EvolucaoCorporal}/>
@@ -140,9 +131,6 @@ export default function App() {
         <Stack.Screen name="Finalizar Testes" component={FinalizarTestes}/>
         <Stack.Screen name='Modal aviso avaliação sucesso' component={AvisoAvaliacaoFinalizada} options={{headerShown: false}}/>
         <Stack.Screen name="Frequencia do aluno" component={FrequenciaAluno}/>
-        <Stack.Screen name="Seleção do Exercício" component={SelecaoDoExercicio}/>
-        <Stack.Screen name="Adicionais exercício" component={AdicionaisExercicio}/>
-        <Stack.Screen name="Nova Ficha" component={NovaFicha}/>
         <Stack.Screen name="Exportar CSV" component={ExportCSV}/>
         <Stack.Screen name="Seleção Aluno CSV" component={SelecaoAlunoExport}/>
       </Stack.Navigator>

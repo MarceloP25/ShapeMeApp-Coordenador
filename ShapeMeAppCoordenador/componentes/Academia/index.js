@@ -1,7 +1,7 @@
 import { Text, StyleSheet, View, SafeAreaView, ScrollView } from 'react-native'
 import React, { Component } from 'react'
 import estilo from '../estilo'
-import Cabecalho from '../../Cabecalho'
+import Cabecalho from '../Cabecalho'
 import { useNavigation } from '@react-navigation/native'
 import { coordenadorLogado } from '../LoginScreen'
 import {firebase, firebaseBD} from '../configuracoes/firebaseconfig/config'

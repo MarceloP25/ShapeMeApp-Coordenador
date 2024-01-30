@@ -7,7 +7,7 @@ import { AntDesign } from '@expo/vector-icons';
 import SelecaoAluno from '../SelecaoAluno';
 import Logo from '../Logo';
 import Parq from '../Parq';
-import PerfilProfessor from '../PerfilProfessor';
+import PerfilCoordenador from '../PerfilCoordenador';
 import Notificacoes from '../Notificacoes';
 
 const Tab = createBottomTabNavigator()
@@ -38,7 +38,7 @@ export default function Routes(){
             }}/>
             <Tab.Screen 
             name="Perfil" 
-            component={PerfilProfessor}
+            component={PerfilCoordenador}
             options={{
                 tabBarIcon: ({size, color}) => (<AntDesign name="user" size={size} color={color} />)
             }}/>

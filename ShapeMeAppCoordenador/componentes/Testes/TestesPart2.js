@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Text, View, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, TextInput, Alert} from 'react-native'
-import estilo from '../../estilo'
+import estilo from '../estilo'
 import ResistenciaAbdominal18anos from './Tabelas/ResistenciaAbdominal18anos'
 import ResistenciaAbdominal from './Tabelas/ResistenciaAbdominal'
 import {useFonts} from 'expo-font'

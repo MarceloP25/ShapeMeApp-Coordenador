@@ -1,33 +1,65 @@
-import { SafeAreaView, ScrollView, Text, TouchableOpacity, View, StyleSheet } from 'react-native'
-import React, { useState, useEffect } from "react"
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, StyleSheet, FlatList } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
+import { Alert } from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
 import estilo from '../../estilo';
-import { collection, setDoc, doc, getDocs, getFirestore, where, query, addDoc, querySnapshot, QueryStartAtConstraint } from "firebase/firestore";
-import { firebase, firebaseBD } from '../configuracoes/firebaseconfig/config'
-import { Exercicio } from '../../classes/Exercicio'
+import { useNavigation } from '@react-navigation/native';
+import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from "firebase/firestore";
+import { firebaseBD } from '../../configuracoes/firebaseconfig/config';
 import { FontAwesome6 } from '@expo/vector-icons';
 import ModalDropdown from 'react-native-modal-dropdown';
-import ImagePicker from 'react-native-image-picker';
 import { coordenadorLogado } from '../../LoginScreen';
 import Cabecalho from '../../Cabecalho';
 
-export default ({navigation, route}) =>{
-
-    const novoExercicio = new Exercicio()
-
+export default ({navigation, route}) => {
     const [conexao, setConexao] = useState(true);
-
+    const [exercicios, setExercicios] = useState([]);
+    const [exercicioSelecionado, setExercicioSelecionado] = useState(null);
 
     useEffect(() => {
-        const unsubscribe = NetInfo.addEventListener(state => {
-            setConexao(state.type === 'wifi' || state.type === 'cellular')
-        })
+        const unsubscribe = NetInfo.addEventListener((state) => {
+            setConexao(state.type === 'wifi' || state.type === 'cellular');
+        });
 
         return () => {
-            unsubscribe()
+            unsubscribe();
+        };
+    }, []);
+
+    useEffect(() => {
+        const carregarExercicios = async () => {
+        try {
+            const querySnapshot = await getDocs(collection(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), 'Exercicios'));
+            const exercicios = [];
+            querySnapshot.forEach((doc) => {
+            exercicios.push({ id: doc.id, ...doc.data() });
+            });
+            setExercicios(exercicios);
+        } catch (error) {
+            console.error('Erro ao carregar exercícios:', error);
         }
-    }, [])
-    
+        };
+
+        carregarExercicios();
+    }, []);
+
+    const handleSelecionarExercicio = (exercicio) => {
+        setExercicioSelecionado(exercicio);
+        setNome(exercicio.nome || '');
+        setTipo(exercicio.tipo || '');
+        setMusculos(exercicio.musculos || '');
+        setDescricao(exercicio.descricao || '');
+        setVariacao(exercicio.variacao || []);
+        setExecucao(exercicio.execucao || []);
+        setImagem(exercicio.imagem || null);
+    };
+
+    const renderItem = ({ item }) => (
+        <TouchableOpacity onPress={() => handleSelecionarExercicio(item)}>
+            <Text>{item.nome}</Text>
+        </TouchableOpacity>
+    );
     const [nome, setNome] = useState('')
     const [nomeInvalido, setNomeInvalido] = useState(false);
 
@@ -126,7 +158,6 @@ export default ({navigation, route}) =>{
         ));
     };
 
-    /* Definir como adicionar imagem */
     const [imagem, setImagem] = useState(null)
 
     const options = {
@@ -137,34 +168,72 @@ export default ({navigation, route}) =>{
         },
     };
 
-
     const handleFinalizarCadastro = () => {
-        setDoc(doc(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), 'Exercicios', `${novoExercicio.getNome()}`),{
-            nome: novoExercicio.getNome(),
-            tipo: novoExercicio.getTipo(),
-            musculos: novoExercicio.getMusculos(),
-            descricao: novoExercicio.getDescricao(),
-            variacao:  novoExercicio.getVariacao(),
-            execucao: novoExercicio.getExecuao(),
-            imagem: novoExercicio.getImagem(),
+        updateDoc(doc(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), 'Exercicios', `${exercicios.getNome()}`),{
+            nome: exercicios.getNome(),
+            tipo: exercicios.getTipo(),
+            musculos: exercicios.getMusculos(),
+            descricao: exercicios.getDescricao(),
+            variacao:  exercicios.getVariacao(),
+            execucao: exercicios.getExecuao(),
+            imagem: exercicios.getImagem(),
         }).catch((erro) => {
             console.log(`Não foi possível criar o documento. Já existe um exercício cadastrado com esse nome.`)
         });
     }
 
+    const handleExcluirExercicio = async () => {
+        try {
+            await doc(
+                firebaseBD,
+                'Academias',
+                coordenadorLogado.getAcademia(),
+                'Exercicios',
+                exercicioSelecionado.id
+            ).delete();
 
+        // Atualizar a lista de exercícios após a exclusão
+        const updatedExercicios = exercicios.filter(
+            (exercicio) => exercicio.id !== exercicioSelecionado.id
+        );
+        setExercicios(updatedExercicios);
+
+        // Limpar os campos de input após a exclusão
+        setExercicioSelecionado(null);
+        setNome('');
+        setTipo('');
+        setMusculos('');
+        setDescricao('');
+        setVariacao([]);
+        setExecucao([]);
+        setImagem(null);
+
+        Alert.alert('Exercício excluído com sucesso!');
+        } catch (error) {
+        console.error('Erro ao excluir exercício:', error);
+        Alert.alert('Erro ao excluir exercício. Tente novamente.');
+        }
+    };
 
     return (
         <ScrollView alwaysBounceVertical={true} style={estilo.corLightMenos1}>
-            {!conexao ? <ModalSemConexao/> 
-            : 
-            <SafeAreaView style={styles.container}>   
+        {!conexao ? (
+            <ModalSemConexao />
+        ) : (
+            <SafeAreaView style={styles.container}>
             <Cabecalho navigation={navigation} />
+            <View>
+                <View style={{ alignContent: 'center' }}>
+                <Text style={[estilo.tituloH523px, estilo.textoCorSecundaria, styles.titulos]}>EDITAR EXERCÍCIO</Text>
+                </View>
 
-                <View>
-                    <View style={{alignContent: 'center',}}>
-                        <Text style={[estilo.tituloH523px, estilo.textoCorSecundaria,  styles.titulos]}>CADASTTRAR EXERCÍCIO</Text>
-                    </View>
+                {/* Lista de exercícios */}
+                <FlatList
+                    data={exercicios}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                    ListEmptyComponent={<Text>Nenhum exercício encontrado</Text>}
+                />
 
                     <View style={styles.inputArea}>
                         <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>NOME:</Text>
@@ -194,7 +263,7 @@ export default ({navigation, route}) =>{
                             textStyle={[estilo.sombra, estilo.corLight, styles.inputText]}
                             dropdownTextStyle={[estilo.sombra, estilo.corLight]}
                         />
-                </View>
+                    </View>
 
                     <View style={styles.inputArea}>
                         <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>ATUAÇÃO MUSCULAR:</Text>
@@ -258,55 +327,76 @@ export default ({navigation, route}) =>{
                         </View>
                     </View>
 
-                    <View>
-                        <Text>IMAGEM:</Text>
-                        <View>
-                            <TouchableOpacity
-                                style={[estilo.botao, estilo.sombra]}
-                                onPress={() => {
-                                ImagePicker.showImagePicker(options, (response) => {
-                                    if (response.didCancel) {
-                                    console.log('Usuário cancelou a seleção da imagem');
-                                    } else if (response.error) {
-                                    console.log('Erro: ', response.error);
-                                    } else {
-                                    const source = { uri: response.uri };
-                                    setImage(source);
-                                    }
-                                });
-                                }}>
-                                <Text style={[estilo.tituloH523px, estilo.textoCorLight]}>Selecionar Imagem</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-
-                    <View>
-                        <TouchableOpacity style={[estilo.botao, estilo.sombra, estilo.corPrimaria]}
-                            onPress={() => {
-                                novoExercicio.setNome(nome)
-                                novoExercicio.setTipo(tipo)
-                                novoExercicio.setMusculos(musculos)
-                                novoExercicio.setDescricao(descricao)
-                                novoExercicio.setVariacao(variacao)
-                                novoExercicio.setExecucao(execucao)
-                                novoExercicio.setImagem(imagem)
-
-                                if (novoExercicio.getNome() == '' || novoExercicio.getTipo() == ''){
-                                    Alert.alert('Informe o nome do exercicio para cadasrtá-lo!!!')
-                                } else {
-                                    handleFinalizarCadastro()
-                                }
-                            }}>
-                            <Text style={[estilo.tituloH523px, estilo.textoCorLight]}>ADICIONAR</Text>
-                        </TouchableOpacity>
-                    </View>
+                <View>
+                <Text>IMAGEM:</Text>
+                <View>
+                    <TouchableOpacity
+                    style={[estilo.botao, estilo.sombra]}
+                    onPress={() => {
+                        ImagePicker.showImagePicker(options, (response) => {
+                        if (response.didCancel) {
+                            console.log('Usuário cancelou a seleção da imagem');
+                        } else if (response.error) {
+                            console.log('Erro: ', response.error);
+                        } else {
+                            const source = { uri: response.uri };
+                            setImage(source);
+                        }
+                        });
+                    }}>
+                    <Text style={[estilo.tituloH523px, estilo.textoCorLight]}>Selecionar Imagem</Text>
+                    </TouchableOpacity>
+                </View>
                 </View>
 
+                <View>
+                    <TouchableOpacity style={[estilo.botao, estilo.sombra, estilo.corPrimaria]}
+                                onPress={() => {
+                                    exercicios.setNome(nome)
+                                    exercicios.setTipo(tipo)
+                                    exercicios.setMusculos(musculos)
+                                    exercicios.setDescricao(descricao)
+                                    exercicios.setVariacao(variacao)
+                                    exercicios.setExecucao(execucao)
+                                    exercicios.setImagem(imagem)
+
+                                    if (exercicios.getNome() == '' || exercicios.getTipo() == ''){
+                                        Alert.alert('Informe o nome do exercicio para cadasrtá-lo!!!')
+                                    } else {
+                                        handleFinalizarCadastro()
+                                    }
+                                }}>
+                        <Text style={[estilo.tituloH523px, estilo.textoCorLight]}>SALVAR ALTERAÇÕES</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[estilo.botao, estilo.sombra, styles.botaoExcluir]}
+                        onPress={() => {
+                        if (exercicioSelecionado) {
+                            Alert.alert(
+                            'Excluir Exercício',
+                            `Deseja realmente excluir o exercício "${exercicioSelecionado.nome}"?`,
+                            [
+                                {
+                                text: 'Cancelar',
+                                style: 'cancel',
+                                },
+                                { text: 'Excluir', onPress: handleExcluirExercicio() },
+                            ]
+                            );
+                        } else {
+                            Alert.alert('Nenhum exercício selecionado para excluir.');
+                        }
+                        }}>
+                        <Text style={[estilo.tituloH523px, estilo.textoCorLight]}>EXCLUIR EXERCÍCIO</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
             </SafeAreaView>
-                }
+        )}
         </ScrollView>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     container:{
@@ -337,5 +427,8 @@ const styles = StyleSheet.create({
         height: 29,
         borderRadius: 5,
     },
+    botaoExcluir: {
+        backgroundColor: 'red',
+    }
 
 })

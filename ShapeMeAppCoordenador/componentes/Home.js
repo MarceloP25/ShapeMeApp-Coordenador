@@ -223,11 +223,18 @@ return (
                         </View>
                         <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>AVALIAÇÕES E FICHAS</Text>
                     </TouchableOpacity>
-                </View> 
-            </View>
-            
-    </SafeAreaView>
+                </View>
 
+                <View style={style.containerBotao}>
+                    <TouchableOpacity style={[estilo.corPrimaria, style.botao]} onPress={() => navigation.navigate('Testes')}>
+                        <View style={[style.iconeBotao]}>
+                            <Ionicons name="body-outline" size={120} color="white" />
+                        </View>
+                        <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>TESTES</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+    </SafeAreaView>
 )
 }
 

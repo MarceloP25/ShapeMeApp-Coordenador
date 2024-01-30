@@ -6,7 +6,7 @@ import { firebaseBD } from '../../configuracoes/firebaseconfig/config';
 import NetInfo from "@react-native-community/netinfo";
 import estilo from "../../estilo";
 import { coordenadorLogado } from '../../LoginScreen';
-import Cabecalho from '../Cabecalho';
+import Cabecalho from '../../Cabecalho';
 
 export default ({ navigation }) => {
     const novaTurma = new Turmas()

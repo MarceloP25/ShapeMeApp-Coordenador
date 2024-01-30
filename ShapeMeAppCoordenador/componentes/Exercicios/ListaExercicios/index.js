@@ -1,6 +1,6 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import estilo from '../estilo';
+import { SafeAreaView, ScrollView, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import estilo from '../../estilo';
 import { useNavigation } from '@react-navigation/native';
 import Cabecalho from '../../Cabecalho';
 

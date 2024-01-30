@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView, ScrollView, Text, TouchableOpacity, View, StyleSheet } from 'react-native'
 import React, { useState, useEffect } from "react"
 import { useNavigation } from '@react-navigation/native';
 import estilo from '../estilo';
@@ -7,7 +7,7 @@ import { firebase, firebaseBD } from '../configuracoes/firebaseconfig/config'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Exercicio } from '../../classes/Exercicio';
 import { coordenadorLogado } from '../LoginScreen';
-import Cabecalho from '../../Cabecalho';
+import Cabecalho from '../Cabecalho';
 
 export default ({navigation, route}) =>{
 

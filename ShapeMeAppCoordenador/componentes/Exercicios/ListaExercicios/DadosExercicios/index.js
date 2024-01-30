@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SafeAreaView, ScrollView, Text, View, Image, TouchableOpacity, Modal, StyleSheet } from 'react-native';
 import estilo from '../../../estilo';
 import { useNavigation } from '@react-navigation/native';
-import Cabecalho from '../../Cabecalho';
+import Cabecalho from '../../../Cabecalho';
 
 export default ({ navigation, route }) => {
     const { exercicio } = route.params;
