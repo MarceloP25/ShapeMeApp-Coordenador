@@ -9,21 +9,22 @@ import PerfilDoAluno from './componentes/SelecaoAluno/PerfilDoAluno';
 import Caixinha from './componentes/SelecaoAluno/PerfilDoAluno/Caixinha';
 import Parq from './componentes/Parq';
 import Anamnese from './componentes/Anamnese';
-import DadosCorporais from './componentes/NovaAvaliacao/DadosCorporais';
+import DadosCorporais from './componentes/DadosCorporais';
 import SentarAlcancar from './componentes/Testes/Tabelas/SentarAlcancar.js';
 import Avaliacoes from './componentes/Avaliacoes';
 import Exercicios from './componentes/Exercicios';
-//import TestesParte1 from './componentes/NovaAvaliacao/Testes/TestesParte1';
-//import ResistenciaAbdominal from './componentes/NovaAvaliacao/Testes/Tabelas/ResistenciaAbdominal';
-//import ResistenciaAbdominal18anos from './componentes/NovaAvaliacao/Testes/Tabelas/ResistenciaAbdominal18anos';
-//import TestesPart2 from './componentes/NovaAvaliacao/Testes/TestesPart2';
-//import IMC from './componentes/NovaAvaliacao/Testes/Tabelas/IMC';
-//import PressaoArterial from './componentes/NovaAvaliacao/Testes/Tabelas/PressaoArterial';
-//import FrequenciaCardiacaDeRepouso from './componentes/NovaAvaliacao/Testes/Tabelas/FrequenciaCardiacaDeRepouso';
-//import TestesParte3 from './componentes/NovaAvaliacao/Testes/TestesParte3';
-//import TabelaDeResultados from './componentes/NovaAvaliacao/Testes/Tabelas/TabelaDeResultados';
-//import FinalizarTestes from './componentes/NovaAvaliacao/FinalizarTestes';
-//import AvisoAvaliacaoFinalizada from './componentes/NovaAvaliacao/AvisoAvaliacaoFinalizada';
+import Testes from './componentes/Testes/index.js';
+import Teste1 from './componentes/Testes/TestesParte1.js';
+import ResistenciaAbdominal from './componentes/Testes/Tabelas/ResistenciaAbdominal';
+import ResistenciaAbdominal18anos from './componentes/Testes/Tabelas/ResistenciaAbdominal18anos';
+import Teste2 from './componentes/Testes/TestesPart2.js';
+import IMC from './componentes/Testes/Tabelas/IMC';
+import PressaoArterial from './componentes/Testes/Tabelas/PressaoArterial';
+import FrequenciaCardiacaDeRepouso from './componentes/Testes/Tabelas/FrequenciaCardiacaDeRepouso';
+import Testes3 from './componentes/Testes/TestesParte3.js';
+import TabelaDeResultados from './componentes/Testes/Tabelas/TabelaDeResultados';
+import FinalizarTestes from './componentes/FinalizarTestes';
+import AvisoAvaliacaoFinalizada from './componentes/AvisoAvaliacaoFinalizada';
 import Routes from './componentes/Routes/estilo';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -123,13 +124,10 @@ export default function App() {
         <Stack.Screen name="Evolução PSE do Exercício" component={EvolucaoPseBorg}/>
         <Stack.Screen name="Chat" component={Chat}/>
         <Stack.Screen name='Mensagens' component={Mensagens} options={{headerShown: false}}/>
-        <Stack.Screen name='Nova avaliação' component={NovaAvaliacao}/>
-        <Stack.Screen name='Dados corporais' component={DadosCorporais}/>
-        <Stack.Screen name="Testes parte 1" component={TestesParte1}/>
-        <Stack.Screen name="Testes parte 2" component={TestesPart2}/>
-        <Stack.Screen name='Testes parte 3' component={TestesParte3}/>
-        <Stack.Screen name="Finalizar Testes" component={FinalizarTestes}/>
-        <Stack.Screen name='Modal aviso avaliação sucesso' component={AvisoAvaliacaoFinalizada} options={{headerShown: false}}/>
+        <Stack.Screen name='Testes' component={Testes}/>
+        <Stack.Screen name="Testes1" component={Teste1}/>
+        <Stack.Screen name="Testes2" component={Teste2}/>
+        <Stack.Screen name='Testes3' component={Testes3}/>
         <Stack.Screen name="Frequencia do aluno" component={FrequenciaAluno}/>
         <Stack.Screen name="Exportar CSV" component={ExportCSV}/>
         <Stack.Screen name="Seleção Aluno CSV" component={SelecaoAlunoExport}/>
