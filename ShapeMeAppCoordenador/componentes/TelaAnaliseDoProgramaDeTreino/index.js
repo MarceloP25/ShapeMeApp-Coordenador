@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react"
 import {Text, View, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
 import estilo from "../estilo"
 import TabelaResultados from "../AnaliseDoProgramaDeTreino/SelecaoAlunoAnaliseProgramaDeTreino/TabelaResultados"
-import FichaDeTreinoAnalise from "../Ficha/FichaDeTreinoAnalise";
+//import FichaDeTreinoAnalise from "../Ficha/FichaDeTreinoAnalise";
 import NetInfo from "@react-native-community/netinfo"
 import Spinner from "react-native-loading-spinner-overlay";
 import ModalSemConexao from "../ModalSemConexao";
@@ -146,8 +146,8 @@ console.log(avaliacao)
                             >
                             </TabelaResultados>
 
-                    <Text style={[estilo.textoCorSecundaria, estilo.tituloH427px, estilo.centralizado, {marginVertical: '5%'}]}>Programa de Treino</Text>
-                    <FichaDeTreinoAnalise posicaoDoArray={posicaoArrayFichas} aluno={aluno} ></FichaDeTreinoAnalise>
+                {/* <Text style={[estilo.textoCorSecundaria, estilo.tituloH427px, estilo.centralizado, {marginVertical: '5%'}]}>Programa de Treino</Text>
+                    <FichaDeTreinoAnalise posicaoDoArray={posicaoArrayFichas} aluno={aluno} ></FichaDeTreinoAnalise> */}
                         </ScrollView> : 
                         <ScrollView>
                         <Text style={[estilo.textoCorSecundaria, estilo.tituloH427px, estilo.centralizado, {marginVertical: '5%'}]}>Resultados obtidos</Text>

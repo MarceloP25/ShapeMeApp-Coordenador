@@ -7,9 +7,6 @@ import SelecaoAluno from './componentes/SelecaoAluno';
 import ListaAlunos from './componentes/SelecaoAluno/ListaAlunos';
 import PerfilDoAluno from './componentes/SelecaoAluno/PerfilDoAluno';
 import Caixinha from './componentes/SelecaoAluno/PerfilDoAluno/Caixinha';
-import Parq from './componentes/Parq';
-import Anamnese from './componentes/Anamnese';
-import DadosCorporais from './componentes/DadosCorporais';
 import SentarAlcancar from './componentes/Testes/Tabelas/SentarAlcancar.js';
 import Avaliacoes from './componentes/Avaliacoes';
 import Exercicios from './componentes/Exercicios';
@@ -22,9 +19,6 @@ import IMC from './componentes/Testes/Tabelas/IMC';
 import PressaoArterial from './componentes/Testes/Tabelas/PressaoArterial';
 import FrequenciaCardiacaDeRepouso from './componentes/Testes/Tabelas/FrequenciaCardiacaDeRepouso';
 import Testes3 from './componentes/Testes/TestesParte3.js';
-import TabelaDeResultados from './componentes/Testes/Tabelas/TabelaDeResultados';
-import FinalizarTestes from './componentes/FinalizarTestes';
-import AvisoAvaliacaoFinalizada from './componentes/AvisoAvaliacaoFinalizada';
 import Routes from './componentes/Routes/estilo';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -50,7 +44,6 @@ import Chat from './componentes/Chat';
 import Mensagens from './componentes/Chat/Mensagens';
 import EvolucaoPSEDoExercicioSelecao from './componentes/TelasDeEvolucao/GraficosEvolutivos/EvolucaoPSEDoExercicioSelecao';
 import EvolucaoPseBorg from './componentes/TelasDeEvolucao/GraficosEvolutivos/EvolucaoPseBorg';
-import NovaAvaliacao from './componentes/NovaAvaliacao';
 import FrequenciaAluno from './componentes/SelecaoAluno/PerfilDoAluno/FrequenciaAluno';
 import * as Notification from "expo-notifications"
 import ExportCSV from './componentes/ExportCSV/index.js';
@@ -91,8 +84,6 @@ export default function App() {
         <Stack.Screen name='Cadastro Turmas' component={CadastroTurmas}/>
         <Stack.Screen name="Editar Turmas" component={EditarTurmas}/>
         <Stack.Screen name="Dados Turma" component={DadosTurma}/>
-        <Stack.Screen name="PARQ" component={Parq}/>
-        <Stack.Screen name="Anamnese" component={Anamnese}/>
         <Stack.Screen name="Cadastro Academia" component={CadastroAcademiaScreen}/>
         <Stack.Screen name="Perfil Academia" component={Academia}/>
         <Stack.Screen name="Perfil" component={PerfilCoordenador}/>

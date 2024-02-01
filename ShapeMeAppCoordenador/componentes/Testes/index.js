@@ -6,7 +6,6 @@ import estilo from '../estilo';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default ({navigation, route}) => {
-  const navigation = useNavigation();
   const [sexoSelecionado, setSexoSelecionado] = useState(null);
 
   const handleEscolherSexo = (sexo) => {

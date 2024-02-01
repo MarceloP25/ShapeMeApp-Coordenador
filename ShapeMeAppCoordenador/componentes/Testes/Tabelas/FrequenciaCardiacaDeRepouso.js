@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text} from 'react-native';
-import estilo from '../../../estilo';
+import estilo from '../../estilo';
 
 export default props => {
 
