@@ -10,7 +10,7 @@ export default props => {
                     <Text style={[Estilo.tituloH148px, Estilo.textoCorPrimariaMenos1]}>App</Text>
                 </View>
                 <View style={[Estilo.corPrimariaMais1, style.logoProfessor]}>
-                        <Text style={[Estilo.tituloH333px, Estilo.textoCorLight]}>COORDENADOR</Text>
+                        <Text style={[Estilo.tituloH427px, Estilo.textoCorLight]}>COORDENADOR</Text>
                 </View>
             </View>
         )

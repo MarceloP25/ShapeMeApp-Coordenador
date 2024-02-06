@@ -175,9 +175,14 @@ export default ({ navigation }) => {
             } 
         }
 
-    const handleCadastro = () => {
-        navigation.navigate('Cadastro')
+    const handleCadastroPerfil = () => {
+        navigation.navigate('Cadastro Coordenador')
     }
+
+    const handleCadastroAcademiaPerfil = () => {
+        navigation.navigate("Cadastro Academia")
+    }
+
 
     const mudarSenha = (email) => {
         if (email === '') {
@@ -231,9 +236,22 @@ export default ({ navigation }) => {
                                 Estilo.textoCorPrimaria,
                                 Estilo.textoSmall12px,
                             ]}
-                            onPress={() => { handleCadastro() }}
+                            onPress={() => { handleCadastroPerfil() }}
                         >
                             Não possui conta? Cadastre-se agora gratuitamente
+                        </Text>
+
+                    </View>
+
+                    <View style={[style.textoLink, style.ultimoLink]}>
+                        <Text
+                            style={[
+                                Estilo.textoCorPrimaria,
+                                Estilo.textoSmall12px,
+                            ]}
+                            onPress={() => { handleCadastroAcademiaPerfil() }}
+                        >
+                            Não possui uma academia e nem uma conta? Cadastre agora gratuitamente
                         </Text>
 
                     </View>
