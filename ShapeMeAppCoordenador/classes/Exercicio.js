@@ -20,6 +20,15 @@ class Exercicio {
 
     setDescricao = (descricao) => {this.descricao = descricao}
     getDescricao = () => {return this.descricao}
+
+    setVariacao = (variacao) => {this.variacao = variacao}
+    getVariacao = () => {return this.variacao}
+
+    setExecucao = (execucao) => {this.execucao = execucao}
+    getExecucao = () => {return this.execucao}
+
+    setImagem = (imagem) => {this.imagem = imagem}
+    getImagem = () => {return this.imagem}
     
 }
 

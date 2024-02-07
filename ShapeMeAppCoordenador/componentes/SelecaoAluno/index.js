@@ -25,9 +25,7 @@ export default ({ navigation }) => {
 
         for (const academiaDoc of querySnapshot.docs) {
           const academiaNome = academiaDoc.get('nome');
-          console.log("Chegou aqui");
-          console.log(academiaNome);
-          console.log(coordenadorLogado.getAcademia());
+
           if (academiaNome === coordenadorLogado.getAcademia()) {
             const professoresRef = collection(
               firebaseBD,
@@ -35,13 +33,12 @@ export default ({ navigation }) => {
               coordenadorLogado.getAcademia(),
               'Professores'
             );
-            console.log("ZZZZZZZZzz");
-            console.log(coordenadorLogado.getAcademia());
+
             const professoresSnapshot = await getDocs(professoresRef);
 
             for (const professorDoc of professoresSnapshot.docs) {
               const professorData = professorDoc.data();
-              console.log(professorData);
+
               const alunoRef = collection(
                 firebaseBD,
                 'Academias',
@@ -54,7 +51,7 @@ export default ({ navigation }) => {
 
               for (const alunoDoc of alunoSnapshot.docs) {
                 const alunoData = alunoDoc.data();
-                console.log(alunoData);
+
                 newArrayAlunos.push(alunoData);
               }
             }
@@ -92,7 +89,7 @@ export default ({ navigation }) => {
       <View>
         {conexao ? (
           <>
-            <Logo />
+            
             <Text style={[estilo.textoCorDanger, estilo.textoP16px, style.textoAlinhado]} numberOfLines={2}>
               Selecione o aluno para continuar.
             </Text>

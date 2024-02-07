@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, Text, TouchableOpacity, View, StyleSheet } from 'react-native'
+import { SafeAreaView, ScrollView, Text, TouchableOpacity, View, StyleSheet, TextInput } from 'react-native'
 import React, { useState, useEffect } from "react"
 import { useNavigation } from '@react-navigation/native';
 import estilo from '../../estilo';
@@ -6,12 +6,13 @@ import { collection, setDoc, doc, getDocs, getFirestore, where, query, addDoc, q
 import { firebase, firebaseBD } from '../../configuracoes/firebaseconfig/config'
 import { Exercicio } from '../../../classes/Exercicio'
 import { FontAwesome6 } from '@expo/vector-icons';
-import ModalDropdown from 'react-native-modal-dropdown';
+import BotaoSelect from '../../BotaoSelect'
 import ImagePicker from 'react-native-image-picker';
 import { coordenadorLogado } from '../../LoginScreen';
-import Cabecalho from '../../Cabecalho';
+import ModalSemConexao from '../../ModalSemConexao';
 
-export default ({navigation, route}) => {
+
+export default (navigation) => {
 
     const novoExercicio = new Exercicio()
 
@@ -45,6 +46,12 @@ export default ({navigation, route}) => {
     const [tipo, setTipo] = useState('')
     const tiposDisponiveis = ["Alongamentos", "Aeróbicos", "Força - Membros Superiores", "Força - Membros Inferiores"];
 
+    const [selectedOption, setSelectedOption] = useState('');
+
+    const handleSelectChange = (value) => {
+        setSelectedOption(value)
+        setTipo(value);
+        }
     const [musculos, setMusculos] = useState('')
     const [musculosInvalido, setMusculosInvalido] = useState(false)
 
@@ -145,7 +152,7 @@ export default ({navigation, route}) => {
             musculos: novoExercicio.getMusculos(),
             descricao: novoExercicio.getDescricao(),
             variacao:  novoExercicio.getVariacao(),
-            execucao: novoExercicio.getExecuao(),
+            execucao: novoExercicio.getExecucao(),
             imagem: novoExercicio.getImagem(),
         }).catch((erro) => {
             console.log(`Não foi possível criar o documento. Já existe um exercício cadastrado com esse nome.`)
@@ -159,7 +166,7 @@ export default ({navigation, route}) => {
             {!conexao ? <ModalSemConexao/> 
             : 
             <SafeAreaView style={styles.container}>   
-            <Cabecalho navigation={navigation} />
+            
 
                 <View>
                     <View style={{alignContent: 'center',}}>
@@ -187,12 +194,12 @@ export default ({navigation, route}) => {
 
                     <View style={styles.inputArea}>
                         <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>TIPO:</Text>
-                        <ModalDropdown
+                        <BotaoSelect
+                            selecionado={selectedOption == '' ? false : true}
                             options={tiposDisponiveis}
-                            onSelect={(index, value) => setTipo(value)}
-                            defaultValue="Selecione o Tipo"
-                            textStyle={[estilo.sombra, estilo.corLight, styles.inputText]}
-                            dropdownTextStyle={[estilo.sombra, estilo.corLight]}
+                            onChange={handleSelectChange}
+                            titulo="Selecione o Tipo"
+                            max={1}
                         />
                 </View>
 

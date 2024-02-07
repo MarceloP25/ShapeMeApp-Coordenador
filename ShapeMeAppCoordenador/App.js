@@ -55,13 +55,15 @@ import EditarExercicios from './componentes/Exercicios/EditarExercicio/index.js'
 import ListaExercicios from './componentes/Exercicios/ListaExercicios/index.js';
 import DadosExercicios from './componentes/Exercicios/ListaExercicios/DadosExercicios/index.js';
 import Academia from './componentes/Academia/index.js';
+import ListaProfessores from './componentes/ListaProfessores'
 import PerfilProfessor from './componentes/ListaProfessores/PerfilProfessor/index.js';
 import Turmas from './componentes/Turmas/index.js';
 import EditarTurmas from './componentes/Turmas/EditarTurmas/index.js';
 import DadosTurma from './componentes/Turmas/DadosTurma/index.js';
 
-const Stack = createNativeStackNavigator();
 
+const Stack = createNativeStackNavigator();
+window.navigator.userAgent = 'ReactNative'
 Notification.setNotificationHandler({
   handleNotification:  async () => ({
     shouldPlaySound: true,
@@ -93,6 +95,7 @@ export default function App() {
         <Stack.Screen name="Lista Exercicios" component={ListaExercicios}/>
         <Stack.Screen name="Dados Exercicios" component={DadosExercicios}/>
         <Stack.Screen name="Editar foto" component={EditarFoto}/>
+        <Stack.Screen name="Lista Professores" component={ListaProfessores}/>
         <Stack.Screen name="Perfil Professor" component={PerfilProfessor}/>
         <Stack.Screen name="Alunos" component={SelecaoAluno}/>
         <Stack.Screen name="Lista Alunos" component={ListaAlunos}/>

@@ -11,7 +11,6 @@ import Cabecalho from '../Cabecalho';
 
 export default ({navigation, route}) =>{
 
-  const {academia} = route.params;
   const [exercicioData, setExercicioData] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   
@@ -76,9 +75,8 @@ export default ({navigation, route}) =>{
   }
 
   return (
-    <ScrollView alwaysBounceVertical={true} style={estilo.corLightMenos1}>
-      <SafeAreaView style={style.container}>
-      <Cabecalho navigation={navigation} />
+    <SafeAreaView style={[estilo.corLightMenos1, {flex: 1}]}>
+      <View style={[style.containerBotao, estilo.corLightMenos1]}>
         {/* Modal para redirecionar o usuário para a tela de cadastro */}
         {modalVisible && (
           <View style={style.modalContainer}>
@@ -95,77 +93,79 @@ export default ({navigation, route}) =>{
           </View>
         )}
 
-        <View style={style.containerBotao}>
+        <View >
           {/* Botão exercícios do tipo alongamento */}
           <TouchableOpacity
-            style={[estilo.botaoClaro1, estilo.sombra]}
+            style={[estilo.botao, estilo.sombra, estilo.corLightMenos1 ]}
             onPress={() => navigation.navigate('Lista Exercicios', { exercicios: alongamentoExercicios })}
           >
             <Text style={estilo.tituloH427px}>ALONGAMENTO</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={style.containerBotao}>
+        <View >
           {/* Botão exercícios do tipo aeróbico */}
           <TouchableOpacity
-            style={[estilo.botaoClaro1, estilo.sombra]}
+            style={[estilo.botao, estilo.sombra, estilo.corLightMenos1 ]}
             onPress={() => navigation.navigate('Lista Exercicios', { exercicios: aerobicoExercicios })}
           >
             <Text style={estilo.tituloH427px} >AERÓBICO</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={style.containerBotao}>
+        <View >
           {/* Botão exercícios do tipo força membros superiores */}
           <TouchableOpacity
-            style={[estilo.botaoClaro1, estilo.sombra]}
+            style={[estilo.botao, estilo.sombra, estilo.corLightMenos1 ]}
             onPress={() => navigation.navigate('Lista Exercicios', { exercicios: forcaSuperioresExercicios })}
           >
             <Text style={estilo.tituloH427px}>FORÇA SUPERIORES</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={style.containerBotao}>
+        <View >
           {/* Botão exercícios do tipo força membros inferiores */}
           <TouchableOpacity
-            style={[estilo.botaoClaro1, estilo.sombra]}
+            style={[estilo.botao, estilo.sombra, estilo.corLightMenos1 ]}
             onPress={() => navigation.navigate('Lista Exercicios', { exercicios: forcaInferioresExercicios })}
           >
             <Text style={estilo.tituloH427px}>FORÇA INFERIORES</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={style.containerBotao}>
+        <View >
           {/* Botão para cadastrar exercicios*/}
           <TouchableOpacity
             style={[estilo.botao, estilo.sombra, estilo.corPrimaria]}
             onPress={() => navigation.navigate('Cadastro Exercicios')}
           >
-            <Text style={estilo.tituloH427px}>CADASTRAR</Text>
+            <Text style={[estilo.tituloH427px, estilo.textoCorLight]}>CADASTRAR</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={style.containerBotao}>
+        <View >
           {/* Botão para editar os exercicios */}
           <TouchableOpacity
             style={[estilo.botao, estilo.sombra, estilo.corPrimaria]}
             onPress={() => navigation.navigate('Editar Exercicios')}
           >
-            <Text style={estilo.tituloH427px}>EDITAR</Text>
+            <Text style={[estilo.tituloH427px, estilo.textoCorLight]}>EDITAR</Text>
           </TouchableOpacity>
         </View>
-      </SafeAreaView>
-    </ScrollView>
+
+      </View>
+    </SafeAreaView>
   );
 }
 
 const style = StyleSheet.create({
-  container:{
-    marginVertical: '2%',
-  },
+
   containerBotao: {
-    width: '40%',
-    height: '100%',
+    marginVertical: '5%',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    width: '100%',
+    height: '80%'
   },
   modalContainer: {
     flex: 1,

@@ -8,7 +8,7 @@ export default ({ navigation,route }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-        <Cabecalho navigation={navigation} />
+
             <View>
                 <Text style={[estilo.tituloH619px, estilo.textoCorLightMais1]}>Detalhes da Turma</Text>
                 <View style={styles.detalhesContainer}>
@@ -25,6 +25,14 @@ export default ({ navigation,route }) => {
                     <Text style={styles.valor}>{turma.vaga}</Text>
                 </View>
             </View>
+
+            <View>
+                <TouchableOpacity style={estilo.botao}
+                    onPress={navigation.navigate('Editar Turmas', { turma: turma.nome })}>
+                    <Text>EDITAR TURMA</Text>
+                </TouchableOpacity>
+            </View>
+
         </SafeAreaView>
     );
 }

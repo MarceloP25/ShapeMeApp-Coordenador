@@ -4,11 +4,12 @@ import Home from './../Home'
 import { Ionicons } from '@expo/vector-icons'; 
 import { Feather } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons'; 
-import SelecaoAluno from '../SelecaoAluno';
+import Turmas from '../Turmas';
 import Logo from '../Logo';
 import Parq from '../Parq';
 import PerfilCoordenador from '../PerfilCoordenador';
 import Notificacoes from '../Notificacoes';
+
 
 const Tab = createBottomTabNavigator()
 
@@ -32,7 +33,7 @@ export default function Routes(){
             }}/>
             <Tab.Screen 
             name="Turmas" 
-            component={ListaTurmas}
+            component={Turmas}
             options={{
                 tabBarIcon: ({size, color}) => (<Ionicons name="people" size={size} color={color} />)
             }}/>

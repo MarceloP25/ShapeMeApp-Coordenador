@@ -1,19 +1,20 @@
 import { Text, StyleSheet, View, SafeAreaView, ScrollView } from 'react-native'
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import estilo from '../estilo'
 import Cabecalho from '../Cabecalho'
 import { useNavigation } from '@react-navigation/native'
 import { coordenadorLogado } from '../LoginScreen'
 import {firebase, firebaseBD} from '../configuracoes/firebaseconfig/config'
-import { collection, getDocs} from "firebase/firestore";
+import { collection, setDoc, doc, getDocs, getFirestore, where, query, addDoc, querySnapshot, QueryStartAtConstraint } from "firebase/firestore";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default (navigation) => {
+export default ({navigation}) => {
     const [academia, setAcademia] = useState(null);
 
     // Função para buscar dados da academia no Firebase
     const buscarDadosAcademia = async () => {
         getDocs(doc(firebaseBD, "Academias", `${coordenadorLogado.getAcademia()}`),{
-
+            
         })
     };
   
@@ -24,7 +25,6 @@ export default (navigation) => {
     return (
         <ScrollView alwaysBounceVertical={true} style={estilo.corLightMenos1}>
             <SafeAreaView style={styles.container}>
-                <Cabecalho navigation={navigation} />
 
                 {academia ? (
                     <View>

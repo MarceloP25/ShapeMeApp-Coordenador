@@ -15,7 +15,7 @@ export default ({ navigation, route }) => {
     return (
         <SafeAreaView style={estilo.corLightMenos1}>
             <ScrollView alwaysBounceVertical={true} style={style.container}>
-            <Cabecalho navigation={navigation} />
+         
                 <View>
                     <View>
                         <TouchableOpacity onPress={toggleModal}>

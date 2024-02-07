@@ -6,8 +6,9 @@ import NetInfo from '@react-native-community/netinfo';
 import estilo from '../estilo';
 import { coordenadorLogado } from '../LoginScreen';
 import Cabecalho from '../Cabecalho';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
-export default (navigation) => {
+export default ({navigation}) => {
     const [turmas, setTurmas] = useState([]);
     const [conexao, setConexao] = useState(true);
 
@@ -51,10 +52,10 @@ export default (navigation) => {
     return (
         <ScrollView alwaysBounceVertical={true} style={[estilo.corLightMenos1]}>
             <SafeAreaView style={[estilo.corLightMenos1, styles.container]}>
-            <Cabecalho navigation={navigation} />
-                <Text style={estilo.tituloH523px}>CLIQUE EM UMA TURMA PARA VER SEUS DADOS!</Text>
-
-                <View>
+                <View style={styles.areaFrase}>
+                    <Text style={[estilo.tituloH523px]}>CLIQUE EM UMA TURMA PARA VER SEUS DADOS!</Text>
+                </View>
+                <View style={ styles.areaBotoes}>
                     {conexao ? (
                         turmas.map((turma) => (
                             <TouchableOpacity
@@ -69,17 +70,10 @@ export default (navigation) => {
                     )}
                 </View>
 
-                <View>
-                    <TouchableOpacity style={estilo.botao}
-                        onPress={navigation.navigate('Editar Turmas')}>
-                        <Text>EDITAR TURMA</Text>
-                    </TouchableOpacity>
-                </View>
-
-                <View>
-                    <TouchableOpacity style={estilo.botao}
+                <View style={ styles.areaBotoes}>
+                    <TouchableOpacity style={[estilo.botao, estilo.sombra, estilo.corPrimaria]}
                         onPress={navigation.navigate('Cadastro Turmas')}>
-                        <Text>CADASTRAR TURMA</Text>
+                        <Text style={estilo.textoCorLight}>CADASTRAR TURMA</Text>
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
@@ -90,6 +84,17 @@ export default (navigation) => {
 const styles = StyleSheet.create({
     container: {
         height: '100%',
-        marginVertical: '2%',
+        marginVertical: '15%',
+    },
+    areaFrase: {
+        marginVertical: '3%',
+        height: '5%',
+    },
+    areaBotoes: {
+        height: '25%',
+        marginTop: '3%',
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center'
     },
 })

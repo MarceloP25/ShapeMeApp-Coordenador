@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, StyleSheet, View, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
 import estilo from '../estilo';
 import Cabecalho from '../Cabecalho';
-import { coordenadorLogado } from './LoginScreen';
+import { coordenadorLogado } from '../LoginScreen';
 import { getDocs, collection, query, getFirestore } from 'firebase/firestore';
 import { firebaseBD } from '../configuracoes/firebaseconfig/config';
 
@@ -13,13 +13,12 @@ useEffect(() => {
     const buscarProfessores = async () => {
     try {
         const professoresRef = collection(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), 'Professores');
-        const professoresQuery = query(professoresRef);
-
-        const professoresSnapshot = await getDocs(professoresQuery);
+        const querySnapshot = await getDocs(professoresRef);
 
         const listaProfessores = [];
-        professoresSnapshot.forEach((doc) => {
-        listaProfessores.push({ id: doc.id, ...doc.data() });
+        querySnapshot.forEach((doc) => {
+            const nome = doc.data();
+            listaProfessores.push(nome);
         });
 
         setProfessores(listaProfessores);
@@ -37,21 +36,21 @@ const redirecionarParaPerfil = (professor) => {
 
 return (
     <ScrollView alwaysBounceVertical={true} style={estilo.corLightMenos1}>
-    <SafeAreaView style={[estilo.corLightMenos1, styles.container]}>
-        <Cabecalho navigation={navigation} />
+        <SafeAreaView style={[estilo.corLightMenos1, styles.container]}>
+            
 
-        <View>
-        {professores.map((professor) => (
-            <TouchableOpacity
-                key={professor.id}
-                onPress={() => redirecionarParaPerfil(professor)}
-                style={estilo.botaoClaro1}
-                >
-                <Text style={estilo.tituloH619px}>{professor.nome}</Text>
-            </TouchableOpacity>
-        ))}
-        </View>
-    </SafeAreaView>
+            <View>
+                {professores.map((professor) => (
+                    <TouchableOpacity
+                        key={professor.nome}
+                        onPress={() => redirecionarParaPerfil(professor)}
+                        style={estilo.botao}
+                        >
+                            <Text style={estilo.tituloH619px}>{professor.nome}</Text>
+                    </TouchableOpacity>
+                ))}
+            </View>
+        </SafeAreaView>
     </ScrollView>
 );
 };

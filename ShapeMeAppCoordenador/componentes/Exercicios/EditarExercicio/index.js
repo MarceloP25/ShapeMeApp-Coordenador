@@ -221,7 +221,7 @@ export default ({navigation, route}) => {
             <ModalSemConexao />
         ) : (
             <SafeAreaView style={styles.container}>
-            <Cabecalho navigation={navigation} />
+          
             <View>
                 <View style={{ alignContent: 'center' }}>
                 <Text style={[estilo.tituloH523px, estilo.textoCorSecundaria, styles.titulos]}>EDITAR EXERCÍCIO</Text>

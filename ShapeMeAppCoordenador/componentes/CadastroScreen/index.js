@@ -1,17 +1,17 @@
-import React, {useState, useEffect} from "react"
-import { Text, View, StyleSheet,ScrollView, SafeAreaView, TextInput, TouchableOpacity, Alert, Modal} from "react-native"
-import estilo from "../estilo"
-import RadioBotao from "../RadioBotao"
-import BotaoSelect from "../BotaoSelect"
+import React, { useState, useEffect } from "react";
+import { Text, View, StyleSheet, ScrollView, SafeAreaView, TextInput, TouchableOpacity, Alert } from "react-native";
 import { TextInputMask } from 'react-native-masked-text';
-import { Coordenador } from '../../classes/Coordenador'
-import { NavigationContainer, useNavigation } from '@react-navigation/native'; // Navegação
-import { AppLoading } from 'expo';
-import { Endereco } from '../../classes/Endereco'
-import { collection,setDoc,doc, getDocs, getFirestore, where , query, addDoc, querySnapshot, QueryStartAtConstraint} from "firebase/firestore";
-import {firebase, firebaseBD} from '../configuracoes/firebaseconfig/config'
-import NetInfo from "@react-native-community/netinfo"
-import ModalSemConexao from "../ModalSemConexao";
+import { Coordenador } from '../../classes/Coordenador'; // Importe o módulo Coordenador corretamente, ajustando o caminho conforme necessário
+import { Endereco } from '../../classes/Endereco'; // Importe o módulo Endereco corretamente, ajustando o caminho conforme necessário
+import { NavigationContainer, useNavigation } from '@react-navigation/native'; // Importe o módulo NavigationContainer do React Navigation
+import { AppLoading } from 'expo'; // Se estiver usando Expo, importe AppLoading
+import { collection, setDoc, doc, getDocs, getFirestore } from "firebase/firestore"; // Importe as funções Firestore necessárias para interagir com o banco de dados
+import { firebase, firebaseBD } from '../configuracoes/firebaseconfig/config'; // Importe as instâncias do Firebase e a configuração do Firebase
+import NetInfo from "@react-native-community/netinfo"; // Importe o módulo NetInfo para verificar a conexão com a Internet
+import ModalSemConexao from "../ModalSemConexao"; // Importe o componente ModalSemConexao, se necessário
+import RadioBotao from "../RadioBotao"; // Importe o componente RadioBotao
+import BotaoSelect from "../BotaoSelect"; // Importe o componente BotaoSelect
+import estilo from "../estilo";
 
 
 export default ({navigation}) => {
@@ -177,7 +177,7 @@ export default ({navigation}) => {
             email: novoCoordenador.getEmail(),
             senha: novoCoordenador.getSenha(),
           }).then(() => {
-            alert("Novo usuário criado com sucesso!");
+            Alert.alert("Novo usuário criado com sucesso!");
       
             setDoc(doc(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador/${novoCoordenador.getNome()}`, "Notificações", `Notificação${ano}|${mes}|${dia}`), {
               data: `${dia}/${mes}/${ano}`,

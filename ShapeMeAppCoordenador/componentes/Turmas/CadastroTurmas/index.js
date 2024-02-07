@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView, TextInput, Alert } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView, TextInput, Alert, SafeAreaView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { Turmas } from '../../../classes/Turmas';
 import { setDoc, doc } from "firebase/firestore";
@@ -47,7 +47,7 @@ export default ({ navigation }) => {
     return (
         <ScrollView alwaysBounceVertical={true} style={[estilo.corLightMenos1]}>
             <SafeAreaView style={styles.container}>
-            <Cabecalho navigation={navigation} />
+
                 <View style={styles.inputArea}>
                     <Text style={[estilo.tituloH619px, styles.aviso]}>PREENCHA COM OS DADOS PARA CRIAR TURMAS!</Text>
                     <Text style={[estilo.tituloH619px, styles.aviso]}>CASO NÃO QUEIRA, FINALIZE O CADASTRO.</Text>
@@ -113,6 +113,7 @@ export default ({ navigation }) => {
 const styles = StyleSheet.create({
     container:{
         marginVertical: '2%',
+        justifyContent: 'center'
     },
     inputText: {
         width: '90%',
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     inputArea: {
-        marginLeft: '10%',
+
         marginVertical: 10
     },
     aviso: {

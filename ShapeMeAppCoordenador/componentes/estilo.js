@@ -143,14 +143,15 @@ export default StyleSheet.create ({
         marginTop: 10,  
     },
     botaoClaro1: {
-        width: 315,
-        height: 81,
-        flexShrink: 0,
-        borderRadius: 6,
-        border: 1,
-        borderRadius: 6,
-        borderColor: '#06F',
-        background: '#FFF',        
+        paddingHorizontal: 5,
+        paddingVertical: 10,
+        alignItems: 'center',
+        width: 300,
+
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: 10, 
+        background: '#182128',        
     },
     botaoClaro2: {
         width: 283,
@@ -159,7 +160,6 @@ export default StyleSheet.create ({
         borderRadius: 6,
         border: 1,
         borderRadius: 5,
-        borderColor: '#06F',
         background: '#FFF',
     },
 
