@@ -48,10 +48,6 @@ export default ({navigation}) => {
     const [cpf, setCpf] = useState('')
     const [cpfInvalido, setCpfInvalido] = useState(false);
 
-    const validaECorrigeCPF = (text) => {
-        setCpf(text);
-        setCpfInvalido(!validarCpf(text));
-      };
 
     const [diaNascimento, setDiaNascimento] = useState('')
     const [mesNascimento, setMesNascimento] = useState('')
@@ -150,59 +146,89 @@ export default ({navigation}) => {
     const handleSelectChange = (value) => {
       setSelectedOption(value)
       setAcademia(value);
+      }
 
-        }
-    
-    // const {nomeAcademia} = route.params
-    
-
-    const handleFinalizarCadastro = () => {
-      const data = new Date()
-      const dia = data.getDate()
-      const mes = data.getMonth() + 1
-      const ano = data.getFullYear()
+      const handleFinalizarCadastro = () => {
+        const data = new Date()
+        const dia = data.getDate()
+        const mes = data.getMonth() + 1
+        const ano = data.getFullYear()
+        
+  
+        firebase.auth().createUserWithEmailAndPassword(novoCoordenador.getEmail(), novoCoordenador.getSenha())
+        .then((userCredential) => {
+          console.log(userCredential);
       
-
-      setDoc(doc(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador`, `${novoCoordenador.getNome()}`), {
-          nome: novoCoordenador.getNome(),
-          cpf: novoCoordenador.getCpf(),
-          dataNascimento:  novoCoordenador.getDataNascimento(),
-          telefone: novoCoordenador.getTelefone(),
-          profissao: novoCoordenador.getProfissao(),
-          sexo: novoCoordenador.getSexo(),
-          acaedmia : novoCoordenador.getAcademia(),
-          endereco: {
-            rua: enderecoCoordenador.getRua(),
-            cidade: enderecoCoordenador.getCidade(),
-            estado: enderecoCoordenador.getEstado(),
-            numero: enderecoCoordenador.getNumero(),
-            complemento: enderecoCoordenador.getComplemento(),
-          },
-          email: novoCoordenador.getEmail(),
-          senha: novoCoordenador.getSenha(),
-        }).then(() => {
-          alert("Novo usuário criado com sucesso!")
-          firebase.auth().createUserWithEmailAndPassword(novoCoordenador.getEmail(), novoCoordenador.getSenha())
-          .then((userCredential) => {
-            const user = userCredential.user;
-            console.log(user);
-
-          }).catch((error) => {
-            alert("Ocorreu um erro no seu cadastro.")
-          })
-        }).catch((erro) => {
-            console.log(`Não foi possível criar o documento. Já existe um usuário cadastrado com este email.`)
+          setDoc(doc(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador`, `${novoCoordenador.getNome()}`), {
+            nome: novoCoordenador.getNome(),
+            cpf: novoCoordenador.getCpf(),
+            dataNascimento:  novoCoordenador.getDataNascimento(),
+            telefone: novoCoordenador.getTelefone(),
+            profissao: novoCoordenador.getProfissao(),
+            sexo: novoCoordenador.getSexo(),
+            acaedmia : novoCoordenador.getAcademia(),
+            endereco: {
+              rua: enderecoCoordenador.getRua(),
+              cidade: enderecoCoordenador.getCidade(),
+              estado: enderecoCoordenador.getEstado(),
+              numero: enderecoCoordenador.getNumero(),
+              complemento: enderecoCoordenador.getComplemento(),
+            },
+            email: novoCoordenador.getEmail(),
+            senha: novoCoordenador.getSenha(),
+          }).then(() => {
+            alert("Novo usuário criado com sucesso!");
+      
+            setDoc(doc(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador/${novoCoordenador.getNome()}`, "Notificações", `Notificação${ano}|${mes}|${dia}`), {
+              data: `${dia}/${mes}/${ano}`,
+              nova: false,
+              remetente: 'Gustavo & cia',
+              texto: "É um prazer recebê-lo em nosso aplicativo. Desenvolvido por Gustavo Vaz Teixeira, João Bastista, Mateus Novaes, Sérgio Muinhos e Marcelo Patrício, em parceria com o Instituto Federal do Sudeste de Minas Gerais, o ShapeMeApp foi criado para proporcionar a você uma experiência interativa e personalizada durante seus treinos.",
+              tipo: "sistema",
+              titulo: "Bem-vindo ao ShapeMeApp!"
+            });
+      
+            navigation.navigate("Login");
+          }).catch(error => {
+            let errorMessage = '';
+            switch (error.code) {
+              case 'auth/email-already-in-use':
+                errorMessage = 'O email fornecido já está em uso por outra conta.';
+                break;
+              case 'auth/invalid-email':
+                errorMessage = 'O email fornecido é inválido.';
+                break;
+              case 'auth/weak-password':
+                errorMessage = 'A senha fornecida é muito fraca. Escolha uma senha mais forte.';
+                break;
+              default:
+                errorMessage = 'Ocorreu um erro ao cadastrar o usuário. Tente novamente.';
+            }
+      
+            Alert.alert('Erro no cadastro', errorMessage);
+            console.log(error);
           });
-          setDoc(doc(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador/${novoCoordenador.getNome()}`, "Notificações", `Notificação${ano}|${mes}|${dia}`), {
-            data: `${dia}/${mes}/${ano}`,
-            nova: false,
-            remetente: 'Gustavo & cia',
-            texto: "É um prazer recebê-lo em nosso aplicativo. Desenvolvido por Gustavo Vaz Teixeira, João Bastista, Mateus Novaes, Sérgio Muinhos e Marcelo Patrício, em parceria com o Instituto Federal do Sudeste de Minas Gerais, o ShapeMeApp foi criado para proporcionar a você uma experiência interativa e personalizada durante seus treinos.",
-            tipo: "sistema",
-            titulo: "Bem-vindo ao ShapeMeApp!"
-          })
-      navigation.navigate("Login") //{nomeAcademia}
-    }
+        }).catch((error) => {
+          let errorMessage = '';
+          switch (error.code) {
+            case 'auth/email-already-in-use':
+              errorMessage = 'O email fornecido já está em uso por outra conta.';
+              break;
+            case 'auth/invalid-email':
+              errorMessage = 'O email fornecido é inválido.';
+              break;
+            case 'auth/weak-password':
+              errorMessage = 'A senha fornecida é muito fraca. Escolha uma senha mais forte.';
+              break;
+            default:
+              errorMessage = 'Ocorreu um erro ao cadastrar o usuário. Tente novamente.';
+          }
+    
+          Alert.alert('Erro no cadastro', errorMessage);
+          console.log(error);
+        });
+      }
+
           //Validação do estado
       const estadosBrasileiros = [
         'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO',

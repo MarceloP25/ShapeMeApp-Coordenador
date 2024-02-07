@@ -16,8 +16,8 @@ import ModalSemConexao from "../ModalSemConexao";
 import CadastroScreen from "../CadastroScreen";
 
 export default ({navigation}) => {
-    const novaAcademia = new Academia('', '', '', '', '', '', '')
-    const enderecoAcademia = new Endereco('', '', '', '', '', '', '')
+    const novaAcademia = new Academia()
+    const enderecoAcademia = new Endereco()
 
     const [conexao, setConexao] = useState(true);
 
@@ -94,14 +94,7 @@ export default ({navigation}) => {
 
     const [numero, setNumero] = useState('')
     const [complemento, setComplemento] = useState('')
-    /*
-    const academiaTurmas = {
-        nome: novaAcademia.nome, 
-        cnpj: novaAcademia.cnpj, 
-        enderecoAcademia: novaAcademia.endereco,
 
-    }
-    */
 
 
     const handleFinalizarCadastro = () => {
@@ -163,9 +156,6 @@ export default ({navigation}) => {
             setRuaInvalida(!ruaValida)
           }
 
-        const academiaExiste = () =>{
-            navigation.navigate('Cadastro Coordenador')
-        }
 
 
         return (
@@ -331,7 +321,7 @@ export default ({navigation}) => {
                 enderecoAcademia.setRua(rua)
                 enderecoAcademia.setNumero(numero)
                 enderecoAcademia.setComplemento(complemento)
-                novaAcademia.setEndereco(enderecoAcademia)
+                //novaAcademia.setEndereco(enderecoAcademia)
                 console.log(novaAcademia)
 
 
@@ -348,7 +338,6 @@ export default ({navigation}) => {
                 if(enderecoAcademia.getCidade() == '') setCidadeInvalida(true)
                 if(enderecoAcademia.getBairro() == '') setBairroInvalido(true)
                 
-                    //navigation.navigate("CadastroTurmas")
 
                 } else {
                 handleFinalizarCadastro()

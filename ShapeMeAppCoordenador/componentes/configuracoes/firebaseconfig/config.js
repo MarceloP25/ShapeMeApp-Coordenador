@@ -11,7 +11,6 @@ import {collection, getDocs} from "firebase/firestore"
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-
   apiKey: "AIzaSyBT4yfcSC76YJ-edGcaopf73WMOZbrZcWw",
   authDomain: "shapemeappbdteste.firebaseapp.com",
   databaseURL: "https://shapemeappbdteste-default-rtdb.firebaseio.com",
@@ -20,7 +19,6 @@ const firebaseConfig = {
   messagingSenderId: "907185536450",
   appId: "1:907185536450:web:607af8bcd488edcce0ea5b",
   measurementId: "G-S6T72TWE45"
-
 };
 
 // Initialize Firebase

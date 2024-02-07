@@ -122,7 +122,7 @@ export default ({ navigation }) => {
                 if(conexao){
                 await firebase.auth().signInWithEmailAndPassword(emailCoord, senhaCoord);
                 }
-                navigation.navigate('Principal'); // , {coordenador: dadosCoordenador}
+                navigation.navigate('Principal');
             } 
             } catch (error) {
             console.error('Erro ao obter dados do AsyncStorage ou fazer login:', error);
@@ -131,19 +131,24 @@ export default ({ navigation }) => {
     };
 
     useEffect(() => {
-        console.log("Chamou a função")
+        //console.log("Chamou a função")
         fetchcoordenadorData()
     }, [])
         const fetchcoordenadorData = async () => {
+            //console.log("CHEGOU AQUI 1")
             try {
                 const academiaRef = collection(firebaseBD, "Academias");
                 const querySnapshot = await getDocs(academiaRef);
                 for (const academiaDoc of querySnapshot.docs) {
                 const academiaNome = academiaDoc.get("nome");
                 const coordenadorRef = collection(firebaseBD, "Academias", academiaNome, "Coordenador");
-        
+                //console.log("CHEGOU AQUI 2")
+
                 const coordenadorSnapshot = await getDocs(coordenadorRef);
                 for (const coordenadorDoc of coordenadorSnapshot.docs) {
+                    //console.log("CHEGOU AQUI 3")
+                    //console.log('email', email)
+                    //console.log('coordenadorDoc.get("email")', coordenadorDoc.get("email"))
                     if (email == coordenadorDoc.get("email")) {
                     const coordenadorData = coordenadorDoc.data();
                     setCoordenadorData(coordenadorDoc.data())
@@ -162,6 +167,7 @@ export default ({ navigation }) => {
                     enderecoCoordenador.setRua(coordenadorData.endereco.rua)
                     enderecoCoordenador.setNumero(coordenadorData.endereco.numero)
                     coordenadorLogado.setAcademia(coordenadorData.academia)
+                    //console.log("CHEGOU AQUI 4")
 
                     const coordenadorString = JSON.stringify(coordenadorDoc.data())
                     AsyncStorage.setItem('coordenadorLocal', coordenadorString)
@@ -339,7 +345,7 @@ const style = StyleSheet.create({
         elevation: 10
     },
     ultimoLink: {
-        top: 10
-    }
+        top: 10
+    }
 
 })
