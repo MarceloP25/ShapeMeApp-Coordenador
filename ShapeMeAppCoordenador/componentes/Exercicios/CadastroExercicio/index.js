@@ -1,6 +1,6 @@
 import { SafeAreaView, ScrollView, Text, TouchableOpacity, View, StyleSheet, TextInput } from 'react-native'
 import React, { useState, useEffect } from "react"
-import { useNavigation } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import estilo from '../../estilo';
 import { collection, setDoc, doc, getDocs, getFirestore, where, query, addDoc, querySnapshot, QueryStartAtConstraint } from "firebase/firestore";
 import { firebase, firebaseBD } from '../../configuracoes/firebaseconfig/config'
@@ -12,7 +12,7 @@ import { coordenadorLogado } from '../../LoginScreen';
 import ModalSemConexao from '../../ModalSemConexao';
 
 
-export default (navigation) => {
+export default ({navigation}) => {
 
     const novoExercicio = new Exercicio()
 
@@ -273,12 +273,12 @@ export default (navigation) => {
                                 onPress={() => {
                                 ImagePicker.showImagePicker(options, (response) => {
                                     if (response.didCancel) {
-                                    console.log('Usuário cancelou a seleção da imagem');
+                                        console.log('Usuário cancelou a seleção da imagem');
                                     } else if (response.error) {
-                                    console.log('Erro: ', response.error);
+                                        console.log('Erro: ', response.error);
                                     } else {
-                                    const source = { uri: response.uri };
-                                    setImage(source);
+                                        const source = { uri: response.uri };
+                                        setImagem(source);
                                     }
                                 });
                                 }}>

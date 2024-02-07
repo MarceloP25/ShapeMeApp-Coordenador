@@ -1,6 +1,6 @@
 import { SafeAreaView, ScrollView, Text, TouchableOpacity, View, StyleSheet } from 'react-native'
 import React, { useState, useEffect } from "react"
-import { useNavigation } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import estilo from '../estilo';
 import { collection, getDocs } from "firebase/firestore";
 import { firebase, firebaseBD } from '../configuracoes/firebaseconfig/config'
@@ -9,7 +9,7 @@ import { Exercicio } from '../../classes/Exercicio';
 import { coordenadorLogado } from '../LoginScreen';
 import Cabecalho from '../Cabecalho';
 
-export default ({navigation, route}) =>{
+export default ({navigation}) =>{
 
   const [exercicioData, setExercicioData] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);

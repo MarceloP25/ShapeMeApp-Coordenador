@@ -6,7 +6,7 @@ import { firebaseBD } from '../../configuracoes/firebaseconfig/config';
 import NetInfo from "@react-native-community/netinfo";
 import estilo from "../../estilo";
 import { coordenadorLogado } from '../../LoginScreen';
-import Cabecalho from '../../Cabecalho';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 export default ({ navigation }) => {
     const novaTurma = new Turmas()
@@ -45,43 +45,42 @@ export default ({ navigation }) => {
     }
 
     return (
-        <ScrollView alwaysBounceVertical={true} style={[estilo.corLightMenos1]}>
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={[styles.container, estilo.corLightMenos1]}>
+
+                <View style={styles.areaFrase}>
+                    <Text style={[estilo.tituloH619px, styles.aviso, estilo.centralizado]}>PREENCHA COM OS DADOS PARA CRIAR TURMAS!</Text>
+                </View>
 
                 <View style={styles.inputArea}>
-                    <Text style={[estilo.tituloH619px, styles.aviso]}>PREENCHA COM OS DADOS PARA CRIAR TURMAS!</Text>
-                    <Text style={[estilo.tituloH619px, styles.aviso]}>CASO NÃO QUEIRA, FINALIZE O CADASTRO.</Text>
-                </View>
-                <View style={styles.inputArea}>
                     <View style={styles.inputArea}>
-                        <Text>Nome da turma:</Text>
+                        <Text style={estilo.tituloH619px}>Nome da turma:</Text>
                         <View>
                             <TextInput placeholder="Nome da turma" value={nome} style={[estilo.sombra, estilo.corLight, styles.inputText,]} onChangeText={(text) => setNome(text)}></TextInput>
                         </View>
                     </View>
 
                     <View style={styles.inputArea}>
-                        <Text>Horário da turma:</Text>
+                        <Text style={estilo.tituloH619px}>Horário da turma:</Text>
                         <View>
-                            <TextInput placeholder="Horário da turma" value={horario} style={[estilo.sombra, estilo.corLight, styles.inputText,]} keyboardType='numeric' onChangeText={(text) => setHorario(text)}></TextInput>
+                            <TextInput placeholder="Horário da turma" value={horario} style={[estilo.sombra, estilo.corLight, styles.inputText,]} onChangeText={(text) => setHorario(text)}></TextInput>
                         </View>
                     </View>
 
                     <View style={styles.inputArea}>
-                        <Text>Dias da turma:</Text>
+                        <Text style={estilo.tituloH619px}>Dias da turma:</Text>
                         <View>
                             <TextInput placeholder="Dias da turma" value={dia} style={[estilo.sombra, estilo.corLight, styles.inputText,]} onChangeText={(text) => setDia(text)}></TextInput>
                         </View>
                     </View>
 
                     <View style={styles.inputArea}>
-                        <Text>Vagas da turma:</Text>
+                        <Text style={estilo.tituloH619px}>Vagas da turma:</Text>
                         <View>
                             <TextInput placeholder="Vagas da turma" value={vaga} style={[estilo.sombra, estilo.corLight, styles.inputText,]} keyboardType='numeric' onChangeText={(text) => setVaga(text)}></TextInput>
                         </View>
                     </View>
 
-                    <View style={styles.inputArea}>
+                    <View style={styles.areaBotoes}>
                         <TouchableOpacity style={[estilo.corPrimaria, styles.botao, estilo.sombra, estilo.botao]}
                             onPress={() => {
                                 novaTurma.setNome(nome)
@@ -96,17 +95,12 @@ export default ({ navigation }) => {
                                         handleCadastroTurma()
                                     }
                                 }}>
-                            <Text>CADASTRAR TURMA</Text>
+                            <Text style={[estilo.tituloH523px, estilo.textoCorLight]}>CADASTRAR TURMA</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View>
-                    <TouchableOpacity onPress={navigation.navigate('Turmas')} style={[estilo.corPrimaria, styles.botao, estilo.sombra, estilo.botao]}>
-                        <Text>LISTA TURMAS</Text>
-                    </TouchableOpacity>
-                </View>
+
             </SafeAreaView>
-        </ScrollView>
     );
 }
 
@@ -124,11 +118,21 @@ const styles = StyleSheet.create({
         elevation: 10,
         paddingHorizontal: 20,
     },
+    areaFrase: {
+        marginVertical: '10%',
+        height: '6%',
+    },
     inputArea: {
-
-        marginVertical: 10
+        marginLeft: 10,
     },
     aviso: {
         color: 'red',
-    }
+    },
+    areaBotoes: {
+        height: '25%',
+        marginTop: '3%',
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
 });

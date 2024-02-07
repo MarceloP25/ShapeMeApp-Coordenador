@@ -5,7 +5,6 @@ import { firebaseBD } from '../configuracoes/firebaseconfig/config';
 import NetInfo from '@react-native-community/netinfo';
 import estilo from '../estilo';
 import { coordenadorLogado } from '../LoginScreen';
-import Cabecalho from '../Cabecalho';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 export default ({navigation}) => {
@@ -44,40 +43,37 @@ export default ({navigation}) => {
         buscarTurmas();
     }, []);
 
-    const redirecionarParaDetalhes = (turma) => {
-        // Aqui você pode navegar para a tela de detalhes ou edição passando os dados da turma como parâmetro
-        navigation.navigate('Dados Turma', { turma });
-    };
-
     return (
-        <ScrollView alwaysBounceVertical={true} style={[estilo.corLightMenos1]}>
-            <SafeAreaView style={[estilo.corLightMenos1, styles.container]}>
+        <SafeAreaView style={[estilo.corLightMenos1, styles.container]}>
+            <ScrollView alwaysBounceVertical={true} style={[estilo.corLightMenos1]}>
+
                 <View style={styles.areaFrase}>
-                    <Text style={[estilo.tituloH523px]}>CLIQUE EM UMA TURMA PARA VER SEUS DADOS!</Text>
-                </View>
-                <View style={ styles.areaBotoes}>
-                    {conexao ? (
-                        turmas.map((turma) => (
-                            <TouchableOpacity
-                                key={turma.id}
-                                style={[estilo.botaoClaro1]}
-                                onPress={() => redirecionarParaDetalhes(turma)}>
-                                <Text style={[estilo.textoCorLightMais1, estilo.tituloH619px]}>{turma.nome}</Text>
-                            </TouchableOpacity>
-                        ))
-                    ) : (
-                        <Text style={estilo.textoCorDanger}>Sem conexão com a internet. Verifique sua conexão.</Text>
-                    )}
+                    <Text style={[estilo.tituloH523px, estilo.centralizado]}>CLIQUE PARA VER OS DADOS!</Text>
                 </View>
 
-                <View style={ styles.areaBotoes}>
-                    <TouchableOpacity style={[estilo.botao, estilo.sombra, estilo.corPrimaria]}
-                        onPress={navigation.navigate('Cadastro Turmas')}>
-                        <Text style={estilo.textoCorLight}>CADASTRAR TURMA</Text>
-                    </TouchableOpacity>
+                <View style={[{flex:1}]}>
+                    <View style={ styles.areaBotoes}>
+                        {
+                            turmas.map((turma) => (
+                                <TouchableOpacity
+                                    key={turma.id}
+                                    style={[styles.botaoTurma, estilo.sombra, estilo.corLight]}
+                                    onPress={() => navigation.navigate('Dados Turma', { turma: turma })}>
+                                    <Text style={[estilo.textoCorDark, estilo.tituloH427px]}>{turma.nome}</Text>
+                                </TouchableOpacity>
+                            ))
+                        }
+                    </View>
+
+                        <View style={ styles.areaBotoes}>
+                            <TouchableOpacity style={[estilo.botao, estilo.sombra, estilo.corPrimaria]} onPress={() => navigation.navigate('Cadastro Turmas')}>
+                                <Text style={[estilo.textoCorLight, estilo.tituloH523px]}>CADASTRAR TURMA</Text>
+                            </TouchableOpacity>
+                        </View>
+
                 </View>
-            </SafeAreaView>
-        </ScrollView>
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
@@ -88,13 +84,25 @@ const styles = StyleSheet.create({
     },
     areaFrase: {
         marginVertical: '3%',
-        height: '5%',
+        height: '20%',
     },
     areaBotoes: {
         height: '25%',
-        marginTop: '3%',
+        marginTop: '10%',
         width: '100%',
         flexDirection: 'row',
         alignItems: 'center'
+    },    
+    botaoTurma: {
+        paddingHorizontal: 5,
+        paddingVertical: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 300,
+        height: 80,
+        borderRadius: 10,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: 10,  
     },
 })

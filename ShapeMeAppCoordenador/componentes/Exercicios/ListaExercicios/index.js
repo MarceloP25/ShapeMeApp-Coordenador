@@ -9,14 +9,14 @@ export default ({navigation, route}) => {
 
     return (
         <SafeAreaView style={estilo.corLightMenos1}>
-            <ScrollView alwaysBounceVertical={true} style={style.container}>
+            <ScrollView alwaysBounceVertical={true} style={[style.container, estilo.corLightMenos1]}>
            
                 <View>
                     {exercicios.map((exercicio, index) => (
                         <TouchableOpacity
-                        key={index}
-                        style={[estilo.botaoClaro1, estilo.sombra, style.exercicioBotao]}
-                        onPress={ () => navigation.navigate('Dados Exercicio', { exercicios: exercicio })}
+                            key={index}
+                            style={[estilo.botaoClaro1, estilo.sombra, style.exercicioBotao]}
+                            onPress={ () => navigation.navigate('Dados Exercicio', { exercicios: exercicio })}
                         >
                         <Text style={estilo.tituloH427px}>{exercicio.nome}</Text>
                         </TouchableOpacity>
