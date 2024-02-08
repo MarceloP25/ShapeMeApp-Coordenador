@@ -2,7 +2,7 @@ import { SafeAreaView, ScrollView, Text, TouchableOpacity, View, StyleSheet, Tex
 import React, { useState, useEffect } from "react"
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import estilo from '../../estilo';
-import { collection, setDoc, doc, getDocs, getFirestore, where, query, addDoc, querySnapshot, QueryStartAtConstraint } from "firebase/firestore";
+import { collection, setDoc, doc, getDocs, where, query, addDoc } from 'firebase/firestore';
 import { firebase, firebaseBD } from '../../configuracoes/firebaseconfig/config'
 import { Exercicio } from '../../../classes/Exercicio'
 import { FontAwesome6 } from '@expo/vector-icons';
@@ -10,7 +10,7 @@ import BotaoSelect from '../../BotaoSelect'
 import ImagePicker from 'react-native-image-picker';
 import { coordenadorLogado } from '../../LoginScreen';
 import ModalSemConexao from '../../ModalSemConexao';
-
+import NetInfo from "@react-native-community/netinfo";
 
 export default ({navigation}) => {
 
@@ -51,7 +51,8 @@ export default ({navigation}) => {
     const handleSelectChange = (value) => {
         setSelectedOption(value)
         setTipo(value);
-        }
+    }
+
     const [musculos, setMusculos] = useState('')
     const [musculosInvalido, setMusculosInvalido] = useState(false)
 
@@ -156,6 +157,14 @@ export default ({navigation}) => {
             imagem: novoExercicio.getImagem(),
         }).catch((erro) => {
             console.log(`Não foi possível criar o documento. Já existe um exercício cadastrado com esse nome.`)
+        }).then(() => {
+            setNome('')
+            setTipo('')
+            setMusculos('')
+            setDescricao('')
+            setVariacao([])
+            setExecucao([])
+            setImagem(null)
         });
     }
 
@@ -170,7 +179,7 @@ export default ({navigation}) => {
 
                 <View>
                     <View style={{alignContent: 'center',}}>
-                        <Text style={[estilo.tituloH523px, estilo.textoCorSecundaria,  styles.titulos]}>CADASTTRAR EXERCÍCIO</Text>
+                        <Text style={[estilo.tituloH523px, estilo.textoCorSecundaria,  styles.titulos]}>CADASTRAR EXERCÍCIO</Text>
                     </View>
 
                     <View style={styles.inputArea}>

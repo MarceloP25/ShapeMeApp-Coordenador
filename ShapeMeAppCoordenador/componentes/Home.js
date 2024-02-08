@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
-import NetInfo from "@react-native-community/netinfo"
+import NetInfo from "@react-native-community/netinfo";
 import { coordenadorLogado } from "./LoginScreen";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { collection, doc, getDoc, getDocs, getFirestore, setDoc } from "firebase/firestore";
@@ -30,8 +30,8 @@ export default ({navigation}) => {
     return (
         
         <SafeAreaView style={[estilo.corLightMenos1, style.container]}>
-            <ScrollView alwaysBounceVertical={true} showsVerticalScrollIndicator={false}>
-            
+            <ScrollView alwaysBounceVertical={true} showsVerticalScrollIndicator={false} scrollEnabled={true} >
+
                     <View style={style.areaLogo}>
                         <Logo />
                     </View>
@@ -41,14 +41,14 @@ export default ({navigation}) => {
                     </View>
 
                     <View style={style.area}>
-                    
+
                         <View style={style.areaBotoes}>
                             {/* Botão para as turmas */}
                             <View style={style.containerBotao}>
                                 <TouchableOpacity 
                                     style={[estilo.corPrimaria, style.botao]} 
                                     onPress={() => navigation.navigate('Turmas')}>
-                                <Foundation name="clipboard-pencil" size={100} color="white" />
+                                <Foundation name="clipboard-pencil" size={70} color="white" />
                                 <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>TURMAS</Text>
                                 </TouchableOpacity>
                             </View>
@@ -59,7 +59,7 @@ export default ({navigation}) => {
                                     style={[estilo.corPrimaria, style.botao]} 
                                     onPress={() => navigation.navigate('Perfil Academia')}>
                                 <View style={[style.iconeBotao]}>
-                                    <FontAwesome5 name="building" size={100} color="white" />
+                                    <FontAwesome5 name="building" size={70} color="white" />
                                 </View>
                                 <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>ACADEMIA</Text>
                                 </TouchableOpacity>
@@ -73,7 +73,7 @@ export default ({navigation}) => {
                                     style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
                                     onPress={() => navigation.navigate('Evolução')} disabled={!conexao}>
                                 <View style={[style.iconeBotao]}>
-                                    <AntDesign name="linechart" size={100} color="white" />
+                                    <AntDesign name="linechart" size={70} color="white" />
                                 </View>
                                 <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>EVOLUÇÃO DO TREINO {!conexao ? "Offline" : null} </Text>
                                 </TouchableOpacity>
@@ -85,7 +85,7 @@ export default ({navigation}) => {
                                     style={[estilo.corPrimaria, style.botao]} 
                                     onPress={() => { navigation.navigate('Seleção Aluno CSV') }}>
                                 <View style={[style.iconeBotao]}>
-                                    <MaterialCommunityIcons name="file-export" size={100} color="white" />
+                                    <MaterialCommunityIcons name="file-export" size={70} color="white" />
                                 </View>
                                 <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>EXPORTAR DADOS</Text>
                                 </TouchableOpacity>
@@ -99,7 +99,7 @@ export default ({navigation}) => {
                                     style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
                                     onPress={() => navigation.navigate('Lista Professores')} disabled={!conexao}>
                                 <View style={[style.iconeBotao]}>
-                                    <FontAwesome5 name="chalkboard-teacher" size={100} color="white" />
+                                    <FontAwesome5 name="chalkboard-teacher" size={70} color="white" />
                                 </View>
                                 <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>LISTA PROFESSORES  {!conexao ? "Offline" : null} </Text>
                                 </TouchableOpacity>
@@ -111,7 +111,7 @@ export default ({navigation}) => {
                                     style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
                                     onPress={() => navigation.navigate("Alunos")} disabled={!conexao}>
                                 <View style={[style.iconeBotao]}>
-                                    <FontAwesome5 name="clipboard-list" size={100} color="white" />
+                                    <FontAwesome5 name="clipboard-list" size={70} color="white" />
                                 </View>
                                 <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>LISTA ALUNOS  {!conexao ? "Offline" : null} </Text>
                                 </TouchableOpacity>
@@ -126,7 +126,7 @@ export default ({navigation}) => {
                                     style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
                                     onPress={() => navigation.navigate("Exercicios")} disabled={!conexao}>
                                 <View style={[ style.iconeBotao]}>
-                                    <Ionicons name="barbell-outline" size={100} color="white" />
+                                    <Ionicons name="barbell-outline" size={70} color="white" />
                                 </View>
                                 <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>EXERCICIOS</Text>
                                 </TouchableOpacity>
@@ -138,7 +138,7 @@ export default ({navigation}) => {
                                     style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
                                     onPress={() => navigation.navigate('Chat')} disabled={!conexao}>
                                 <View style={[style.iconeBotao]}>
-                                    <AntDesign name="wechat" size={100} color="white" />
+                                    <AntDesign name="wechat" size={70} color="white" />
                                 </View>
                                 <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>MENSAGENS {!conexao ? "Offline" : null}</Text>
                                 </TouchableOpacity>
@@ -150,7 +150,7 @@ export default ({navigation}) => {
                             <View style={style.containerBotao}>
                                 <TouchableOpacity style={[estilo.corPrimaria, style.botao]} onPress={() => navigation.navigate('Seleção Aluno Análise do Programa de Treino')}>
                                     <View style={[style.iconeBotao]}>
-                                        <MaterialCommunityIcons name="clipboard-text-search-outline" size={100} color="white" />
+                                        <MaterialCommunityIcons name="clipboard-text-search-outline" size={70} color="white" />
                                     </View>
                                     <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>AVALIAÇÕES E FICHAS</Text>
                                 </TouchableOpacity>
@@ -159,7 +159,7 @@ export default ({navigation}) => {
                             <View style={style.containerBotao}>
                                 <TouchableOpacity style={[estilo.corPrimaria, style.botao]} onPress={() => navigation.navigate('Testes')}>
                                     <View style={[style.iconeBotao]}>
-                                        <Ionicons name="body-outline" size={100} color="white" />
+                                        <Ionicons name="body-outline" size={70} color="white" />
                                     </View>
                                     <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>TESTES</Text>
                                 </TouchableOpacity>
@@ -167,7 +167,7 @@ export default ({navigation}) => {
                         </View>
 
                     </View>
-
+                
             </ScrollView>
         </SafeAreaView>
 
@@ -178,26 +178,29 @@ export default ({navigation}) => {
 const style = StyleSheet.create({
     container: {
         marginTop: '2%',
-        height: '100%',
+        flex: 1,
+        //height: '100%',
     },
     areaLogo: {
-        paddingTop: '5%',
+        paddingTop: '8%',
         height: '10%',
     },
     areaFrase: {
-        marginVertical: '3%',
+        marginVertical: '4%',
         height: '5%',
     },
     area: {
         flex: 1,
     },
     areaBotoes: {
-        height: '25%',
+        height: '30%',
         marginTop: '3%',
-        width: '100%',
+        flex: 1,
+        //width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingLeft: 30
     },
     areaNavigation: {
         height: '7%',
@@ -207,13 +210,13 @@ const style = StyleSheet.create({
         width: '80%'
     },
     containerBotao: {
-        width: '40%',
-        height: '100%',
+        width: '46%',
+        height: '120%',
     },
     botao: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: '100%',
+        width: '80%',
         height: '80%',
         borderRadius: 15,
         padding: 5
@@ -222,6 +225,7 @@ const style = StyleSheet.create({
         padding: 5,
     },
     textoBotao: {
+        paddingBottom: 5,
         textAlign: 'center',
         fontWeight: 'bold'
     }

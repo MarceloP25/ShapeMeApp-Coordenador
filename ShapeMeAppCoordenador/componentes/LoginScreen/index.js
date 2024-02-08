@@ -45,7 +45,7 @@ export default ({ navigation }) => {
     
             for (const key of keys) {
             const value = await AsyncStorage.getItem(key);
-            console.log(`Chave: ${key}, Valor: ${value}`);
+            
             }
         } catch (error) {
             console.error('Erro ao obter dados do AsyncStorage:', error);
@@ -59,10 +59,10 @@ export default ({ navigation }) => {
     const checkWifiConnection = () => {
         NetInfo.fetch().then((state) => {
             if (state.type === 'wifi' || state.type === 'cellular') {
-                console.log('Conectado ao Wi-Fi');
+                
                 setConexao(true)
             } else {
-                console.log('Não conectado ao Wi-Fi');
+                
                 setConexao(false)
             }
         });
@@ -96,7 +96,7 @@ export default ({ navigation }) => {
             try {
                 const storedEmail = await AsyncStorage.getItem('coordenadorLocal');
                 const dadosCoordenador = JSON.parse(storedEmail)
-                console.log(dadosCoordenador)
+                
                 coordenadorLogado.setNome(dadosCoordenador.nome);
                 coordenadorLogado.setEmail(dadosCoordenador.email);
                 coordenadorLogado.setSenha(dadosCoordenador.senha)

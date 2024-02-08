@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Cabecalho from '../Cabecalho';
 import estilo from '../estilo';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -16,7 +15,7 @@ export default ({navigation, route}) => {
   return (
     <ScrollView>
       <SafeAreaView>
-        <Cabecalho navigation={navigation} />
+
         <Text style={estilo.tituloH427px}>ESCOLHA O SEXO PARA VISUALIZAR OS TESTES:</Text>
 
         <TouchableOpacity

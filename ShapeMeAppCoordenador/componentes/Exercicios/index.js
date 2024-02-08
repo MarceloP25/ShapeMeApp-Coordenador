@@ -7,7 +7,6 @@ import { firebase, firebaseBD } from '../configuracoes/firebaseconfig/config'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Exercicio } from '../../classes/Exercicio';
 import { coordenadorLogado } from '../LoginScreen';
-import Cabecalho from '../Cabecalho';
 
 export default ({navigation}) =>{
 
@@ -28,12 +27,6 @@ export default ({navigation}) =>{
     try {
       const academiaRef = collection(firebaseBD, "Academias", coordenadorLogado.getAcademia());
       const querySnapshot = await getDocs(academiaRef);
-
-      if (querySnapshot.empty) {
-        // A coleção "Exercicios" não existe, mostrar o modal e interromper o processamento
-        setModalVisible(true);
-        return;
-      }
 
       const exercicios = [];
       querySnapshot.forEach((academiaDoc) => {
@@ -71,28 +64,14 @@ export default ({navigation}) =>{
       setExercicioData(exercicios);
     } catch (error) {
       console.log(error);
+      console.log('Sem exercicios cadastrados')
     }
   }
 
   return (
     <SafeAreaView style={[estilo.corLightMenos1, {flex: 1}]}>
       <View style={[style.containerBotao, estilo.corLightMenos1]}>
-        {/* Modal para redirecionar o usuário para a tela de cadastro */}
-        {modalVisible && (
-          <View style={style.modalContainer}>
-            <Text style={style.modalText}>A coleção "Exercicios" não existe. Cadastre-se agora!</Text>
-            <TouchableOpacity
-              style={[estilo.botao, estilo.sombra]}
-              onPress={() => {
-                setModalVisible(false);
-                navigation.navigate('Cadastro Exercicios');
-              }}
-            >
-              <Text style={estilo.tituloH427px}>Ir para o cadastro</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-
+       
         <View >
           {/* Botão exercícios do tipo alongamento */}
           <TouchableOpacity
