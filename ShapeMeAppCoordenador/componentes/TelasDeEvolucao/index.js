@@ -41,35 +41,19 @@ export default ({navigation}) => {
             console.log(academiaNome);
             console.log(coordenadorLogado.getAcademia());
             if (academiaNome === coordenadorLogado.getAcademia()) {
-              const professoresRef = collection(
+              const alunoRef = collection(
                 firebaseBD,
                 'Academias',
                 coordenadorLogado.getAcademia(),
-                'Professores'
+                'Alunos'
               );
-              console.log("ZZZZZZZZzz");
               console.log(coordenadorLogado.getAcademia());
-              const professoresSnapshot = await getDocs(professoresRef);
-  
-              for (const professorDoc of professoresSnapshot.docs) {
-                const professorData = professorDoc.data();
-                console.log(professorData);
-                const alunoRef = collection(
-                  firebaseBD,
-                  'Academias',
-                  coordenadorLogado.getAcademia(),
-                  'Professores',
-                  professorData.nome,
-                  'alunos'
-                );
-                const alunoSnapshot = await getDocs(alunoRef);
-  
+
                 for (const alunoDoc of alunoSnapshot.docs) {
                   const alunoData = alunoDoc.data();
                   console.log(alunoData);
                   newArrayAlunos.push(alunoData);
                 }
-              }
             }
           }
   

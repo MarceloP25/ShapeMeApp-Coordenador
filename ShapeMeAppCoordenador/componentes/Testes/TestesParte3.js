@@ -4,30 +4,26 @@ import estilo from '../estilo'
 import IMC from './Tabelas/IMC'
 import FrequenciaCardiacaDeRepouso from './Tabelas/FrequenciaCardiacaDeRepouso'
 import PressaoArterial from './Tabelas/PressaoArterial'
-import Cabecalho from '../Cabecalho'
+
 export default ({navigation, route}) => {
-
     
-    const {sexo} = route.params
-
-
     return (
         <ScrollView style={estilo.corLightMenos1}>
-        <Cabecalho navigation={navigation} />
             <SafeAreaView style={[{marginTop: '3%', marginLeft: '3%'}]}>
              
             </SafeAreaView>
+            
             <View style={{marginVertical: '5%'}}>
                 <IMC></IMC>
-
-                <Text style={[estilo.textoCorSecundaria, estilo.tituloH619px, style.Montserrat, estilo.centralizado, {marginTop: '5%'}]}>IMC: {imc}</Text>
-
             </View>
+
+            <View>
             <PressaoArterial></PressaoArterial>
+            </View>
 
-
-            <FrequenciaCardiacaDeRepouso></FrequenciaCardiacaDeRepouso>
-
+            <View>
+                <FrequenciaCardiacaDeRepouso></FrequenciaCardiacaDeRepouso>
+            </View>
 
             <View style={{marginVertical: '10%'}}>
                 <TouchableOpacity style={[estilo.botao, estilo.corPrimaria]} onPress={() => navigation.navigate('Principal')}>

@@ -7,7 +7,7 @@ import {useFonts} from 'expo-font'
 import { doc, setDoc, collection,getDocs, query,where ,addDoc, getFirestore, getDoc } from "firebase/firestore"; 
 import { firebase, firebaseBD } from "../../configuracoes/firebaseconfig/config"
 import { Entypo } from '@expo/vector-icons'; 
-import { professorLogado } from "../../Home"
+import { coordenadorLogado } from "../../LoginScreen"
 import moment from 'moment';
 import Spinner from "react-native-loading-spinner-overlay"
 import NetInfo from '@react-native-community/netinfo'
@@ -51,16 +51,8 @@ export default ({route, navigation}) => {
 
     const getPseSemanal = async () => {
         const db = getFirestore();
-        const diariosRef = collection(
-          db,
-          "Academias",
-          professorLogado.getAcademia(),
-          "Professores",
-          aluno.professorResponsavel,
-          "alunos",
-          `Aluno ${aluno.email}`,
-          "Diarios"
-        );
+        const diariosRef = collection(db, "Academias", coordenadorLogado.getAcademia(), "Alunos", `${aluno.email}`, 'Diarios');
+
         const querySnapshot = await getDocs(diariosRef);
         const arrayMeses = [];
         

@@ -4,7 +4,7 @@ import estilo from "../../estilo"
 import { doc, setDoc, collection, getDocs, query, where, addDoc, getFirestore, getDoc } from "firebase/firestore";
 import { firebase } from "../../configuracoes/firebaseconfig/config"
 import { Exercicio } from "../../../classes/Exercicio"
-import { professorLogado } from "../../Home"
+import { coordenadorLogado } from "../../LoginScreen"
 import { Entypo } from '@expo/vector-icons';
 import Spinner from "react-native-loading-spinner-overlay";
 import NetInfo from "@react-native-community/netinfo"
@@ -30,7 +30,7 @@ export default ({ navigation, route }) => {
     const alunoRef = collection(db, "aluno");
     const email = user.email;
     const queryAluno = query(alunoRef, where("email", "==", email));
-    const diariosRef = collection(db, "Academias", professorLogado.getAcademia(), "Professores", aluno.professorResponsavel, "alunos", `Aluno ${aluno.email}`, 'FichaDeExercicios');
+    const diariosRef = collection(db, "Academias", coordenadorLogado.getAcademia(), "Alunos", `${aluno.email}`, 'Diarios');
 
     const querySnapshot = await getDocs(diariosRef);
 

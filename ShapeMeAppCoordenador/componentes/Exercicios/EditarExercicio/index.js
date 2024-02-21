@@ -10,7 +10,7 @@ import { firebaseBD } from '../../configuracoes/firebaseconfig/config';
 import { FontAwesome6 } from '@expo/vector-icons';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { coordenadorLogado } from '../../LoginScreen';
-import Cabecalho from '../../Cabecalho';
+
 
 export default ({navigation, route}) => {
     const [conexao, setConexao] = useState(true);

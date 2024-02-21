@@ -56,16 +56,6 @@ export default ({navigation}) => {
             } else {
                 setNomeInvalido(true);
             }
-        /*
-        const docRef = firebaseBD.collection('Academias').doc(text);
-        const doc = docRef.get();
-        if (!doc.exists) {
-            docRef.set(text);
-            setNome(text);
-        } else {
-            Alert.alert('Objeto já existe no banco de dados!');
-        }
-        */
         setNome(text);
     };
 
@@ -166,7 +156,7 @@ export default ({navigation}) => {
 
                 <Text style={[estilo.textoP16px, estilo.textoCorSecundaria,  style.titulos]}>Primeiramente, cadastre sua academia:</Text>
                 <View style={style.inputArea}>
-                    <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>NOME COMPLETO:</Text>
+                    <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>NOME:</Text>
                     <View>
                     <TextInput 
                     placeholder={'Informe o nome da academia'} 
@@ -204,7 +194,7 @@ export default ({navigation}) => {
 
                     </View>
 
-            <Text style={[estilo.textoP16px, estilo.textoCorSecundaria, style.titulos]}>Agora, informe sua residência</Text>
+            <Text style={[estilo.textoP16px, estilo.textoCorSecundaria, style.titulos]}>Agora, informe sua localização</Text>
 
             <View style={style.inputArea}>
                 <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]}>INFORME SEU CEP:</Text>

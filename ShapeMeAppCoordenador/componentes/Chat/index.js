@@ -6,7 +6,7 @@ import estilo from "../estilo" // Estilos personalizados
 import { FontAwesome5 } from '@expo/vector-icons'; // Ícone FontAwesome5
 import { firebase, firebaseBD } from '../configuracoes/firebaseconfig/config' // Configurações do Firebase
 import { collection, getDocs, query, orderBy } from "firebase/firestore"; // Funções do Firestore
-import { coordenadorLogado } from "../Home"; // Objeto de coordenador logado
+import { coordenadorLogado } from "../LoginScreen"; // Objeto de coordenador logado
 import Conversas from "./Conversas"; // Componente de Conversas
 import Spinner from "react-native-loading-spinner-overlay"; // Spinner de carregamento
 import NetInfo from "@react-native-community/netinfo" // Verificação de conexão de rede

@@ -7,7 +7,7 @@ import Header from './Header';
 import {setDoc,doc, getDocs, getFirestore, where , query, addDoc, collection, onSnapshot, snapshotEqual, Firestore, serverTimestamp, orderBy} from "firebase/firestore";
 import {firebase, firebaseBD} from '../../configuracoes/firebaseconfig/config'
 import { FontAwesome } from '@expo/vector-icons'; 
-import { coordenadorLogado } from '../../Home';
+import { coordenadorLogado } from '../../LoginScreen'
 
 export default ({route}) => {
 

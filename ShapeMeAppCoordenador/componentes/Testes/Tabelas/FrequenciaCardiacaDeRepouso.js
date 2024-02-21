@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text} from 'react-native';
 import estilo from '../../estilo';
 
-export default props => {
+export default () => {
 
       return (
         <View style={[styles.tabela]}>

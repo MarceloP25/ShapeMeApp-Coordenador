@@ -28,7 +28,8 @@ export default ({ navigation }) => {
     const [vaga, setVaga] = useState('');
     
     const handleCadastroTurma = () =>{
-        setDoc(doc(firebaseBD, `Academias/${coordenadorLogado.getAcademia()}/Turmas`, `${novaTurma.getNome()}`),{
+        console.log(coordenadorLogado.getAcademia())
+        setDoc(doc(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), 'Turmas', novaTurma.getNome()),{
             nome: novaTurma.getNome(),
             horario: novaTurma.getHorario(),
             dias: novaTurma.getDia(),

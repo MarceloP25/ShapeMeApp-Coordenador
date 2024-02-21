@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, StyleSheet, View, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
 import estilo from '../estilo';
-import Cabecalho from '../Cabecalho';
 import { coordenadorLogado } from '../LoginScreen';
 import { getDocs, collection, query, getFirestore } from 'firebase/firestore';
 import { firebaseBD } from '../configuracoes/firebaseconfig/config';

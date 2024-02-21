@@ -3,6 +3,7 @@ import {Text, View, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
 import estilo from "../estilo"
 import Caixinha from "./Caixinha"
 import AreaDeDados from "./AreaDeDados"
+
 export default ({navigation}) => {
 
     return (

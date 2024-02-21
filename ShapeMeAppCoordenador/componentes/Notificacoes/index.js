@@ -5,7 +5,7 @@ import { firebase, firebaseBD } from '../configuracoes/firebaseconfig/config'
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import { Entypo } from '@expo/vector-icons';
 import estilo from "../estilo"
-import { coordenadorLogado } from "../Home";
+import { coordenadorLogado } from "../LoginScreen";
 export default props => {
     const [isLoading, setIsLoading] = useState(true);
     const [notificacoes, setNotificacoes] = useState([]);
@@ -13,7 +13,7 @@ export default props => {
     useEffect(() => {
         async function getNotificacoes() {
           const db = getFirestore();
-          const notificacoesRef = collection(db,"Academias",coordenadorLogado.getAcademia(),"Professores",coordenadorLogado.getNome(),"Notificações");
+          const notificacoesRef = collection(db,"Academias",coordenadorLogado.getAcademia(),"Coordenador",coordenadorLogado.getEmail(),"Notificações");
           
           try {
             const notificacoesSnapshot = await getDocs(notificacoesRef);

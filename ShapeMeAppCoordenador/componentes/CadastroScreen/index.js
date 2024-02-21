@@ -159,14 +159,14 @@ export default ({navigation}) => {
         .then((userCredential) => {
           console.log(userCredential);
       
-          setDoc(doc(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador`, `${novoCoordenador.getNome()}`), {
+          setDoc(doc(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador`, `${novoCoordenador.getEmail()}`), {
             nome: novoCoordenador.getNome(),
             cpf: novoCoordenador.getCpf(),
             dataNascimento:  novoCoordenador.getDataNascimento(),
             telefone: novoCoordenador.getTelefone(),
             profissao: novoCoordenador.getProfissao(),
             sexo: novoCoordenador.getSexo(),
-            acaedmia : novoCoordenador.getAcademia(),
+            academia : novoCoordenador.getAcademia(),
             endereco: {
               rua: enderecoCoordenador.getRua(),
               cidade: enderecoCoordenador.getCidade(),
@@ -179,7 +179,7 @@ export default ({navigation}) => {
           }).then(() => {
             Alert.alert("Novo usuário criado com sucesso!");
       
-            setDoc(doc(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador/${novoCoordenador.getNome()}`, "Notificações", `Notificação${ano}|${mes}|${dia}`), {
+            setDoc(doc(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador/${novoCoordenador.getEmail()}`, "Notificações", `Notificação${ano}|${mes}|${dia}`), {
               data: `${dia}/${mes}/${ano}`,
               nova: false,
               remetente: 'Gustavo & cia',

@@ -50,17 +50,18 @@ import ExportCSV from './componentes/ExportCSV/index.js';
 import SelecaoAlunoExport from './componentes/ExportCSV/SelecaoAlunoExport.js';
 import CadastroAcademiaScreen from './componentes/CadastroAcademiaScreen/index.js';
 import CadastroTurmas from './componentes/Turmas/CadastroTurmas/index.js';
-import CadastroExercicios from './componentes/Exercicios/CadastroExercicio/index.js';
-import EditarExercicios from './componentes/Exercicios/EditarExercicio/index.js';
-import ListaExercicios from './componentes/Exercicios/ListaExercicios/index.js';
-import DadosExercicios from './componentes/Exercicios/ListaExercicios/DadosExercicios/index.js';
+import CadastroExercicios from './componentes/Exercicios/CadastroExercicio';
+import EditarExercicios from './componentes/Exercicios/EditarExercicio';
+import ListaExercicios from './componentes/Exercicios/ListaExercicios';
+import DadosExercicios from './componentes/Exercicios/ListaExercicios/DadosExercicios';
 import Academia from './componentes/Academia/index.js';
 import ListaProfessores from './componentes/ListaProfessores'
 import PerfilProfessor from './componentes/ListaProfessores/PerfilProfessor/index.js';
 import Turmas from './componentes/Turmas/index.js';
 import EditarTurmas from './componentes/Turmas/EditarTurmas/index.js';
 import DadosTurma from './componentes/Turmas/DadosTurma/index.js';
-
+import TransferirAluno from './componentes/SelecaoAluno/PerfilDoAluno/TransferirAluno.js';
+import EditarAcademia from './componentes/Academia/EditarAcademia';
 
 const Stack = createNativeStackNavigator();
 window.navigator.userAgent = 'ReactNative'
@@ -87,6 +88,7 @@ export default function App() {
         <Stack.Screen name="Editar Turmas" component={EditarTurmas}/>
         <Stack.Screen name="Dados Turma" component={DadosTurma}/>
         <Stack.Screen name="Cadastro Academia" component={CadastroAcademiaScreen}/>
+        <Stack.Screen name="Editar Academia" component={EditarAcademia}/>
         <Stack.Screen name="Perfil Academia" component={Academia}/>
         <Stack.Screen name="Perfil" component={PerfilCoordenador}/>
         <Stack.Screen name="Exercicios" component={Exercicios}/>
@@ -125,6 +127,7 @@ export default function App() {
         <Stack.Screen name="Frequencia do aluno" component={FrequenciaAluno}/>
         <Stack.Screen name="Exportar CSV" component={ExportCSV}/>
         <Stack.Screen name="Seleção Aluno CSV" component={SelecaoAlunoExport}/>
+        <Stack.Screen name="Trocar turma" component={TransferirAluno}/>
       </Stack.Navigator>
     </NavigationContainer> 
     );

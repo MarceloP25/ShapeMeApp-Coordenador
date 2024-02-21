@@ -6,7 +6,7 @@ import { firebaseBD } from '../../configuracoes/firebaseconfig/config';
 import NetInfo from "@react-native-community/netinfo";
 import estilo from "../../estilo";
 import { coordenadorLogado } from '../../LoginScreen';
-import Cabecalho from '../../Cabecalho';
+
 
 export default ({ route, navigation }) => {
     const [conexao, setConexao] = useState(true);
@@ -66,7 +66,7 @@ export default ({ route, navigation }) => {
     return (
         <ScrollView alwaysBounceVertical={true} style={[estilo.corLightMenos1]}>
             <SafeAreaView style={styles.container}>
-            <Cabecalho navigation={navigation} />
+
                 <View style={styles.inputArea}>
                     <Text style={[estilo.tituloH619px, styles.aviso]}>EDITE OS DADOS DA TURMA!</Text>
                     <Text style={[estilo.tituloH619px, styles.aviso]}>CASO NÃO QUEIRA, FINALIZE A EDIÇÃO.</Text>

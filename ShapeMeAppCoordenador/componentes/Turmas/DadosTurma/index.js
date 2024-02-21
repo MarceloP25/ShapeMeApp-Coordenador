@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, SafeAreaView, StyleSheet, View } from 'react-native';
 import estilo from '../../estilo';
-import Cabecalho from '../../Cabecalho';
+
 
 export default ({ navigation,route }) => {
     const { turma } = route.params;

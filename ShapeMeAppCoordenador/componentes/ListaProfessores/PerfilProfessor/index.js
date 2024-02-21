@@ -1,7 +1,7 @@
 import { Text, StyleSheet, View, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect} from 'react'
 import estilo from '../../estilo'
-import Cabecalho from '../../Cabecalho'
+
 import { useNavigation } from '@react-navigation/native'
 
 export default (navigation, route) => {
@@ -10,7 +10,7 @@ export default (navigation, route) => {
     return (
         <ScrollView>
             <SafeAreaView>
-                <Cabecalho navigation={navigation}/>
+
 
                 <View style={[estilo.corLightMenos1]}>
                     <Text style={[estilo.textoP16px, estilo.textoCorSecundaria]}>NOME:</Text>

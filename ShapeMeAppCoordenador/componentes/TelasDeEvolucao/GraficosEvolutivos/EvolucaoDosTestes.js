@@ -10,7 +10,7 @@ import { Entypo } from '@expo/vector-icons';
 import ModalSemConexao from "../../ModalSemConexao"
 import NetInfo from '@react-native-community/netinfo'
 
-import { professorLogado } from "../../Home"
+import { coordenadorLogado } from "../../LoginScreen"
 export default ({route, navigation}) => {
     const {aluno} = route.params
     const [arrayDinamometriaPernas, setArrayDinamometriaPernas] = useState([]);
@@ -57,7 +57,7 @@ export default ({route, navigation}) => {
 
     const getAvaliacoes = async () => {
         const db = getFirestore();
-        const avaliacoesRef = collection(db, "Academias", `${professorLogado.getAcademia()}`,"Professores", aluno.professorResponsavel, "alunos", `Aluno ${aluno.email}`, 'Avaliações');
+        const avaliacoesRef = collection(db, "Academias", `${coordenadorLogado.getAcademia()}`,"Alunos", `${aluno.email}`, 'Avaliações');
         const querySnapshot = await getDocs(avaliacoesRef);
 
 
