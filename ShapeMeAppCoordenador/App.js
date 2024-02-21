@@ -62,6 +62,7 @@ import EditarTurmas from './componentes/Turmas/EditarTurmas/index.js';
 import DadosTurma from './componentes/Turmas/DadosTurma/index.js';
 import TransferirAluno from './componentes/SelecaoAluno/PerfilDoAluno/TransferirAluno.js';
 import EditarAcademia from './componentes/Academia/EditarAcademia';
+import TransferirTurma from './componentes/ListaProfessores/PerfilProfessor/TransferirTurma.js';
 
 const Stack = createNativeStackNavigator();
 window.navigator.userAgent = 'ReactNative'
@@ -128,6 +129,8 @@ export default function App() {
         <Stack.Screen name="Exportar CSV" component={ExportCSV}/>
         <Stack.Screen name="Seleção Aluno CSV" component={SelecaoAlunoExport}/>
         <Stack.Screen name="Trocar turma" component={TransferirAluno}/>
+        <Stack.Screen name="Transferir Turma Professor" component={TransferirTurma}/>
+
       </Stack.Navigator>
     </NavigationContainer> 
     );

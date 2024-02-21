@@ -42,10 +42,10 @@ return (
                 {professores.map((professor) => (
                     <TouchableOpacity
                         key={professor.nome}
-                        onPress={() => redirecionarParaPerfil(professor)}
-                        style={estilo.botao}
+                        onPress={() => navigation.navigate('Perfil Professor', { professor: professor })}
+                        style={[estilo.botao, estilo.corPrimaria]}
                         >
-                            <Text style={estilo.tituloH619px}>{professor.nome}</Text>
+                            <Text style={[estilo.tituloH619px, estilo.textoCorLight]}>{professor.nome}</Text>
                     </TouchableOpacity>
                 ))}
             </View>

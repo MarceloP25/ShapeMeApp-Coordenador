@@ -22,7 +22,7 @@ export default props => {
                     <Text style={[Estilo.tituloH427px, Estilo.textoCorPrimariaMenos1]}>App</Text>
                 </View>
                 <View style={[Estilo.corPrimariaMais1, style.logoProfessorSmall]}>
-                        <Text style={[Estilo.tituloH619px, Estilo.textoCorLight]}>COORDENADOR</Text>
+                        <Text style={[Estilo.tituloH619px, {fontSize: 15}, Estilo.textoCorLight]}>COORDENADOR</Text>
                 </View>
             </View>            
         )

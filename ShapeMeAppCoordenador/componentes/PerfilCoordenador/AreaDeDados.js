@@ -20,6 +20,7 @@ export default ({navigation}) => {
           });
       };
 
+      console.log(coordenadorLogado)
     return(
         <View>
             <View style={[estilo.corLightMenos1, style.container]}>

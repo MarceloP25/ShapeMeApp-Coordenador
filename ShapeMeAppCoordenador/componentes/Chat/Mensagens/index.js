@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useLayoutEffect, useCallback} from 'react';
-import {View, Text, SafeAreaView, ScrollView, StyleSheet, TextInput, TouchableOpacity, Dimensions, Keyboard} from 'react-native'
+import {View, Text, SafeAreaView, ScrollView, StyleSheet,KeyboardAvoidingView, TextInput, TouchableOpacity, Dimensions, Keyboard} from 'react-native'
 import estilo from '../../estilo';
 import MensagemEnviada from './MensagemEnviada';
 import MensagemRecebida from './MensagemRecebida';
@@ -11,7 +11,9 @@ import { coordenadorLogado } from '../../LoginScreen'
 
 export default ({route}) => {
 
-    const {professor} = route.params
+    const {aluno} = route.params
+
+    console.log("PROFESSOR NA MENSAGENS", aluno)
     const altura = Dimensions.get('screen').height
     const [mensagem, setMensagem] = useState('')
     const [mensagens, setMensagens] = useState([])
@@ -46,9 +48,9 @@ export default ({route}) => {
           'Academias',
           coordenadorLogado.getAcademia(),
           'Professores',
-          coordenadorLogado.getNome(),
+          coordenadorLogado.getEmail(),
           'Mensagens',
-          `Mensagens ${professor.email}`,
+          `Mensagens ${aluno.email}`,
           'todasAsMensagens' 
         );
       
@@ -56,7 +58,7 @@ export default ({route}) => {
           texto: mensagem,
           data: serverTimestamp(), // Timestamp: data atual
           remetente: coordenadorLogado.getEmail(),
-          destinatario: professor.email,
+          destinatario: aluno.email,
         };
       
         addDoc(mensagemRef, novaMensagem)
@@ -76,9 +78,9 @@ export default ({route}) => {
             'Academias',
             coordenadorLogado.getAcademia(),
             'Professores',
-            coordenadorLogado.getNome(),
+            coordenadorLogado.getEmail(),
             'Mensagens',
-            `Mensagens ${professor.email}`,
+            `Mensagens ${aluno.email}`,
             'todasAsMensagens' 
           );
       
@@ -96,34 +98,37 @@ export default ({route}) => {
         } catch (error) {
           console.log('Erro ao recuperar as mensagens:', error);
         }
-      }, [professor.email]);
+      }, [aluno.email]);
       useLayoutEffect(() => {
         recuperarMensagens();
       }, [recuperarMensagens]);
 
     return (
-        <View style={[estilo.corLightMenos1, {height: altura}]}>
-            <Header professor={professor}/>
-            <ScrollView>
-                <View style={[estilo.centralizado, estilo.corLightMenos1]}>
-                {mensagens.map((mensagem) => (
-                  mensagem.remetente === coordenadorLogado.getEmail() ? 
-                  <MensagemEnviada texto={mensagem.texto} key={mensagem.id} /> : 
-                  <MensagemRecebida texto={mensagem.texto} key={mensagem.id} />
-))}
-                </View>
-                
-            </ScrollView>
-            <View style={[style.blocoDeTexto, estilo.corLight, {bottom: keyboardHeight + 60}]}>
-                    <TextInput placeholder='Digite sua mensagem' style={[style.digitarMensagem, estilo.corLightMenos1, estilo.centralizado, {padding: 5}]} value={mensagem} onChangeText={(text)=> setMensagem(text)}/>
-                    <TouchableOpacity style={[estilo.centralizado, estilo.corPrimaria, style.botaoEnviarMensagem]} onPress={()=> enviarMensagem(mensagem)}>
-                        <View style={[estilo.centralizado, {marginTop: 10}]}>
-                           <FontAwesome name="send" size={30} color="white" />
+      <KeyboardAvoidingView>
+      <View style={[estilo.corLightMenos1, { minHeight: altura }]}>
+        <Header aluno={aluno} />
+        <ScrollView style={{height: '50%', marginBottom: 50}}>
+          <View style={[estilo.centralizado, estilo.corLightMenos1, {marginBottom: 100}]}>
+            {mensagens.map((mensagem) => (
+              mensagem.remetente === coordenadorLogado.getEmail() ?
+                <MensagemEnviada texto={mensagem.texto} key={mensagem.id} /> :
+                <MensagemRecebida texto={mensagem.texto} key={mensagem.id} />
+            ))}
+          </View>
 
-                        </View>
-                    </TouchableOpacity>
-                </View>
+        </ScrollView>
+        <View style={[style.blocoDeTexto, estilo.corLight, { bottom: keyboardHeight + 70 }]}>
+          <TextInput placeholder='Digite sua mensagem' style={[style.digitarMensagem, estilo.corLightMenos1, estilo.centralizado, { padding: 5 }]} value={mensagem} onChangeText={(text) => setMensagem(text)} />
+          <TouchableOpacity style={[estilo.centralizado, estilo.corPrimaria, style.botaoEnviarMensagem]} onPress={() => enviarMensagem(mensagem)}>
+            <View style={[estilo.centralizado, { marginTop: 10 }]}>
+              <FontAwesome name="send" size={30} color="white" />
+
+            </View>
+          </TouchableOpacity>
         </View>
+      </View>
+    </KeyboardAvoidingView>
+
     )
 }
 

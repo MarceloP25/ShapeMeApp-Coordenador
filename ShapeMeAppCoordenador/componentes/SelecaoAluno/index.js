@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, TouchableOpacity, View, ScrollView } from 'react-native';
 import Logo from '../Logo';
 import estilo from '../estilo';
 import { getDocs, collection } from 'firebase/firestore';
@@ -33,6 +33,8 @@ export default ({ navigation }) => {
               coordenadorLogado.getAcademia(),
               'Alunos'
             );
+
+            const alunoSnapshot = await getDocs(alunoRef)
 
             for (const alunoDoc of alunoSnapshot.docs) {
               const alunoData = alunoDoc.data();
