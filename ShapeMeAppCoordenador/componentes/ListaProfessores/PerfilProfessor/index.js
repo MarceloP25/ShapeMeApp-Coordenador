@@ -4,12 +4,12 @@ import estilo from '../../estilo'
 
 import { useNavigation } from '@react-navigation/native'
 
-export default (navigation, route) => {
+export default ({navigation, route}) => {
     const { professor } = route.params;
 
+    console.log(professor)
     return (
-        <ScrollView>
-            <SafeAreaView>
+            <SafeAreaView style={[estilo.corLightMenos1,{height: '100%', padding: 15}]}>
 
 
                 <View style={[estilo.corLightMenos1]}>
@@ -18,7 +18,7 @@ export default (navigation, route) => {
                     <Text style={[estilo.textoP16px, estilo.textoCorSecundaria]}>CPF:</Text>
                     <Text style={[estilo.tituloH619px, estilo.textoCorSecundaria]}>{professor.cpf}</Text>
                     <Text style={[estilo.textoP16px, estilo.textoCorSecundaria]}>Data de nascimento:</Text>
-                    <Text style={[estilo.tituloH619px, estilo.textoCorSecundaria]}>{professor.datanascimento}</Text>
+                    <Text style={[estilo.tituloH619px, estilo.textoCorSecundaria]}>{professor.dataNascimento}</Text>
                     <Text style={[estilo.textoP16px, estilo.textoCorSecundaria]}>Telefone:</Text>
                     <Text style={[estilo.tituloH619px, estilo.textoCorSecundaria]}>{professor.telefone}</Text>
                     <Text style={[estilo.textoP16px, estilo.textoCorSecundaria]}>Login:</Text>
@@ -29,15 +29,19 @@ export default (navigation, route) => {
                     <Text style={[estilo.textoP16px, estilo.textoCorSecundaria]}>Endereço:</Text>
                     <Text style={[estilo.tituloH619px, estilo.textoCorSecundaria]}>{enderecoCoordenador.getRua()},{enderecoCoordenador.getNumero()}, {enderecoCoordenador.getCidade()}, {enderecoCoordenador.getEstado()}</Text>
                     */}
-                </View>
-
                 <View>
-                    <TouchableOpacity>
-                        <Text>TRANSFERIR DE TURAM</Text>
+                <TouchableOpacity
+                        style={[estilo.botao, estilo.corPrimaria]}
+                        >
+                            <Text style={[estilo.tituloH619px, estilo.textoCorLight]}
+                                    onPress={()=> navigation.navigate('Transferir Turma Professor', {professor})}
+                            >TRANSFERIR DE TURMA</Text>
                     </TouchableOpacity>
                 </View>
+                </View>
+
+
             </SafeAreaView>
-        </ScrollView>
     )
 
 }

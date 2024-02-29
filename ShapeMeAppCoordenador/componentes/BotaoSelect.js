@@ -37,7 +37,7 @@ export default ({options=[], onChange , initialSelect=[], titulo = " ", max, sel
             value={item}
             style={[style.item]} 
             onPress={()=> combinada(item)}>
-                <Text style={[estilo.textoP16px, estilo.textoCorSecundaria, style.Montserrat]}>{item}</Text>
+                <Text style={[estilo.textoP16px, estilo.textoCorSecundaria]}>{item}</Text>
             </TouchableOpacity>
         )
     }
@@ -59,7 +59,7 @@ export default ({options=[], onChange , initialSelect=[], titulo = " ", max, sel
         onPress={()=>setVisible(true)}
         seleciona={() => {return titulo}}
         >
-            <Text style={ selecionado ?[estilo.textoCorSecundaria, style.actions, estilo.textoP16px, style.Montserrat] :  [estilo.textoCorDanger, style.actions, estilo.textoP16px, style.Montserrat]}> {selected == '' ? select ? select : 'Select' : selected}</Text>
+            <Text style={ selecionado ?[estilo.textoCorSecundaria, style.actions, estilo.textoP16px] :  [estilo.textoCorDanger, style.actions, estilo.textoP16px]}> {selected == '' ? select ? select : 'Select' : selected}</Text>
             <AntDesign name="downcircleo" size={24} color={selecionado ? 'black' : 'red'} />
             <Modal onRequestClose={() => setVisible(false)}
             visible={visible}
@@ -70,8 +70,8 @@ export default ({options=[], onChange , initialSelect=[], titulo = " ", max, sel
                     <View style={style.header}>
                         <View style={style.headerR1}>
                             <View>
-                                <Text style={[estilo.textoCorSecundaria, style.actions, estilo.tituloH619px, style.Montserrat]}>{titulo || 'Título'}</Text>
-                                <Text style={[estilo.textoCorSecundaria, style.actions, estilo.textoP16px, style.Montserrat]}>{`Selecione ${max} opção`}</Text>
+                                <Text style={[estilo.textoCorSecundaria, style.actions, estilo.tituloH619px]}>{titulo || 'Título'}</Text>
+                                <Text style={[estilo.textoCorSecundaria, style.actions, estilo.textoP16px]}>{`Selecione ${max} opção`}</Text>
                             </View>
                             <TouchableOpacity onPress={()=> {setVisible(false); onChange(selected)}}>
                                 <AntDesign name="upcircleo" size={24} color="black" />
@@ -118,9 +118,6 @@ const style = StyleSheet.create({
         borderRadius: 4,
         paddingHorizontal: 10,
         height: 35
-    },
-    Montserrat: {
-        fontFamily: 'Montserrat'
     },
     item: {
         width: '100%',

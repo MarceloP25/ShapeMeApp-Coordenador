@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Text, SafeAreaView, StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
-import { getDocs, collection, query, where, getFirestore } from 'firebase/firestore';
+import { getDocs, collection, query, getFirestore } from 'firebase/firestore';
 import { firebaseBD } from '../configuracoes/firebaseconfig/config';
 import NetInfo from '@react-native-community/netinfo';
 import estilo from '../estilo';
 import { coordenadorLogado } from '../LoginScreen';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import ListaTurmas from './ListaTurmas'; // Importando o componente ListaTurmas
+import BotaoSelect from "../BotaoSelect";
+
 
 export default ({navigation}) => {
     const [turmas, setTurmas] = useState([]);
@@ -23,19 +24,23 @@ export default ({navigation}) => {
     }, []);
 
     useEffect(() => {
-        const buscarTurmas = () => {
+        const buscarTurmas = async () => {
             try {
-                const turmasRef = collection(firebaseBD, `Academias/${coordenadorLogado.getAcademia()}/Turmas`);
-                const turmasQuery = query(turmasRef);
-
-                const turmasSnapshot = getDocs(turmasQuery);
-
-                const listaTurmas = [];
-                turmasSnapshot.forEach((doc) => {
-                    listaTurmas.push({ id: doc.id, ...doc.data() });
-                });
-
-                setTurmas(listaTurmas);
+                const turmasRef = collection(firebaseBD, "Academias", coordenadorLogado.getAcademia(), "Turmas");
+                const querySnapshot = await getDocs(turmasRef);
+                console.log(turmasRef)
+                console.log(typeof(querySnapshot))
+                if (!querySnapshot.empty) {
+                    const listaTurmas = [];
+                    querySnapshot.forEach((doc) => {
+                        const nome = doc.data();
+                        listaTurmas.push(nome);
+                    });
+                    
+                    setTurmas(listaTurmas);
+                } else {
+                    console.log("Nenhuma turma encontrada.");
+                }
             } catch(error) {
                 console.error('Erro ao buscar turmas:', error);
             }
@@ -44,40 +49,45 @@ export default ({navigation}) => {
         buscarTurmas();
     }, []);
 
-    return (
-        <SafeAreaView style={[estilo.corLightMenos1, styles.container]}>
-            <ScrollView alwaysBounceVertical={true} style={[estilo.corLightMenos1, ]}>
 
+    return (
+        <ScrollView alwaysBounceVertical={true} style={estilo.corLightMenos1}>
+            <SafeAreaView style={[estilo.corLightMenos1, styles.container]}>
                 <View style={styles.areaFrase}>
                     <Text style={[estilo.tituloH523px, estilo.centralizado]}>CLIQUE PARA VER OS DADOS!</Text>
                 </View>
 
-                <View style={[{flexGrow:1}]}>
-                    <View style={ styles.areaBotoes}>
+                <View>
+                    <View>
                         {
                             turmas.map((turma) => (
-                                <ListaTurmas
-                                    key={turma.id}
-                                    turma={turma}
-                                    onPress={() => navigation.navigate('Dados Turma', { turma: turma })} />
+                                console.log(turma),
+                                <TouchableOpacity
+                                    key={turma.nome}
+                                    onPress={() => navigation.navigate('Dados Turma', { turma: turma})}
+                                    style={[estilo.botao, estilo.corPrimaria]}
+                                    >
+                                        <Text style={[estilo.tituloH619px, estilo.textoCorLight]}>{turma.nome}</Text>
+                                </TouchableOpacity>
                             ))
                         }
                     </View>
 
-                    <View style={ styles.areaBotoes}>
+                    <View>
                         <TouchableOpacity style={[estilo.botao, estilo.sombra, estilo.corPrimaria]} onPress={() => navigation.navigate('Cadastro Turmas')}>
                             <Text style={[estilo.textoCorLight, estilo.tituloH523px]}>CADASTRAR TURMA</Text>
                         </TouchableOpacity>
                     </View>
 
                 </View>
-            </ScrollView>
-        </SafeAreaView>
+            </SafeAreaView>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
+        height: '100%',
         width: '100%',
         marginVertical: '15%',
     },
@@ -85,13 +95,6 @@ const styles = StyleSheet.create({
         marginVertical: '3%',
         height: '20%',
     },
-    areaBotoes: {
-        height: '25%',
-        marginTop: '10%',
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center'
-    },    
     botaoTurma: {
         paddingHorizontal: 5,
         paddingVertical: 10,

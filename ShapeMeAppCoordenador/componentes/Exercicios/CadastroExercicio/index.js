@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, Text, TouchableOpacity, View, StyleSheet, TextInput } from 'react-native'
+import { SafeAreaView, ScrollView, Text, TouchableOpacity, View, StyleSheet, TextInput, Alert } from 'react-native'
 import React, { useState, useEffect } from "react"
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import estilo from '../../estilo';
@@ -158,6 +158,7 @@ export default ({navigation}) => {
         }).catch((erro) => {
             console.log(`Não foi possível criar o documento. Já existe um exercício cadastrado com esse nome.`)
         }).then(() => {
+            Alert.alert("Exercício cadastrado! Para adicionar variações e execuções vá até sua edição.")
             setNome('')
             setTipo('')
             setMusculos('')
@@ -177,7 +178,7 @@ export default ({navigation}) => {
             <SafeAreaView style={styles.container}>   
             
 
-                <View>
+                
                     <View style={{alignContent: 'center',}}>
                         <Text style={[estilo.tituloH523px, estilo.textoCorSecundaria,  styles.titulos]}>CADASTRAR EXERCÍCIO</Text>
                     </View>
@@ -210,7 +211,7 @@ export default ({navigation}) => {
                             titulo="Selecione o Tipo"
                             max={1}
                         />
-                </View>
+                    </View>
 
                     <View style={styles.inputArea}>
                         <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>ATUAÇÃO MUSCULAR:</Text>
@@ -250,52 +251,6 @@ export default ({navigation}) => {
                         </View>
                     </View>
 
-                    <View style={styles.inputArea}>
-                        <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>VARIAÇÕES:</Text>
-                        <View>
-                            {renderVariacao()}
-                        </View>
-                        <View>
-                        <TouchableOpacity onPress={addVariacao}>
-                            <FontAwesome6 name="add" size={24} color="white" />
-                        </TouchableOpacity>
-                        </View>
-                    </View>
-                    
-                    <View style={styles.inputArea}>
-                        <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>EXECUÇÕES:</Text>
-                        <View>
-                            {renderExecucao()}
-                        </View>
-                        <View>
-                        <TouchableOpacity onPress={addExecucao}>
-                            <FontAwesome6 name="add" size={24} color="white" />
-                        </TouchableOpacity>
-                        </View>
-                    </View>
-
-                    <View>
-                        <Text>IMAGEM:</Text>
-                        <View>
-                            <TouchableOpacity
-                                style={[estilo.botao, estilo.sombra]}
-                                onPress={() => {
-                                ImagePicker.showImagePicker(options, (response) => {
-                                    if (response.didCancel) {
-                                        console.log('Usuário cancelou a seleção da imagem');
-                                    } else if (response.error) {
-                                        console.log('Erro: ', response.error);
-                                    } else {
-                                        const source = { uri: response.uri };
-                                        setImagem(source);
-                                    }
-                                });
-                                }}>
-                                <Text style={[estilo.tituloH523px, estilo.textoCorLight]}>Selecionar Imagem</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-
                     <View>
                         <TouchableOpacity style={[estilo.botao, estilo.sombra, estilo.corPrimaria]}
                             onPress={() => {
@@ -316,7 +271,7 @@ export default ({navigation}) => {
                             <Text style={[estilo.tituloH523px, estilo.textoCorLight]}>ADICIONAR</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
+                
 
             </SafeAreaView>
                 }

@@ -131,26 +131,24 @@ export default ({ navigation }) => {
     };
 
     useEffect(() => {
-        //console.log("Chamou a função")
         fetchcoordenadorData()
     }, [])
         const fetchcoordenadorData = async () => {
-            //console.log("CHEGOU AQUI 1")
+            
             try {
                 const academiaRef = collection(firebaseBD, "Academias");
                 const querySnapshot = await getDocs(academiaRef);
                 for (const academiaDoc of querySnapshot.docs) {
                 const academiaNome = academiaDoc.get("nome");
                 const coordenadorRef = collection(firebaseBD, "Academias", academiaNome, "Coordenador");
-                //console.log("CHEGOU AQUI 2")
+                
 
                 const coordenadorSnapshot = await getDocs(coordenadorRef);
                 for (const coordenadorDoc of coordenadorSnapshot.docs) {
-                    //console.log("CHEGOU AQUI 3")
-                    //console.log('email', email)
-                    //console.log('coordenadorDoc.get("email")', coordenadorDoc.get("email"))
-                    if (email == coordenadorDoc.get("email")) {
                     const coordenadorData = coordenadorDoc.data();
+                    
+                    if (email.trim() === coordenadorData.email.trim()) {
+                        
                     setCoordenadorData(coordenadorDoc.data())
                     coordenadorLogado.setNome(coordenadorData.nome);
                     coordenadorLogado.setEmail(coordenadorData.email);
@@ -167,7 +165,7 @@ export default ({ navigation }) => {
                     enderecoCoordenador.setRua(coordenadorData.endereco.rua)
                     enderecoCoordenador.setNumero(coordenadorData.endereco.numero)
                     coordenadorLogado.setAcademia(coordenadorData.academia)
-                    //console.log("CHEGOU AQUI 4")
+                    
 
                     const coordenadorString = JSON.stringify(coordenadorDoc.data())
                     AsyncStorage.setItem('coordenadorLocal', coordenadorString)
@@ -177,7 +175,7 @@ export default ({ navigation }) => {
             } catch (error) {
                 console.log(error);
             }  finally {
-                saveValueFunction()
+                //saveValueFunction()
             } 
         }
 

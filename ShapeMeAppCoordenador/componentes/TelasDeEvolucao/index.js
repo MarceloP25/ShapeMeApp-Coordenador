@@ -48,7 +48,7 @@ export default ({navigation}) => {
                 'Alunos'
               );
               console.log(coordenadorLogado.getAcademia());
-
+                const alunoSnapshot = await getDocs(alunoRef)
                 for (const alunoDoc of alunoSnapshot.docs) {
                   const alunoData = alunoDoc.data();
                   console.log(alunoData);

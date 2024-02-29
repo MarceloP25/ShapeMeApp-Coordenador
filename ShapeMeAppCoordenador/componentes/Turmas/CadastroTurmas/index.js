@@ -28,7 +28,6 @@ export default ({ navigation }) => {
     const [vaga, setVaga] = useState('');
     
     const handleCadastroTurma = () =>{
-        console.log(coordenadorLogado.getAcademia())
         setDoc(doc(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), 'Turmas', novaTurma.getNome()),{
             nome: novaTurma.getNome(),
             horario: novaTurma.getHorario(),
@@ -41,6 +40,7 @@ export default ({ navigation }) => {
             setDia('');
             setVaga('');
         }).catch((erro) => {
+            Alert.alert("Turma já existente!")
             console.log(`Não foi possível criar a turma. Já existe uma turma cadastrada com esse nome.`);
         });
     }

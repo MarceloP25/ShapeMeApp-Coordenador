@@ -14,6 +14,7 @@ useEffect(() => {
         const professoresRef = collection(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), 'Professores');
         const querySnapshot = await getDocs(professoresRef);
 
+        console.log(typeof(querySnapshot))
         const listaProfessores = [];
         querySnapshot.forEach((doc) => {
             const nome = doc.data();
@@ -29,9 +30,6 @@ useEffect(() => {
     buscarProfessores();
 }, []);
 
-const redirecionarParaPerfil = (professor) => {
-    navigation.navigate('Perfil Professor', { professor });
-};
 
 return (
     <ScrollView alwaysBounceVertical={true} style={estilo.corLightMenos1}>
@@ -42,10 +40,10 @@ return (
                 {professores.map((professor) => (
                     <TouchableOpacity
                         key={professor.nome}
-                        onPress={() => redirecionarParaPerfil(professor)}
-                        style={estilo.botao}
+                        onPress={() => navigation.navigate('Perfil Professor', { professor: professor })}
+                        style={[estilo.botao, estilo.corPrimaria]}
                         >
-                            <Text style={estilo.tituloH619px}>{professor.nome}</Text>
+                            <Text style={[estilo.tituloH619px, estilo.textoCorLight]}>{professor.nome}</Text>
                     </TouchableOpacity>
                 ))}
             </View>

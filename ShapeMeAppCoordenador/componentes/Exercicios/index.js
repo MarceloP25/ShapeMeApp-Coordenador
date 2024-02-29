@@ -25,41 +25,35 @@ export default ({navigation}) =>{
 
   const fetchExercicioData = async () => {
     try {
-      const academiaRef = collection(firebaseBD, "Academias", coordenadorLogado.getAcademia());
-      const querySnapshot = await getDocs(academiaRef);
-
       const exercicios = [];
-      querySnapshot.forEach((academiaDoc) => {
-        const academiaNome = academiaDoc.get("nome");
-        const exercicioRef = collection(firebaseBD, "Academias", academiaNome, "Exercicios");
-        const exercicioSnapshot = getDocs(exercicioRef);
+      const exercicioRef = collection(firebaseBD, "Academias", coordenadorLogado.getAcademia(), "Exercicios");
+      const exercicioSnapshot = getDocs(exercicioRef);
 
-        for (const exercicioDoc of exercicioSnapshot.docs) {
-          const exercicioData = exercicioDoc.data();
-          exercicios.push(exercicioData);
+      for (const exercicioDoc of exercicioSnapshot.docs) {
+        const exercicioData = exercicioDoc.data();
+        exercicios.push(exercicioData);
 
-          // Adicionar exercício ao array correspondente ao tipo
-          switch (exercicioData.tipo) {
-            case "Alongamentos":
-              setAlongamentoExercicios((prevExercicios) => [...prevExercicios, exercicioData]);
-              break;
-            case "Aeróbicos":
-              setAerobicoExercicios((prevExercicios) => [...prevExercicios, exercicioData]);
-              break;
-            case "Força - Membros Superiores":
-              setForcaSuperioresExercicios((prevExercicios) => [...prevExercicios, exercicioData]);
-              break;
-            case "Força - Membros Inferiores":
-              setForcaInferioresExercicios((prevExercicios) => [...prevExercicios, exercicioData]);
-              break;
-            default:
-              break;
-          }
-
-          const exercicioString = JSON.stringify(exercicioDoc.data());
-          AsyncStorage.setItem('exercicioLocal', exercicioString);
+        // Adicionar exercício ao array correspondente ao tipo
+        switch (exercicioData.tipo) {
+          case "Alongamentos":
+            setAlongamentoExercicios((prevExercicios) => [...prevExercicios, exercicioData]);
+            break;
+          case "Aeróbicos":
+            setAerobicoExercicios((prevExercicios) => [...prevExercicios, exercicioData]);
+            break;
+          case "Força - Membros Superiores":
+            setForcaSuperioresExercicios((prevExercicios) => [...prevExercicios, exercicioData]);
+            break;
+          case "Força - Membros Inferiores":
+            setForcaInferioresExercicios((prevExercicios) => [...prevExercicios, exercicioData]);
+            break;
+          default:
+            break;
         }
-      });
+
+        const exercicioString = JSON.stringify(exercicioDoc.data());
+        AsyncStorage.setItem('exercicioLocal', exercicioString);
+      }
 
       setExercicioData(exercicios);
     } catch (error) {
