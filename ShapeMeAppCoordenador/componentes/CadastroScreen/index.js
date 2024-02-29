@@ -146,6 +146,7 @@ export default ({navigation}) => {
     const handleSelectChange = (value) => {
       setSelectedOption(value)
       setAcademia(value);
+      console.log(value)
       }
 
       const handleFinalizarCadastro = () => {
