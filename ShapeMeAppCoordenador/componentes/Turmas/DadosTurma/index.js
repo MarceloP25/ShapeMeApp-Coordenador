@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, SafeAreaView, StyleSheet, View } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native';
 import estilo from '../../estilo';
 
 
@@ -7,51 +7,54 @@ export default ({ navigation,route }) => {
     const { turma } = route.params;
 
     return (
-        <SafeAreaView style={styles.container}>
+        <ScrollView alwaysBounceVertical={true} style={estilo.corLightMenos1}>
+            <SafeAreaView style={styles.container}>
 
-            <View>
-                <Text style={[estilo.tituloH619px, estilo.textoCorLightMais1]}>Detalhes da Turma</Text>
-                <View style={styles.detalhesContainer}>
-                    <Text style={styles.label}>Nome da Turma:</Text>
-                    <Text style={styles.valor}>{turma.nome}</Text>
+                <View style={[estilo.corLight, styles.areaTexto, estilo.centralizado]}>
+                <Text style={[estilo.tituloH333px, estilo.textoCorSecundaria, estilo.centralizado]}>Detalhes da Turma</Text>
 
-                    <Text style={styles.label}>Horário da Turma:</Text>
-                    <Text style={styles.valor}>{turma.horario}</Text>
+                    <View style={[styles.texto]}>
+                        <Text style={[estilo.tituloH523px, estilo.textoCorSecundaria]}>Nome da Turma:</Text>
+                        <Text style={[estilo.tituloH427px, estilo.textoCorSecundaria]}>{turma.nome}</Text>
 
-                    <Text style={styles.label}>Dias da Turma:</Text>
-                    <Text style={styles.valor}>{turma.dias}</Text>
+                        <Text style={[estilo.tituloH523px, estilo.textoCorSecundaria]}>Horário da Turma:</Text>
+                        <Text style={[estilo.tituloH427px, estilo.textoCorSecundaria]}>{turma.horario}</Text>
 
-                    <Text style={styles.label}>Vagas da Turma:</Text>
-                    <Text style={styles.valor}>{turma.vaga}</Text>
+                        <Text style={[estilo.tituloH523px, estilo.textoCorSecundaria]}>Dias da Turma:</Text>
+                        <Text style={[estilo.tituloH427px, estilo.textoCorSecundaria]}>{turma.dias}</Text>
+
+                        <Text style={[estilo.tituloH523px, estilo.textoCorSecundaria]}>Vagas da Turma:</Text>
+                        <Text style={[estilo.tituloH427px, estilo.textoCorSecundaria]}>{turma.vaga}</Text>
+                    </View>
                 </View>
-            </View>
 
-            <View>
-                <TouchableOpacity style={estilo.botao}
-                    onPress={navigation.navigate('Editar Turmas', { turma: turma.nome })}>
-                    <Text>EDITAR TURMA</Text>
+                <TouchableOpacity 
+                    style={[estilo.botao, estilo.sombra, estilo.corPrimaria]} 
+                    onPress={() => navigation.navigate('Editar Turmas', { turma: turma })}
+                    >
+                    <Text style={[estilo.textoCorLight, estilo.tituloH523px]}>EDITAR TURMA</Text>
                 </TouchableOpacity>
-            </View>
 
-        </SafeAreaView>
+            </SafeAreaView>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: '2%',
+        marginTop: '10%',
+        flex: 1,
+        //height: '100%',
     },
-    detalhesContainer: {
-        marginTop: 20,
+    areaTexto:{
+        marginTop: '10%',
+        height: 400,
+        width: '90%',
+        padding: 20,
+        borderRadius: 17,
+        borderWidth: 1,
     },
-    label: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginVertical: 5,
-        color: estilo.textoCorLightMais1.color,
-    },
-    valor: {
-        fontSize: 16,
-        marginBottom: 15,
+    texto: {
+        marginTop: '15%',
     },
 });

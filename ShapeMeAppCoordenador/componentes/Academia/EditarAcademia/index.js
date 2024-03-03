@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, SafeAreaView, Alert } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 import estilo from '../../estilo';
 import { firebaseBD } from '../../configuracoes/firebaseconfig/config';
@@ -135,7 +135,9 @@ export default function EditarAcademia({ route, navigation }) {
             });
             navigation.goBack();
         } catch (error) {
-            console.error('Erro ao editar academia:', error);
+            console.error('Erro ao editar academia:', error)
+        } finally {
+            Alert.alert("Dados atualizados com sucesso!")
         }
     };
 

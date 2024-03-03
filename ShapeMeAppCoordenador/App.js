@@ -63,6 +63,7 @@ import DadosTurma from './componentes/Turmas/DadosTurma/index.js';
 import TransferirAluno from './componentes/SelecaoAluno/PerfilDoAluno/TransferirAluno.js';
 import EditarAcademia from './componentes/Academia/EditarAcademia';
 import TransferirTurma from './componentes/ListaProfessores/PerfilProfessor/TransferirTurma.js';
+import CadastroVariacaoExecucao from './componentes/Exercicios/CadastroExercicio/CadastroVariacaoExecucao.js';
 
 const Stack = createNativeStackNavigator();
 window.navigator.userAgent = 'ReactNative'
@@ -95,6 +96,7 @@ export default function App() {
         <Stack.Screen name="Editar Exercicios" component={EditarExercicios}/>
         <Stack.Screen name="Lista Exercicios" component={ListaExercicios}/>
         <Stack.Screen name="Dados Exercicios" component={DadosExercicios}/>
+        <Stack.Screen name="Cadastro Varicacao Execucao" component={CadastroVariacaoExecucao}/>
         <Stack.Screen name="Editar foto" component={EditarFoto}/>
         <Stack.Screen name="Lista Professores" component={ListaProfessores}/>
         <Stack.Screen name="Perfil Professor" component={PerfilProfessor}/>

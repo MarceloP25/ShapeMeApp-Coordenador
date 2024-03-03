@@ -8,22 +8,22 @@ export default ({navigation, route}) => {
     const { exercicios } = route.params;
 
     return (
-        <SafeAreaView style={estilo.corLightMenos1}>
-            <ScrollView alwaysBounceVertical={true} style={[style.container, estilo.corLightMenos1]}>
-           
-                <View>
-                    {exercicios.map((exercicio, index) => (
-                        <TouchableOpacity
-                            key={index}
-                            style={[estilo.botaoClaro1, estilo.sombra, style.exercicioBotao]}
-                            onPress={ () => navigation.navigate('Dados Exercicio', { exercicios: exercicio })}
-                        >
-                        <Text style={estilo.tituloH427px}>{exercicio.nome}</Text>
-                        </TouchableOpacity>
-                    ))}
-                </View>
-            </ScrollView>
-        </SafeAreaView>
+        <ScrollView alwaysBounceVertical={true} style={[estilo.corLightMenos1]}>
+            <SafeAreaView style={[style.container, estilo.corLightMenos1]}>
+                
+                {exercicios.map((exercicio) => (
+                    console.log(exercicio),
+                    <TouchableOpacity
+                        key={exercicio.nome}
+                        style={[estilo.botaoClaro2, estilo.sombra, estilo.corLight]}
+                        onPress={ () => navigation.navigate("Dados Exercicios", { exercicios: exercicio })}
+                    >
+                    <Text style={[estilo.tituloH427px, estilo.textoCorDark]}>{exercicio.nome}</Text>
+                    </TouchableOpacity>
+                ))}
+                
+            </SafeAreaView>
+        </ScrollView>
     );
 }
 

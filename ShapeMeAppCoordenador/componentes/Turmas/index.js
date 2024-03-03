@@ -28,8 +28,7 @@ export default ({navigation}) => {
             try {
                 const turmasRef = collection(firebaseBD, "Academias", coordenadorLogado.getAcademia(), "Turmas");
                 const querySnapshot = await getDocs(turmasRef);
-                console.log(turmasRef)
-                console.log(typeof(querySnapshot))
+                
                 if (!querySnapshot.empty) {
                     const listaTurmas = [];
                     querySnapshot.forEach((doc) => {
@@ -53,33 +52,31 @@ export default ({navigation}) => {
     return (
         <ScrollView alwaysBounceVertical={true} style={estilo.corLightMenos1}>
             <SafeAreaView style={[estilo.corLightMenos1, styles.container]}>
-                <View style={styles.areaFrase}>
-                    <Text style={[estilo.tituloH523px, estilo.centralizado]}>CLIQUE PARA VER OS DADOS!</Text>
-                </View>
 
                 <View>
-                    <View>
-                        {
-                            turmas.map((turma) => (
-                                console.log(turma),
-                                <TouchableOpacity
-                                    key={turma.nome}
-                                    onPress={() => navigation.navigate('Dados Turma', { turma: turma})}
-                                    style={[estilo.botao, estilo.corPrimaria]}
-                                    >
-                                        <Text style={[estilo.tituloH619px, estilo.textoCorLight]}>{turma.nome}</Text>
-                                </TouchableOpacity>
-                            ))
-                        }
-                    </View>
 
-                    <View>
-                        <TouchableOpacity style={[estilo.botao, estilo.sombra, estilo.corPrimaria]} onPress={() => navigation.navigate('Cadastro Turmas')}>
+                    <Text style={[estilo.tituloH523px, estilo.centralizado]}>CLIQUE PARA VER OS DADOS!</Text>
+
+                    {
+                        turmas.map((turma) => (
+                            <TouchableOpacity
+                                key={turma.nome}
+                                onPress={() => navigation.navigate('Dados Turma', { turma: turma})}
+                                style={[estilo.botao, estilo.corPrimaria]}
+                                >
+                                    <Text style={[estilo.tituloH619px, estilo.textoCorLight]}>{turma.nome}</Text>
+                            </TouchableOpacity>
+                        ))}
+
+                        <TouchableOpacity 
+                            style={[estilo.botao, estilo.sombra, estilo.corPrimaria]} 
+                            onPress={() => navigation.navigate('Cadastro Turmas')}
+                            >
                             <Text style={[estilo.textoCorLight, estilo.tituloH523px]}>CADASTRAR TURMA</Text>
                         </TouchableOpacity>
-                    </View>
 
                 </View>
+
             </SafeAreaView>
         </ScrollView>
     )
@@ -87,24 +84,7 @@ export default ({navigation}) => {
 
 const styles = StyleSheet.create({
     container: {
-        height: '100%',
-        width: '100%',
         marginVertical: '15%',
     },
-    areaFrase: {
-        marginVertical: '3%',
-        height: '20%',
-    },
-    botaoTurma: {
-        paddingHorizontal: 5,
-        paddingVertical: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 300,
-        height: 80,
-        borderRadius: 10,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        marginTop: 10,  
-    },
+
 });

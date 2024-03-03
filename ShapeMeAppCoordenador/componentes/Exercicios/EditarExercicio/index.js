@@ -14,8 +14,7 @@ import { coordenadorLogado } from '../../LoginScreen';
 
 export default ({navigation, route}) => {
     const [conexao, setConexao] = useState(true);
-    const [exercicios, setExercicios] = useState([]);
-    const [exercicioSelecionado, setExercicioSelecionado] = useState(null);
+    const {exercicio} = route.params;
 
     useEffect(() => {
         const unsubscribe = NetInfo.addEventListener((state) => {
@@ -28,191 +27,54 @@ export default ({navigation, route}) => {
     }, []);
 
     useEffect(() => {
-        const carregarExercicios = async () => {
-        try {
-            const querySnapshot = await getDocs(collection(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), 'Exercicios'));
-            const exercicios = [];
-            querySnapshot.forEach((doc) => {
-            exercicios.push({ id: doc.id, ...doc.data() });
-            });
-            setExercicios(exercicios);
-        } catch (error) {
-            console.error('Erro ao carregar exercícios:', error);
-        }
-        };
 
-        carregarExercicios();
     }, []);
 
-    const handleSelecionarExercicio = (exercicio) => {
-        setExercicioSelecionado(exercicio);
-        setNome(exercicio.nome || '');
-        setTipo(exercicio.tipo || '');
-        setMusculos(exercicio.musculos || '');
-        setDescricao(exercicio.descricao || '');
-        setVariacao(exercicio.variacao || []);
-        setExecucao(exercicio.execucao || []);
-        setImagem(exercicio.imagem || null);
-    };
+    const [nome, setNome] = useState(exercicio.nome);
+    const [tipo, setTipo] = useState(exercicio.tipo);
+    const [musculos, setMusculos] = useState(exercicio.musculos);
+    const [descricao, setDescricao] = useState(exercicio.descricao);
+    const [variacao, setVariacao] = useState(exercicio.variacao)
+    const [execucao, setExecucao] = useState(exercicio.execucao)
+    //const [imagem, setImagem] = useState(exercicio.imagem)
 
-    const renderItem = ({ item }) => (
-        <TouchableOpacity onPress={() => handleSelecionarExercicio(item)}>
-            <Text>{item.nome}</Text>
-        </TouchableOpacity>
-    );
-    const [nome, setNome] = useState('')
-    const [nomeInvalido, setNomeInvalido] = useState(false);
-
-    const validaNome = (text) => {
-        const nomeValido = /^[\p{L}\s]*$/u;
-        if (nomeValido.test(text)) {
-            setNomeInvalido(false);
-        } else {
-            setNomeInvalido(true);
-        }
-        setNome(text);
-    };
 
     // Olhar como definir 4 tipos que serão coleções no firebase
-    const [tipo, setTipo] = useState('')
     const tiposDisponiveis = ["Alongamentos", "Aeróbicos", "Força - Membros Superiores", "Força - Membros Inferiores"];
 
-    const [musculos, setMusculos] = useState('')
-    const [musculosInvalido, setMusculosInvalido] = useState(false)
 
-    const validaMusculos = (text) => {
-        const musculosValidos = /^[a-zA-Z\s]*$/;
-        if (musculosValidos.test(text)) {
-            setMusculosInvalido(false);
-        } else {
-            setMusculosInvalido(true);
-        }
-        setMusculos(text);
-    };
-    
-    const [descricao, setDescricao] = useState('')
-    const [descricaoInvalida, setDescricaoInvalida] = useState(false)
 
-    const validaDescricao = (text) => {
-        const descricaoValida = text.length >= 3;
-
-        setDescricao(text);
-        setDescricaoInvalida(!descricaoValida)
-    };
-
-    const [variacao, setVariacao] = useState([])
-
-    const addVariacao = () => {
-        setVariacao([...variacao, ""]); // Adiciona um novo elemento vazio
-    };
-    
-    const updateVariacao = (text, index) => {
-        const updatedVariacao = [...variacao];
-        updatedVariacao[index] = text;
-        setVariacao(updatedVariacao);
-    };
-    
-    const renderVariacao = () => {
-        return variacao.map((value, index) => (
-        <TextInput
-            key={index}
-            placeholder={`Digite a variação ${index + 1}`}
-            placeholderTextColor={"#CFCDCD"}
-            style={[
-            styles.inputText,
-            /* Adicione suas condições de estilo aqui se necessário */
-            ]}
-            keyboardType={"default"}
-            value={value}
-            onChangeText={(text) => updateVariacao(text, index)}
-        />
-        ));
-    };
-
-    const [execucao, setExecucao] = useState([])
-
-    const addExecucao = () => {
-        setExecucao([...execucao, ""]); // Adiciona um novo elemento vazio
-    };
-    
-    const updateExecucao = (text, index) => {
-        const updatedExecucao = [...execucao];
-        updatedExecucao[index] = text;
-        setExecucao(updatedExecucao);
-    };
-    
-    const renderExecucao = () => {
-        return execucao.map((value, index) => (
-        <TextInput
-            key={index}
-            placeholder={`Digite a variação ${index + 1}`}
-            placeholderTextColor={"#CFCDCD"}
-            style={[
-            styles.inputText,
-            /* Adicione suas condições de estilo aqui se necessário */
-            ]}
-            keyboardType={"default"}
-            value={value}
-            onChangeText={(text) => updateExecucao(text, index)}
-        />
-        ));
-    };
-
-    const [imagem, setImagem] = useState(null)
-
-    const options = {
-        title: 'Selecione uma imagem',
-        storageOptions: {
-            skipBackup: true,
-            path: 'images',
-        },
-    };
-
-    const handleFinalizarCadastro = () => {
-        updateDoc(doc(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), 'Exercicios', `${exercicios.getNome()}`),{
-            nome: exercicios.getNome(),
-            tipo: exercicios.getTipo(),
-            musculos: exercicios.getMusculos(),
-            descricao: exercicios.getDescricao(),
-            variacao:  exercicios.getVariacao(),
-            execucao: exercicios.getExecuao(),
-            imagem: exercicios.getImagem(),
-        }).catch((erro) => {
-            console.log(`Não foi possível criar o documento. Já existe um exercício cadastrado com esse nome.`)
+    const handleFinalizarEdicao = () => {
+        updateDoc(doc(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), 'Exercicios', exercicio.nome),{
+            nome: nome,
+            tipo: tipo,
+            musculos: musculos,
+            descricao: descricao,
+            variacao:  variacao,
+            execucao: execucao,
+            //imagem: imagem,
+        }).then(() => {
+            Alert.alert("Exercício editado com sucesso!");
+            navigation.goBack(); // Volta para a tela anterior após editar o exercício
+        }).catch((error) => {
+            console.error("Erro ao editar exercício: ", error);
+            Alert.alert("Erro ao editar exercício. Por favor, tente novamente mais tarde.");
         });
     }
 
     const handleExcluirExercicio = async () => {
-        try {
-            await doc(
-                firebaseBD,
-                'Academias',
-                coordenadorLogado.getAcademia(),
-                'Exercicios',
-                exercicioSelecionado.id
-            ).delete();
-
-        // Atualizar a lista de exercícios após a exclusão
-        const updatedExercicios = exercicios.filter(
-            (exercicio) => exercicio.id !== exercicioSelecionado.id
-        );
-        setExercicios(updatedExercicios);
-
-        // Limpar os campos de input após a exclusão
-        setExercicioSelecionado(null);
-        setNome('');
-        setTipo('');
-        setMusculos('');
-        setDescricao('');
-        setVariacao([]);
-        setExecucao([]);
-        setImagem(null);
-
-        Alert.alert('Exercício excluído com sucesso!');
-        } catch (error) {
-        console.error('Erro ao excluir exercício:', error);
-        Alert.alert('Erro ao excluir exercício. Tente novamente.');
-        }
+        const exercicioRef = doc(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), 'Exercicios', exercicio.nome);
+        deleteDoc(exercicioRef)
+            .then(() => {
+                Alert.alert("Exercício excluído com sucesso!")
+                console.log("Exercício excluído com sucesso!");
+                // Redirecione para a tela inicial ou para onde desejar após a exclusão
+                navigation.goBack();
+            })
+            .catch((erro) => {
+                console.error("Erro ao excluir exercício:", erro);
+                // Exiba uma mensagem de erro ou trate o erro conforme necessário
+            });
     };
 
     return (
@@ -220,20 +82,14 @@ export default ({navigation, route}) => {
         {!conexao ? (
             <ModalSemConexao />
         ) : (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={[styles.container, estilo.corLightMenos1]}>
           
             <View>
                 <View style={{ alignContent: 'center' }}>
                 <Text style={[estilo.tituloH523px, estilo.textoCorSecundaria, styles.titulos]}>EDITAR EXERCÍCIO</Text>
                 </View>
 
-                {/* Lista de exercícios */}
-                <FlatList
-                    data={exercicios}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item.id}
-                    ListEmptyComponent={<Text>Nenhum exercício encontrado</Text>}
-                />
+
 
                     <View style={styles.inputArea}>
                         <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>NOME:</Text>
@@ -249,7 +105,7 @@ export default ({navigation, route}) => {
                                 ]}
                                 keyboardType={'default'}
                                 value={nome}
-                                onChangeText={(text) => {validaNome(text)}}
+                                onChangeText={(text) => setNome(text)}
                             ></TextInput>
                         </View>
                     </View>
@@ -279,7 +135,7 @@ export default ({navigation, route}) => {
                             ]}
                             keyboardType={'default'}
                             value={musculos}
-                            onChangeText={(text) => {validaMusculos(text)}}
+                            onChangeText={(text) => setMusculos(text)}
                         ></TextInput>
                         </View>
                     </View>
@@ -298,96 +154,63 @@ export default ({navigation, route}) => {
                             ]}
                             keyboardType={'default'}
                             value={descricao}
-                            onChangeText={(text) => {validaDescricao(text)}}
+                            onChangeText={(text) => setDescricao(text)}
                         ></TextInput>
                         </View>
                     </View>
 
                     <View style={styles.inputArea}>
-                        <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>VARIAÇÕES:</Text>
+                        <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>VARIAÇÃO:</Text>
                         <View>
-                            {renderVariacao()}
-                        </View>
-                        <View>
-                        <TouchableOpacity onPress={addVariacao}>
-                            <FontAwesome6 name="add" size={24} color="white" />
-                        </TouchableOpacity>
+                        {exercicio.variacao.map((variacao) => (
+                            <TextInput
+                                placeholder={'Variação'}
+                                placeholderTextColor={'#CFCDCD'} 
+                                style={[
+                                    estilo.sombra, 
+                                    estilo.corLight, 
+                                    styles.inputText,
+                                ]}
+                                keyboardType={'default'}
+                                value={variacao}
+                                onChangeText={(text) => setVariacao(text)}
+                        ></TextInput>
+                        ))}
                         </View>
                     </View>
-                    
+
                     <View style={styles.inputArea}>
-                        <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>EXECUÇÕES:</Text>
+                        <Text style={[estilo.textoSmall12px, estilo.textoCorSecundaria]} numberOfLines={1}>VARIAÇÃO:</Text>
                         <View>
-                            {renderExecucao()}
-                        </View>
-                        <View>
-                        <TouchableOpacity onPress={addExecucao}>
-                            <FontAwesome6 name="add" size={24} color="white" />
-                        </TouchableOpacity>
+                        {exercicio.execucao.map((execucao) => (
+                            <TextInput
+                                placeholder={'Execução'}
+                                placeholderTextColor={'#CFCDCD'} 
+                                style={[
+                                    estilo.sombra, 
+                                    estilo.corLight, 
+                                    styles.inputText,
+                                ]}
+                                keyboardType={'default'}
+                                value={execucao}
+                                onChangeText={(text) => setExecucao(text)}
+                        ></TextInput>
+                        ))}
                         </View>
                     </View>
 
                 <View>
-                <Text>IMAGEM:</Text>
-                <View>
-                    <TouchableOpacity
-                    style={[estilo.botao, estilo.sombra]}
-                    onPress={() => {
-                        ImagePicker.showImagePicker(options, (response) => {
-                        if (response.didCancel) {
-                            console.log('Usuário cancelou a seleção da imagem');
-                        } else if (response.error) {
-                            console.log('Erro: ', response.error);
-                        } else {
-                            const source = { uri: response.uri };
-                            setImage(source);
-                        }
-                        });
-                    }}>
-                    <Text style={[estilo.tituloH523px, estilo.textoCorLight]}>Selecionar Imagem</Text>
-                    </TouchableOpacity>
-                </View>
-                </View>
-
-                <View>
-                    <TouchableOpacity style={[estilo.botao, estilo.sombra, estilo.corPrimaria]}
-                                onPress={() => {
-                                    exercicios.setNome(nome)
-                                    exercicios.setTipo(tipo)
-                                    exercicios.setMusculos(musculos)
-                                    exercicios.setDescricao(descricao)
-                                    exercicios.setVariacao(variacao)
-                                    exercicios.setExecucao(execucao)
-                                    exercicios.setImagem(imagem)
-
-                                    if (exercicios.getNome() == '' || exercicios.getTipo() == ''){
-                                        Alert.alert('Informe o nome do exercicio para cadasrtá-lo!!!')
-                                    } else {
-                                        handleFinalizarCadastro()
-                                    }
-                                }}>
+                    <TouchableOpacity 
+                        style={[estilo.botao, estilo.sombra, estilo.corPrimaria]}
+                        onPress={() => handleFinalizarEdicao()}
+                        >
                         <Text style={[estilo.tituloH523px, estilo.textoCorLight]}>SALVAR ALTERAÇÕES</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        style={[estilo.botao, estilo.sombra, styles.botaoExcluir]}
-                        onPress={() => {
-                        if (exercicioSelecionado) {
-                            Alert.alert(
-                            'Excluir Exercício',
-                            `Deseja realmente excluir o exercício "${exercicioSelecionado.nome}"?`,
-                            [
-                                {
-                                text: 'Cancelar',
-                                style: 'cancel',
-                                },
-                                { text: 'Excluir', onPress: handleExcluirExercicio() },
-                            ]
-                            );
-                        } else {
-                            Alert.alert('Nenhum exercício selecionado para excluir.');
-                        }
-                        }}>
+                        style={[estilo.botao, estilo.sombra, estilo.corDanger]}
+                        onPress={() => handleExcluirExercicio()}
+                        >
                         <Text style={[estilo.tituloH523px, estilo.textoCorLight]}>EXCLUIR EXERCÍCIO</Text>
                     </TouchableOpacity>
                 </View>
@@ -427,8 +250,5 @@ const styles = StyleSheet.create({
         height: 29,
         borderRadius: 5,
     },
-    botaoExcluir: {
-        backgroundColor: 'red',
-    }
 
 })

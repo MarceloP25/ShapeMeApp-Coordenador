@@ -10,7 +10,6 @@ import { coordenadorLogado } from '../LoginScreen';
 
 export default ({navigation}) =>{
 
-  const [exercicioData, setExercicioData] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   
   // Arrays para armazenar exercícios de cada tipo
@@ -20,47 +19,51 @@ export default ({navigation}) =>{
   const [forcaInferioresExercicios, setForcaInferioresExercicios] = useState([]);
 
   useEffect(() => {
+    const fetchExercicioData = async () => {
+      try {
+        const exercicioRef = collection(firebaseBD, "Academias", coordenadorLogado.getAcademia(), "Exercicios");
+        const querySnapshot =  await getDocs(exercicioRef);
+        
+        if (!querySnapshot.empty) {
+          const exerciciosAlongamento = [];
+          const exerciciosAerobico = [];
+          const exerciciosMembrosSup = [];
+          const exerciciosMembrosInf = [];
+          querySnapshot.forEach((doc) => {
+              const exercicios = doc.data();
+              console.log(exercicios)
+              if (exercicios.tipo === "Alongamentos") {
+                exerciciosAlongamento.push(exercicios);
+              } 
+              if (exercicios.tipo === "Aeróbicos") {
+                exerciciosAerobico.push(exercicios);
+              }
+              if (exercicios.tipo === "Força - Membros Superiores") {
+                exerciciosMembrosSup.push(exercicios);
+              }
+              if (exercicios.tipo === "Força - Membros Inferiores") {
+                exerciciosMembrosInf.push(exercicios);
+              }
+          });
+          
+          setAlongamentoExercicios(exerciciosAlongamento);
+          setAerobicoExercicios(exerciciosAerobico);
+          setForcaSuperioresExercicios(exerciciosMembrosSup);
+          setForcaInferioresExercicios(exerciciosMembrosInf);
+
+        } else {
+          console.log('Sem exercicios cadastrados')
+        }
+
+      } catch (error) {
+        console.log(error);
+        console.log('Sem exercicios cadastrados')
+      }
+    };
+
     fetchExercicioData();
   }, []);
 
-  const fetchExercicioData = async () => {
-    try {
-      const exercicios = [];
-      const exercicioRef = collection(firebaseBD, "Academias", coordenadorLogado.getAcademia(), "Exercicios");
-      const exercicioSnapshot = getDocs(exercicioRef);
-
-      for (const exercicioDoc of exercicioSnapshot.docs) {
-        const exercicioData = exercicioDoc.data();
-        exercicios.push(exercicioData);
-
-        // Adicionar exercício ao array correspondente ao tipo
-        switch (exercicioData.tipo) {
-          case "Alongamentos":
-            setAlongamentoExercicios((prevExercicios) => [...prevExercicios, exercicioData]);
-            break;
-          case "Aeróbicos":
-            setAerobicoExercicios((prevExercicios) => [...prevExercicios, exercicioData]);
-            break;
-          case "Força - Membros Superiores":
-            setForcaSuperioresExercicios((prevExercicios) => [...prevExercicios, exercicioData]);
-            break;
-          case "Força - Membros Inferiores":
-            setForcaInferioresExercicios((prevExercicios) => [...prevExercicios, exercicioData]);
-            break;
-          default:
-            break;
-        }
-
-        const exercicioString = JSON.stringify(exercicioDoc.data());
-        AsyncStorage.setItem('exercicioLocal', exercicioString);
-      }
-
-      setExercicioData(exercicios);
-    } catch (error) {
-      console.log(error);
-      console.log('Sem exercicios cadastrados')
-    }
-  }
 
   return (
     <SafeAreaView style={[estilo.corLightMenos1, {flex: 1}]}>
@@ -69,7 +72,7 @@ export default ({navigation}) =>{
         <View >
           {/* Botão exercícios do tipo alongamento */}
           <TouchableOpacity
-            style={[estilo.botao, estilo.sombra, estilo.corLightMenos1 ]}
+            style={[estilo.botaoClaro2, estilo.sombra, estilo.corLightMenos1 ]}
             onPress={() => navigation.navigate('Lista Exercicios', { exercicios: alongamentoExercicios })}
           >
             <Text style={estilo.tituloH427px}>ALONGAMENTO</Text>
@@ -79,7 +82,7 @@ export default ({navigation}) =>{
         <View >
           {/* Botão exercícios do tipo aeróbico */}
           <TouchableOpacity
-            style={[estilo.botao, estilo.sombra, estilo.corLightMenos1 ]}
+            style={[estilo.botaoClaro2, estilo.sombra, estilo.corLightMenos1 ]}
             onPress={() => navigation.navigate('Lista Exercicios', { exercicios: aerobicoExercicios })}
           >
             <Text style={estilo.tituloH427px} >AERÓBICO</Text>
@@ -89,7 +92,7 @@ export default ({navigation}) =>{
         <View >
           {/* Botão exercícios do tipo força membros superiores */}
           <TouchableOpacity
-            style={[estilo.botao, estilo.sombra, estilo.corLightMenos1 ]}
+            style={[estilo.botaoClaro2, estilo.sombra, estilo.corLightMenos1 ]}
             onPress={() => navigation.navigate('Lista Exercicios', { exercicios: forcaSuperioresExercicios })}
           >
             <Text style={estilo.tituloH427px}>FORÇA SUPERIORES</Text>
@@ -99,7 +102,7 @@ export default ({navigation}) =>{
         <View >
           {/* Botão exercícios do tipo força membros inferiores */}
           <TouchableOpacity
-            style={[estilo.botao, estilo.sombra, estilo.corLightMenos1 ]}
+            style={[estilo.botaoClaro2, estilo.sombra, estilo.corLightMenos1 ]}
             onPress={() => navigation.navigate('Lista Exercicios', { exercicios: forcaInferioresExercicios })}
           >
             <Text style={estilo.tituloH427px}>FORÇA INFERIORES</Text>
@@ -116,16 +119,6 @@ export default ({navigation}) =>{
           </TouchableOpacity>
         </View>
 
-        <View >
-          {/* Botão para editar os exercicios */}
-          <TouchableOpacity
-            style={[estilo.botao, estilo.sombra, estilo.corPrimaria]}
-            onPress={() => navigation.navigate('Editar Exercicios')}
-          >
-            <Text style={[estilo.tituloH427px, estilo.textoCorLight]}>EDITAR</Text>
-          </TouchableOpacity>
-        </View>
-
       </View>
     </SafeAreaView>
   );
@@ -134,7 +127,7 @@ export default ({navigation}) =>{
 const style = StyleSheet.create({
 
   containerBotao: {
-    marginVertical: '5%',
+    marginVertical: '2%',
     alignItems: 'center',
     justifyContent: 'space-evenly',
     width: '100%',
