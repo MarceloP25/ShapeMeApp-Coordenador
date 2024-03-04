@@ -101,7 +101,7 @@ export default ({navigation, route}) => {
                                     estilo.sombra, 
                                     estilo.corLight, 
                                     styles.inputText,
-                                    nomeInvalido? {borderWidth: 1, borderColor: 'red'} : {}
+                                    
                                 ]}
                                 keyboardType={'default'}
                                 value={nome}
@@ -131,7 +131,7 @@ export default ({navigation, route}) => {
                                 estilo.sombra, 
                                 estilo.corLight, 
                                 styles.inputText,
-                                musculosInvalido? {borderWidth: 1, borderColor: 'red'} : {}
+                                
                             ]}
                             keyboardType={'default'}
                             value={musculos}
@@ -150,7 +150,7 @@ export default ({navigation, route}) => {
                                 estilo.sombra, 
                                 estilo.corLight, 
                                 styles.inputText,
-                                descricaoInvalida? {borderWidth: 1, borderColor: 'red'} : {}
+                                
                             ]}
                             keyboardType={'default'}
                             value={descricao}

@@ -2,12 +2,8 @@ import { SafeAreaView, ScrollView, Text, TouchableOpacity, View, StyleSheet, Tex
 import React, { useState, useEffect } from "react"
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import estilo from '../../estilo';
-import { collection, setDoc, doc, getDocs, where, query, addDoc } from 'firebase/firestore';
+import { collection, setDoc, doc, getDoc, where, query, addDoc } from 'firebase/firestore';
 import { firebase, firebaseBD } from '../../configuracoes/firebaseconfig/config'
-import { Exercicio } from '../../../classes/Exercicio'
-import { FontAwesome6 } from '@expo/vector-icons';
-import BotaoSelect from '../../BotaoSelect'
-import ImagePicker from 'react-native-image-picker';
 import { coordenadorLogado } from '../../LoginScreen';
 import ModalSemConexao from '../../ModalSemConexao';
 import NetInfo from "@react-native-community/netinfo";
@@ -27,13 +23,39 @@ export default ({navigation, routes}) => {
         }
     }, [])
 
+    const [dadosExercicio, setDadosExercicio] = useState(null);
+
+    useEffect(() => {
+        const buscarDadosExercicio = async () => {
+            try {
+                const exercicioRef = doc(collection(firebaseBD, "Academias", coordenadorLogado.getAcademia(), "Exercicios"), exercicio.nome);
+                const exercicioSnapshot = await getDoc(exercicioRef);
+                if (exercicioSnapshot.exists()) {
+                    const dadosExercicio = exercicioSnapshot.data();
+                    setDadosExercicio(dadosExercicio);
+                } else {
+                    console.log("Exercício não encontrado");
+                }
+            } catch (error) {
+                console.log("Erro ao buscar dados do exercício:", error);
+            }
+        };
+
+        buscarDadosExercicio();
+    }, [exercicio]);
+
     const [variacao, setVariacao] = useState("")
     const [execucao, setExecucao] = useState("")
 
     const handlecadastrar = () => {
-        updateDoc(doc(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), 'Exercicios', exercicio.nome),{
+        updateDoc(doc(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), 'Exercicios', dadosExercicio.nome),{
+            nome: dadosExercicio.nome,
+            tipo: dadosExercicio.tipo,
+            musculos: dadosExercicio.musculos,
+            descricao: dadosExercicio.descricao,
             variacao: variacao,
             execucao: execucao,
+            // imagem: dadosExercicio.imagem,
         }).catch((erro) => {
             Alert.alert("Dados incorretos!")
             console.log(`Não foi possível adicionar à turma.`);

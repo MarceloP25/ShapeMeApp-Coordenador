@@ -2,10 +2,27 @@ import React from 'react';
 import { SafeAreaView, ScrollView, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import estilo from '../../estilo';
 import { useNavigation } from '@react-navigation/native';
-
+import { collection, getDoc, doc } from "firebase/firestore";
+import { firebase, firebaseBD } from '../../configuracoes/firebaseconfig/config'
+import { coordenadorLogado } from '../../LoginScreen';
 
 export default ({navigation, route}) => {
     const { exercicios } = route.params;
+
+    const dadosExercicio = async (nomeExercicio) => {
+        try {
+            const exercicioRef = doc(collection(firebaseBD, "Academias", coordenadorLogado.getAcademia(), "Exercicios"), nomeExercicio);
+            const exercicioSnapshot = await getDoc(exercicioRef);
+            if (exercicioSnapshot.exists()) {
+                const exercicioDados = exercicioSnapshot.data();
+                navigation.navigate("Dados Exercicios", { exercicio: exercicioDados });
+            } else {
+                console.log("Exercício não encontrado");
+            }
+        } catch (error) {
+            console.log("Erro ao buscar dados do exercício:", error);
+        }
+    };
 
     return (
         <ScrollView alwaysBounceVertical={true} style={[estilo.corLightMenos1]}>
@@ -16,9 +33,9 @@ export default ({navigation, route}) => {
                     <TouchableOpacity
                         key={exercicio.nome}
                         style={[estilo.botaoClaro2, estilo.sombra, estilo.corLight]}
-                        onPress={ () => navigation.navigate("Dados Exercicios", { exercicios: exercicio })}
+                        onPress={ () => dadosExercicio(exercicio.nome)}
                     >
-                    <Text style={[estilo.tituloH427px, estilo.textoCorDark]}>{exercicio.nome}</Text>
+                        <Text style={[estilo.tituloH427px, estilo.textoCorDark]}>{exercicio.nome}</Text>
                     </TouchableOpacity>
                 ))}
                 

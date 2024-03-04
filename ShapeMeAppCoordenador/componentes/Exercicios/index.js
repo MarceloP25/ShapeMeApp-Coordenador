@@ -30,20 +30,25 @@ export default ({navigation}) =>{
           const exerciciosMembrosSup = [];
           const exerciciosMembrosInf = [];
           querySnapshot.forEach((doc) => {
-              const exercicios = doc.data();
-              console.log(exercicios)
-              if (exercicios.tipo === "Alongamentos") {
-                exerciciosAlongamento.push(exercicios);
-              } 
-              if (exercicios.tipo === "Aeróbicos") {
-                exerciciosAerobico.push(exercicios);
-              }
-              if (exercicios.tipo === "Força - Membros Superiores") {
-                exerciciosMembrosSup.push(exercicios);
-              }
-              if (exercicios.tipo === "Força - Membros Inferiores") {
-                exerciciosMembrosInf.push(exercicios);
-              }
+            const exercicioData = doc.data();
+            const exercicio = new Exercicio(
+                exercicioData.nome,
+                exercicioData.tipo,
+                exercicioData.musculos,
+                exercicioData.variacao,
+                exercicioData.execucao,
+                exercicioData.imagem
+            );
+            // Adicione o exercício ao array correspondente
+            if (exercicioData.tipo === "Alongamentos") {
+                exerciciosAlongamento.push(exercicio);
+            } else if (exercicioData.tipo === "Aeróbicos") {
+                exerciciosAerobico.push(exercicio);
+            } else if (exercicioData.tipo === "Força - Membros Superiores") {
+                exerciciosMembrosSup.push(exercicio);
+            } else if (exercicioData.tipo === "Força - Membros Inferiores") {
+                exerciciosMembrosInf.push(exercicio);
+            }
           });
           
           setAlongamentoExercicios(exerciciosAlongamento);
